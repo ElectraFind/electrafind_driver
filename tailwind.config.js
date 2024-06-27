@@ -3,7 +3,10 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      colors: {},
+      colors: {
+        
+
+      },
 
       fontFamily: {
         pthin: ["Poppins-Thin", "sans-serif"],
