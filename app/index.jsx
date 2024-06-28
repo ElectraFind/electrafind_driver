@@ -3,7 +3,7 @@ import { ScrollView, Text, View, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {images} from '../constants'
+import {images} from '../constants';
 import CustomButton from '../components/CustomButton';
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
           {/* <Image source={images.cards} className="max-w-[380px] w-full h-[300px]" resizeMode="contain"/> */}
 
           <View className="relative mt-5"> 
-            <Text className="text-3xl text-white font-bold text-center">Power Up Anywhere with {' '}
+            <Text className="text-3xl text-white font-bold text-center">Power up anywhere with {' '}
               <Text className="text-green-500"> ElectraFind</Text>
             </Text>
           </View>
@@ -25,7 +25,7 @@ export default function App() {
           {/* <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journey of limitless exploration with Electrafind</Text> */}
 
           <CustomButton
-            title="Get Started"
+            title="Get started"
             handlePress={() => router.push('/sign-in')}     
             containerStyles="w-full mt-20"    
           />

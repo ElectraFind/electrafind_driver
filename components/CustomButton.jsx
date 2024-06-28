@@ -1,11 +1,13 @@
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
+
 const CustomButton = ({
   title,
   handlePress,
   containerStyles,
   textStyles,
   isLoading,
+  
 }) => {
   return (
     <TouchableOpacity
@@ -19,6 +21,8 @@ const CustomButton = ({
       <Text className={`text-primary font-psemibold text-xl ${textStyles}`}>
         {title}
       </Text>
+
+      
 
       {isLoading && (
         <ActivityIndicator
