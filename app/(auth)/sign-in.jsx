@@ -24,14 +24,21 @@ const SignIn = () => {
       <ScrollView>
         <View
           className="w-full flex justify-center h-full px-4 my-6 mt-0">
-          <Image
-            source={images.logo}
-            resizeMode="contain"
-            className="w-[315px] h-[134px] items-center"
-          />
 
-          <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora
+            <View className="flex flex-row items-center pt-5 gap-1">
+              <Image
+                source={images.logo}
+                resizeMode="contain"
+                className="w-[104px] h-[84px] "
+              />
+              <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text>
+
+            </View>
+
+          
+
+          <Text className="text-2xl font-semibold text-white mt-14 font-psemibold">
+            Sign In 
           </Text>
 
           <FormField
@@ -62,7 +69,7 @@ const SignIn = () => {
             </Text>
             <Link
               href="/sign-up"
-              className="text-lg font-psemibold text-secondary"
+              className="text-lg font-psemibold text-green-500"
             >
               Signup
             </Link>
