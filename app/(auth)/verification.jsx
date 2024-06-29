@@ -74,7 +74,7 @@ const Verification = () => {
             otherStyles="mt-7"
             onPress={handleVerify}
             isLoading={isSubmitting}
-            handlePress={() => router.push('/home')}
+            handlePress={() => router.push('/verified')}
           />
         </View>
       </ScrollView>
