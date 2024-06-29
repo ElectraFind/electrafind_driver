@@ -67,9 +67,10 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            handlePress={submit}
+            handlePress={() => router.push('/verification')} 
             containerStyles="mt-7"
             isLoading={isSubmitting}
+
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">
@@ -77,7 +78,7 @@ const SignUp = () => {
               Have an account already?
             </Text>
             <Link
-              href="/home"
+              href="/sign-in"
               className="text-lg font-psemibold text-green-500"
             >
               Sign in
