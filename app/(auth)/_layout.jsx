@@ -18,6 +18,18 @@ const AuthLayout = () => {
             headerShown: false
           }}
         />
+        <Stack.Screen
+          name="verification"
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="verified"
+          options={{
+            headerShown: false
+          }}
+        />
       </Stack>
 
       <StatusBar backgroundColor="#161622" style="light"/>

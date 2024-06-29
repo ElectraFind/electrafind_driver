@@ -7,6 +7,7 @@ import { images } from "../../constants";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 
+
 const SignIn = () => {
   const [form, setForm] = useState({
     email: "",
@@ -58,9 +59,9 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
+            handlePress={() => router.push('/home')}
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">
