@@ -17,9 +17,15 @@ export default function App() {
           {/* <Image source={images.cards} className="max-w-[380px] w-full h-[300px]" resizeMode="contain"/> */}
 
           <View className="relative mt-5"> 
-            <Text className="text-3xl text-white font-bold text-center">Power up anywhere with {' '}
-              <Text className="text-green-500"> ElectraFind</Text>
-            </Text>
+            <Text className="text-3xl text-white font-bold text-center">Power up anywhere with </Text>
+              {/* <Text className="text-green-500"> ElectraFind</Text> */}
+              <Image
+                source={images.logoname2}
+                resizeMode="contain"
+                className=" w-[350px] h-[60px] items-center"
+
+              />
+            
           </View>
 
           {/* <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journey of limitless exploration with Electrafind</Text> */}

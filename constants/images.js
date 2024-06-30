@@ -6,5 +6,9 @@ import logo from "../assets/images/logo.png";
 import logoSmall from "../assets/images/logo-small.png";
 import empty from "../assets/images/empty.png";
 import verified from "../assets/images/verified.png";
+import logovertical from "../assets/images/logo-vertical.png";
+import logoverticalshort from "../assets/images/logo-vertical-short.png";
+import logoname from "../assets/images/logo-name.png";
+import logoname2 from "../assets/images/logo-name-2.png";
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, verified };
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2 };
