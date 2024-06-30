@@ -26,19 +26,19 @@ const SignIn = () => {
         <View
           className="w-full flex justify-center h-full px-4 my-6 mt-0">
 
-            <View className="flex flex-row items-center pt-5 gap-1">
+            <View className="flex flex-row items-center pt-3 gap-1">
               <Image
-                source={images.logo}
+                source={images.logoverticalshort}
                 resizeMode="contain"
-                className="w-[104px] h-[84px] "
+                className="w-[350px] h-[120px] "
               />
-              <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text>
+              {/* <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text> */}
 
             </View>
 
           
 
-          <Text className="text-2xl font-semibold text-white mt-14 font-psemibold">
+          <Text className="text-2xl font-semibold text-white mt-5 font-psemibold">
             Sign In 
           </Text>
 

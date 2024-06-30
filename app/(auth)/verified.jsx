@@ -24,7 +24,7 @@ const Verified = () => {
           {/* <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">Where creativity meets innovation: embark on a journey of limitless exploration with Electrafind</Text> */}
 
           <CustomButton
-            title="Continue to Home"
+            title="Get electrified!"
             handlePress={() => router.push('/home')}     
             containerStyles="w-full mt-20"    
           />

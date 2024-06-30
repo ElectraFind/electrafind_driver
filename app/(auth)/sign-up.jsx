@@ -28,17 +28,17 @@ const SignUp = () => {
 
           <View className="flex flex-row items-center pt-5 gap-1">
             <Image
-              source={images.logo}
+              source={images.logoverticalshort}
               resizeMode="contain"
-              className="w-[104px] h-[84px] items-center"
+              className="w-[350px] h-[120px] items-center"
             />
 
-            <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text>
+            {/* <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text> */}
 
           </View>  
           
 
-          <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
+          <Text className="text-2xl font-semibold text-white mt-5 font-psemibold">
             Sign Up
           </Text>
 
