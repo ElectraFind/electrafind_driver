@@ -11,6 +11,11 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import map from "../assets/icons/map.png";
+import charge from "../assets/icons/charge.png";
+import service from "../assets/icons/service.png";
+import topup from "../assets/icons/topup.png";
+
 
 export default {
   play,
@@ -26,4 +31,9 @@ export default {
   logout,
   eyeHide,
   eye,
+  map,
+  charge,
+  service,
+  topup
+  
 };
