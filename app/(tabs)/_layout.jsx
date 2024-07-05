@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 
 
 
+
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="flex items-center justify-center gap-2">
@@ -44,9 +45,10 @@ const TabsLayout = () => {
       >
 
         <Tabs.Screen
-          name="home"
+          name="home/index"
+          
           options={{
-            title: "Home",
+            title: "HomeScreen",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -60,9 +62,10 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="map"
+          name="map/index"
+          
           options={{
-            title: "Map",
+            title: "MapScreen",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -76,9 +79,10 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-           name="charge"
+            name="charge/index"
+           
            options={{
-             title: "Charge",
+             title: "ChargeScreen",
              headerShown: false,
              tabBarIcon: ({ color, focused }) => (
                <TabIcon
@@ -92,9 +96,10 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="service"
+          name="service/index"
+          
           options={{
-            title: "Service",
+            title: "ServiceScreen",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -108,9 +113,10 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="topup"
+          name="topup/index"
+          
           options={{
-            title: "Topup",
+            title: "TopupScreen",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -131,4 +137,3 @@ const TabsLayout = () => {
 }
 
 export default TabsLayout
-

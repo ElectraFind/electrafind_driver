@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../constants';
 import CustomButton from '../components/CustomButton';
 
-export default function App() {
+const Index = () => {
+  print("fbdgb");
   return (
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -46,3 +47,4 @@ export default function App() {
 }
 
 
+export default Index;

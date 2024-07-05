@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../../constants';
 import CustomButton from '../../components/CustomButton';
 
-const Verified = () => {
+const Verified = () =>
+ {
   return (
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -25,7 +26,7 @@ const Verified = () => {
 
           <CustomButton
             title="Get electrified!"
-            handlePress={() => router.push('/home')}     
+            handlePress={() => router.push('/homeScreen')}     
             containerStyles="w-full mt-20"    
           />
         </View>
