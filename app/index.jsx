@@ -25,6 +25,8 @@ const Index = () => {
                 resizeMode="contain"
                 className=" w-[350px] h-[60px] items-center"
 
+                
+
               />
             
           </View>
