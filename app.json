@@ -13,7 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.company.electrafind_driver",
+      "ios.config.googleMapsApiKey": "AIzaSyDbkBRNcFZ-9PqE10_PdhhwQMcZaZlEItU"
+      
     },
     "android": {
       "adaptiveIcon": {
