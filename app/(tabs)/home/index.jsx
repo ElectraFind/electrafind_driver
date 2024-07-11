@@ -1,13 +1,14 @@
 import {  Text, View } from 'react-native'
 import React from 'react'
+import HomePage from '../../screens/home/homePage'
 
-const HomeScreen = () => {
+export default function HomeScreen()  {
   return (
     <View>
-      <Text>homeScreen</Text>
+      <HomePage/>
     </View>
   )
 }
 
-export default HomeScreen
+
 

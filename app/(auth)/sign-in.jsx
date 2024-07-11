@@ -61,7 +61,7 @@ const SignIn = () => {
             title="Sign In"
             containerStyles="mt-7"
             isLoading={isSubmitting}
-            handlePress={() => router.push('/home')}
+            handlePress={() => router.push('/map')}
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">

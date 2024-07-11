@@ -10,5 +10,7 @@ import logovertical from "../assets/images/logo-vertical.png";
 import logoverticalshort from "../assets/images/logo-vertical-short.png";
 import logoname from "../assets/images/logo-name.png";
 import logoname2 from "../assets/images/logo-name-2.png";
+import carMarker from "../assets/images/car-marker.png";
+import logoverticalshortblack from "../assets/images/logo-vertical-short-black.png";
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2 };
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack };

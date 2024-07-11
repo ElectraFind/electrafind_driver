@@ -26,7 +26,7 @@ const Verified = () =>
 
           <CustomButton
             title="Get electrified!"
-            handlePress={() => router.push('/homeScreen')}     
+            handlePress={() => router.push('home')}     
             containerStyles="w-full mt-20"    
           />
         </View>
