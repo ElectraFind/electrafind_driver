@@ -10,8 +10,28 @@ import CustomButtonGoogle from "../../components/CustomButtonGoogle";
 import FormField from "../../components/FormField";
 import { Ionicons } from "@expo/vector-icons";
 
+import * as WebBrowser from "expo-web-browser";
+import { useOAuth } from "@clerk/clerk-expo";
+import * as Linking from "expo-linking"
+import React from "react";
 
+
+export const useWarmUpBrowser = () => {
+  React.useEffect(() => {
+    // Warm up the android browser to improve UX
+    // https://docs.expo.dev/guides/authentication/#improving-user-experience
+    void WebBrowser.warmUpAsync();
+    return () => {
+      void WebBrowser.coolDownAsync();
+    };
+  }, []);
+};
+
+WebBrowser.maybeCompleteAuthSession();
 const SignIn = () => {
+  useWarmUpBrowser(); //import useWarmUpBrowser from "../../hooks/useWarmUpBrowser";
+
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,6 +42,21 @@ const SignIn = () => {
   const submit = () => {
     
   };
+
+  const onPress = async() => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow({ redirectUrl: Linking.createURL("/dashboard", { scheme: "myapp" })});
+
+      if (createdSessionId) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -86,7 +121,7 @@ const SignIn = () => {
             title="Sign In"
             containerStyles="mt-7"
             isLoading={isSubmitting}
-            handlePress={() => router.push('/map')}
+            // handlePress={() => router.push('/map')}
           />
 
           
@@ -102,7 +137,10 @@ const SignIn = () => {
             title="Google"
             containerStyles="mt-7 bg-gray-300"
             isLoading={isSubmitting}
-            handlePress={() => router.push('/map')}
+            // 
+            onPress={onPress}
+              
+
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">

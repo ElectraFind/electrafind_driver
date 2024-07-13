@@ -104,7 +104,7 @@ const SignUp = () => {
             title="Google"
             containerStyles="mt-7 bg-gray-300"
             isLoading={isSubmitting}
-            handlePress={() => router.push('/map')}
+            // handlePress={() => router.push('/map')}
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">

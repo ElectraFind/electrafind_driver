@@ -3,6 +3,12 @@ import React from 'react'
 import {Tabs, Redirect} from 'expo-router'
 import { icons } from "../../constants";
 import { StatusBar } from 'expo-status-bar'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './home/index'
+import MapScreen from './map/index'
+import ChargeScreen from './charge/index'
+import ServiceScreen from './service/index'
+import TopupScreen from './topup/index'
 
 
 
@@ -27,16 +33,20 @@ const TabIcon = ({ icon, color, name, focused }) => {
   );
 };
 
-const TabsLayout = () => {
+const Tab = createBottomTabNavigator();
+
+export default function TabsLayout() {
   return (
-    <>
-      <Tabs
+    
+    <Tab.Navigator
+      
         screenOptions={{
           
           tabBarActiveTintColor: "#22c55e",
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarShowLabel: false,
           tabBarStyle: {
+            
             backgroundColor: "#161622",
             borderTopWidth: 1,
             borderTopColor: "#232533",
@@ -45,8 +55,9 @@ const TabsLayout = () => {
         }}
       >
 
-        <Tabs.Screen
-          name="home/index"
+        <Tab.Screen
+          name="home"
+          component={HomeScreen}
           
           options={{
             title: "HomeScreen",
@@ -62,8 +73,9 @@ const TabsLayout = () => {
           }}
         />
 
-        <Tabs.Screen
-          name="map/index"
+        <Tab.Screen
+          name="map"
+          component={MapScreen}
           
           options={{
             title: "MapScreen",
@@ -79,8 +91,9 @@ const TabsLayout = () => {
           }}
         />
 
-        <Tabs.Screen
-            name="charge/index"
+        <Tab.Screen
+            name="charge"
+            component={ChargeScreen}
            
            options={{
              title: "ChargeScreen",
@@ -96,8 +109,9 @@ const TabsLayout = () => {
            }}
         />
 
-        <Tabs.Screen
-          name="service/index"
+        <Tab.Screen
+          name="service"
+          component={ServiceScreen}
           
           options={{
             title: "ServiceScreen",
@@ -113,8 +127,9 @@ const TabsLayout = () => {
           }}
         />
 
-        <Tabs.Screen
-          name="topup/index"
+        <Tab.Screen
+          name="topup"
+          component={TopupScreen}
           
           options={{
             title: "TopupScreen",
@@ -130,11 +145,10 @@ const TabsLayout = () => {
           }}
         />
 
-      </Tabs>
-
-      <StatusBar backgroundColor="#161622" style="light" />
-    </>
+      
+    </Tab.Navigator>
+      // <StatusBar backgroundColor="#161622" style="light" />
+    
   )
 }
 
-export default TabsLayout

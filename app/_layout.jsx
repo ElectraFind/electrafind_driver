@@ -9,10 +9,39 @@ import { StatusBar } from 'expo-status-bar';
 import SignIn from './(auth)/sign-in'
 import { Slot } from "expo-router"
 import * as SecureStore from 'expo-secure-store';
+import { NavigationContainer } from '@react-navigation/native';
+import TabsLayout from './(tabs)/_layout';
+import HomeScreen from './(tabs)/home';
+
 
 
 
 SplashScreen.preventAutoHideAsync()
+
+const tokenCache = {
+  async getToken(key) {
+    try {
+      const item = await SecureStore.getItemAsync(key);
+      if (item) {
+        console.log(`${key} was used 🔐 \n`);
+      } else {
+        console.log("No values stored under key: " + key);
+      }
+      return item;
+    } catch (error) {
+      console.error("SecureStore get item error: ", error);
+      await SecureStore.deleteItemAsync(key);
+      return null;
+    }
+  },
+  async saveToken(key, value) {
+    try {
+      return SecureStore.setItemAsync(key, value);
+    } catch (err) {
+      return;
+    }
+  },
+};
 
 const RootLayout = () => {
 
@@ -75,8 +104,8 @@ const RootLayout = () => {
   return(
     // <UserLocationContext.Provider value={{location,setLocation}}>
 
-    <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'}>
-      <ClerkLoaded>
+    <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
+      
       {/* <Stack>
         
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -85,14 +114,19 @@ const RootLayout = () => {
         <Stack.Screen name="(tabs)" options={{headerShown: false}} />
         
       </Stack> */}
+      
       <SignedIn>
-        <Text>You are signed in</Text>
+        <NavigationContainer independent={true}>
+          <TabsLayout />
+        </NavigationContainer>
       </SignedIn>
       <SignedOut>
         <SignIn />
       </SignedOut>
       {/* // </UserLocationContext.Provider> */}
-      </ClerkLoaded>
+          <StatusBar style="auto" />
+      
+      
     </ClerkProvider>
    
   )
