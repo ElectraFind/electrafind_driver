@@ -4,6 +4,11 @@ import { SplashScreen, Stack } from 'expo-router'
 import { useFonts} from 'expo-font'
 import * as Location from 'expo-location'
 import UserLocationContext from './Context/UserLocationContext'
+import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn } from "@clerk/clerk-expo"
+import { StatusBar } from 'expo-status-bar';
+import SignIn from './(auth)/sign-in'
+import { Slot } from "expo-router"
+import * as SecureStore from 'expo-secure-store';
 
 
 
@@ -37,6 +42,8 @@ const RootLayout = () => {
     text = JSON.stringify(location);
   }
 
+  
+
   const [fontsLoaded,error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
@@ -67,17 +74,26 @@ const RootLayout = () => {
 
   return(
     // <UserLocationContext.Provider value={{location,setLocation}}>
-      <Stack>
+
+    <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'}>
+      <ClerkLoaded>
+      {/* <Stack>
         
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{headerShown: false}} />
         <Stack.Screen name="splashscreen" options={{headerShown: false}} />
         <Stack.Screen name="(tabs)" options={{headerShown: false}} />
         
-        
-      </Stack>
-    
-      // </UserLocationContext.Provider>
+      </Stack> */}
+      <SignedIn>
+        <Text>You are signed in</Text>
+      </SignedIn>
+      <SignedOut>
+        <SignIn />
+      </SignedOut>
+      {/* // </UserLocationContext.Provider> */}
+      </ClerkLoaded>
+    </ClerkProvider>
    
   )
 }
