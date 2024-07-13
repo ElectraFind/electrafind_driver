@@ -8,10 +8,11 @@ export default function SearchBar({searchedLocation}) {
     <View style={{
       display: 'flex',
       flexDirection: 'row',
-      paddingHorizontal: 5,
-      borderRadius: 6,
+      paddingHorizontal: 35,
+      borderRadius: 25,
       backgroundColor: '#ffffff',
       borderColor: '#000000',
+      backgroundshadowColor: '#ffffff',
     }}>
       
       <IonIcons name="location-sharp" size={24} color="#000000" style={{paddingTop:10}}/>

@@ -11,7 +11,8 @@ export default function AppMapView() {
   return (
     <View>
       <MapView style={styles.map}
-        provider={PROVIDER_GOOGLE}
+      //for the android
+        provider="google"
         customMapStyle={MapViewStyle}
         showsUserLocation={true}
         initialRegion={{

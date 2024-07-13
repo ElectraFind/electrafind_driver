@@ -28,11 +28,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router",
-      "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow ElectraFind to use your location."
-        }
+      "expo-router"
+      
       
     ]
   }

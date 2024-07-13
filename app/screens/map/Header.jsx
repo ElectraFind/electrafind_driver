@@ -1,21 +1,38 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import { StyleSheet } from 'react-native'
 import React from 'react'
 import { images } from '../../../constants'
 import SearchBar from './SearchBar'
 import DistanceSlider from './DistanceSlider'
+import IonIcons from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { TouchableOpacity } from 'react-native'
 
 export default function Header() {
   return (
-    <View style={styles.container}>
-      <Image 
-        source={images.logoverticalshort}
-        style={{width:250,height:60,objectFit:'contain',}}
-      />
-      <SearchBar searchedLocation={(location)=>console.log(location)}/>
+    
+      <View style={styles.container}>
+        
+        <Image 
+          source={images.logoverticalshort}
+          style={{width:250,height:60,objectFit:'contain',}}
+        />
 
-      <DistanceSlider/>
-    </View>
+        <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between'}}>
+          <TouchableOpacity style={{width:'87%', borderColor:'#c2c2c2'}}>
+            <SearchBar searchedLocation={(location)=>console.log(location)}/>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <IonIcons name="options-outline" size={30} color="#ffffff" style={{paddingTop:8,paddingLeft:5}}/>
+          </TouchableOpacity>
+        </View>
+        
+
+        <DistanceSlider/>
+
+        
+      </View>
+    
   )
 }
 

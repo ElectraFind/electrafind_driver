@@ -1,4 +1,4 @@
-import {  Text, View } from 'react-native'
+import {  ScrollView, Text, View } from 'react-native'
 import React from 'react'
 import AppMapView from '../../screens/map/AppMapView'
 import Header from '../../screens/map/Header'
@@ -7,12 +7,16 @@ import SearchBar from '../../screens/map/SearchBar'
 
 export default function MapScreen() {
   return (
+    
     <View>
+      
       <View style={styles.headerContainer}>
         <Header/>
       </View>
       <AppMapView/>
+      
     </View>
+    
   )
 }
 
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
     width:'100%',
     paddingHorizontal:10,
     height: "25%",
-    backgroundColor: '#161622',
+    backgroundColor: 'black',
     
   }
 })
