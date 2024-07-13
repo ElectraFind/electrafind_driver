@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
+import { View, Text, ScrollView, Dimensions, Alert, Image, Touchable } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 import { images } from "../../constants";
 import CustomButton from "../../components/CustomButton";
+import CustomButtonGoogle from "../../components/CustomButtonGoogle";
 import FormField from "../../components/FormField";
+import { Ionicons } from "@expo/vector-icons";
 
 
 const SignIn = () => {
@@ -23,43 +26,81 @@ const SignIn = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
+        
+
+        
         <View
           className="w-full flex justify-center h-full px-4 my-6 mt-0">
+          
+          <View className="flex flex-row items-center pt-2 gap-1">
+            <TouchableOpacity onPress={() => router.push('/')}>
+              <Ionicons
+                name={"arrow-back-outline"}
+                resizeMode="contain"
+                color={"#ffffff"}
+                size={30}
+              />
+            </TouchableOpacity>
 
-            <View className="flex flex-row items-center pt-3 gap-1">
+            <View>
               <Image
                 source={images.logoverticalshort}
                 resizeMode="contain"
-                className="w-[350px] h-[120px] "
+                className="w-[550px] h-[60px] items-center "
               />
               {/* <Text className="text-4xl font-semibold text-green-500 font-pbold">ElectraFind</Text> */}
 
             </View>
+          </View>
 
           
-
-          <Text className="text-2xl font-semibold text-white mt-5 font-psemibold">
-            Sign In 
-          </Text>
+          <View>
+            <Text className="text-4xl font-semibold text-white mt-10 font-psemibold">Hey, </Text>
+            <Text className="text-4xl font-semibold text-white mt-3 font-psemibold">Welcome</Text>
+            <Text className="text-4xl font-semibold text-white mt-3 font-psemibold">Back!</Text>
+          </View>
 
           <FormField
-            title="Email"
+            
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
+            placeholder={"Enter your email"}
             otherStyles="mt-7"
             keyboardType="email-address"
+            iconName={"mail-outline"}
           />
 
           <FormField
-            title="Password"
+            
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
-            otherStyles="mt-7"
+            placeholder={"Enter your password"}
+            otherStyles="mt-1"
+            iconName={"lock-closed-outline"}
+            secureTextEntry={true}
           />
+
+          
 
           <CustomButton
             title="Sign In"
             containerStyles="mt-7"
+            isLoading={isSubmitting}
+            handlePress={() => router.push('/map')}
+          />
+
+          
+
+          <View className="flex justify-center pt-5 flex-row gap-2">
+            <Text className="text-lg text-gray-100 font-pregular">
+              or Continue with
+            </Text>
+          </View>
+
+          <CustomButtonGoogle
+            imageSrc={images.google}
+            title="Google"
+            containerStyles="mt-7 bg-gray-300"
             isLoading={isSubmitting}
             handlePress={() => router.push('/map')}
           />
@@ -72,7 +113,7 @@ const SignIn = () => {
               href="/sign-up"
               className="text-lg font-psemibold text-green-500"
             >
-              Signup
+              Sign up
             </Link>
           </View>
         </View>

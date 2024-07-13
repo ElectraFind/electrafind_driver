@@ -7,7 +7,7 @@ const CustomButton = ({
   containerStyles,
   textStyles,
   isLoading,
-  
+  imageSrc
 
   
 }) => {
@@ -21,7 +21,9 @@ const CustomButton = ({
       disabled={isLoading}
     >
 
-      
+      <Image source={imageSrc}
+        style={{width: 20, height: 30, marginRight: 10}}
+      />
       <Text className={`text-primary font-psemibold text-xl ${textStyles}`}>
         {title}
       </Text>
