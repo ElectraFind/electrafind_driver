@@ -21,6 +21,8 @@ const Splash = () => {
 
 
   return (
+
+    
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">

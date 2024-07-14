@@ -1,3 +1,4 @@
 import {createContext} from "react";
 
-export const showsUserLocation=createContext(null);
+
+export const UserLocationContext=createContext(null);

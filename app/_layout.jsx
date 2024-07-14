@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { SplashScreen, Stack } from 'expo-router'
 import { useFonts} from 'expo-font'
 import * as Location from 'expo-location'
-import UserLocationContext from './Context/UserLocationContext'
+import {UserLocationContext} from './Context/UserLocationContext'
 import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn } from "@clerk/clerk-expo"
 import { StatusBar } from 'expo-status-bar';
 import SignIn from './(auth)/sign-in'
@@ -12,6 +12,8 @@ import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import TabsLayout from './(tabs)/_layout';
 import HomeScreen from './(tabs)/home';
+import Splash from './splashscreen'
+
 
 
 
@@ -59,7 +61,7 @@ const RootLayout = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location.coords);
-      console.log(location)
+      
       
     })();
   }, []);
@@ -102,10 +104,9 @@ const RootLayout = () => {
   }
 
   return(
-    // <UserLocationContext.Provider value={{location,setLocation}}>
-
     <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
-      
+
+      <UserLocationContext.Provider value={{location,setLocation}}>
       {/* <Stack>
         
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -114,7 +115,7 @@ const RootLayout = () => {
         <Stack.Screen name="(tabs)" options={{headerShown: false}} />
         
       </Stack> */}
-      
+      {/* <Splash/> */}
       <SignedIn>
         <NavigationContainer independent={true}>
           <TabsLayout />
@@ -124,9 +125,9 @@ const RootLayout = () => {
         <SignIn />
       </SignedOut>
       {/* // </UserLocationContext.Provider> */}
-          <StatusBar style="auto" />
+      <StatusBar style="auto" />
       
-      
+        </UserLocationContext.Provider>
     </ClerkProvider>
    
   )
