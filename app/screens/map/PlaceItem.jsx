@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function PlaceItem() {
+export default function PlaceItem({place}) {
   return (
     <View>
-      <Text>PlaceItem</Text>
+      <Text>{place.displayName.text}</Text>
     </View>
   )
 }

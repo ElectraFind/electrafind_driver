@@ -8,7 +8,7 @@ const config={
   headers:{
     'Content-Type':'application/json',
     'X-Goog-Api-Key':API_KEY1,
-    'X-Goog-FieldMask':['places.displayName','places.formattedAddress','places.location','places.evChargeOptions','places.photos',]
+    'X-Goog-FieldMask':['places.displayName','places.formattedAddress','places.shortFormattedAddress','places.location','places.evChargeOptions','places.photos',]
   }
 }
 

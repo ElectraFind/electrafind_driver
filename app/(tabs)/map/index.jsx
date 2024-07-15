@@ -14,7 +14,7 @@ import PlaceListView from '../../screens/map/PlaceListView'
 export default function MapScreen() {
 
   const {location,setLocation}=useContext(UserLocationContext);
-  // const [placeList,setPlaceList]=useState([]);
+  const [placeList,setPlaceList]=useState([]);
 
   // useEffect(() => {
   //   // location&&GetNearByPlace();
@@ -46,8 +46,8 @@ export default function MapScreen() {
 
     GlobalApi.NewNearByPlace(data).then(resp=>{
       // console.log(resp);
-      console.log(resp.data);
-      // setPlaceList(resp.data?.places)
+      console.log(JSON.stringify(resp.data));
+      setPlaceList(resp.data?.places)
     })
   }
   return (
@@ -60,9 +60,9 @@ export default function MapScreen() {
           
         <AppMapView/>
 
-          {/* <View style={styles.placeListContainer}>
-            <PlaceListView placeList={placeList}/>
-          </View> */}
+          <View style={styles.placeListContainer}>
+            {placeList&&<PlaceListView placeList={placeList}/>}
+          </View>
           
       </View>
       
