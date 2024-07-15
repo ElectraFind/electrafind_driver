@@ -14,47 +14,57 @@ import PlaceListView from '../../screens/map/PlaceListView'
 export default function MapScreen() {
 
   const {location,setLocation}=useContext(UserLocationContext);
-  const [placeList,setPlaceList]=useState([]);
+  // const [placeList,setPlaceList]=useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   // location&&GetNearByPlace();
+  //   if(location){
+
+  //     GetNearByPlace(location);
+  //   }
+  // }, [location])
+
+  useEffect(()=>{
     location&&GetNearByPlace();
-  }, [location])
+  },[location])
 
   const GetNearByPlace=()=>{
     const data={
       "includedTypes": ["electric_vehicle_charging_station"],
-      "maxResultCount": 20,
+      "maxResultCount": 10,
       "locationRestriction": {
         "circle": {
           "center": {
             "latitude": location?.latitude,
             "longitude": location?.longitude
           },
-          "radius": 500
+          "radius": 50000.0
+        }
+      }
     }
-  }
-    }
+
+
     GlobalApi.NewNearByPlace(data).then(resp=>{
-      console.log(JSON.stringify(resp.data));
-      setPlaceList(resp.data?.places)
+      // console.log(resp);
+      console.log(resp.data);
+      // setPlaceList(resp.data?.places)
     })
   }
   return (
     <SafeAreaView style={styles.safeArea}>
       
-        <View>
-          
+      <View>
           <View style={styles.headerContainer}>
             <Header/>
           </View>
           
-          <AppMapView/>
+        <AppMapView/>
 
-          <View style={styles.placeListContainer}>
+          {/* <View style={styles.placeListContainer}>
             <PlaceListView placeList={placeList}/>
-          </View>
+          </View> */}
           
-        </View>
+      </View>
       
     </SafeAreaView>
     

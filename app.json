@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.company.electrafind_driver",
-      "ios.config.googleMapsApiKey": "AIzaSyDbkBRNcFZ-9PqE10_PdhhwQMcZaZlEItU"
+      "ios.config.googleMapsApiKey": "AIzaSyDTYD4DNXMdQCRcjy0-ePWn5OpM0Ggki54"
       
     },
     "android": {
