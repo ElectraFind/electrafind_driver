@@ -1,14 +1,17 @@
 import { View, Text, Image, ScrollView } from 'react-native'
 import { StyleSheet } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 import { images } from '../../../constants'
 import SearchBar from './SearchBar'
 import DistanceSlider from './DistanceSlider'
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
+import { UserLocationContext } from '../../Context/UserLocationContext'
 
 export default function Header() {
+  const {location,setLocation}=useContext(UserLocationContext);
+
   return (
     
       <View style={styles.container}>
@@ -20,7 +23,13 @@ export default function Header() {
 
         <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between'}}>
           <TouchableOpacity style={{width:'87%', borderColor:'#c2c2c2'}}>
-            <SearchBar searchedLocation={(location)=>console.log(location)}/>
+            <SearchBar searchedLocation={(location)=>
+            setLocation({
+              latitude: location.lat,
+              longitude: location.lng
+            })
+
+            }/>
           </TouchableOpacity>
           <TouchableOpacity>
             <IonIcons name="options-outline" size={30} color="#ffffff" style={{paddingTop:8,paddingLeft:5}}/>

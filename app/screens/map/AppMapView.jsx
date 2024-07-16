@@ -5,10 +5,12 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {images} from '../../../constants';
 import { UserLocationContext } from '../../Context/UserLocationContext';
 import MapViewStyle from '../../Utils/MapViewStyle'
+import Markers from './Markers';
 
 
 
-export default function AppMapView() {
+
+export default function AppMapView({placeList}) {
 
   const {location,setLocation}=useContext(UserLocationContext);
 
@@ -27,7 +29,7 @@ export default function AppMapView() {
           longitudeDelta: 0.0421,
         }}
         >
-          <Marker
+          {location? <Marker
             coordinate={{
               latitude: location?.latitude,
               longitude: location?.longitude,
@@ -37,8 +39,16 @@ export default function AppMapView() {
             // description="Your Location"
           >
             {/* <Image source={require('../../assets/images/car-marker.png')} style={{height: 50, width: 50}} /> */}
-            {/* <Image source={images.carMarker} style={{height: 10, width: 20}} /> */}
-          </Marker>
+            {/* <Image source={images.carMarker} style={{height: 50, width: 0}} /> */}
+          </Marker>:null}
+
+          {placeList&&placeList.map((item,index)=>(
+            <Markers key={index}
+            index={index}
+            place={item}/>
+          )
+          
+          )}
 
         </MapView>
     </View>

@@ -32,5 +32,6 @@ const config={
 const NewNearByPlace=(data)=>axios.post(BASE_URL,data,config);
 
 export default{
-  NewNearByPlace
+  NewNearByPlace,
+  API_KEY1
 }

@@ -10,12 +10,13 @@ import Header from '../../screens/map/Header'
 import { StyleSheet } from 'react-native'
 import SearchBar from '../../screens/map/SearchBar'
 import PlaceListView from '../../screens/map/PlaceListView'
+import { SelectMarkerContext } from '../../Context/SelectMarkerContext'
 
 export default function MapScreen() {
 
   const {location,setLocation}=useContext(UserLocationContext);
   const [placeList,setPlaceList]=useState([]);
-
+  const [selectedMarker,setSelectedMarker]=useState([]);
   // useEffect(() => {
   //   // location&&GetNearByPlace();
   //   if(location){
@@ -38,7 +39,7 @@ export default function MapScreen() {
             "latitude": location?.latitude,
             "longitude": location?.longitude
           },
-          "radius": 50000.0
+          "radius": 25000.0
         }
       }
     }
@@ -51,22 +52,22 @@ export default function MapScreen() {
     })
   }
   return (
-    <SafeAreaView style={styles.safeArea}>
-      
+    // <SafeAreaView style={styles.safeArea}>
+      <SelectMarkerContext.Provider value={{selectedMarker,setSelectedMarker}}>
       <View>
           <View style={styles.headerContainer}>
             <Header/>
           </View>
           
-        <AppMapView/>
+          {placeList&& <AppMapView placeList={placeList}/>}
 
           <View style={styles.placeListContainer}>
             {placeList&&<PlaceListView placeList={placeList}/>}
           </View>
           
       </View>
-      
-    </SafeAreaView>
+      </SelectMarkerContext.Provider>
+    // </SafeAreaView>
     
   )
 }
