@@ -137,7 +137,6 @@ const SignIn = () => {
             title="Google"
             containerStyles="mt-7 bg-gray-300"
             isLoading={isSubmitting}
-            // 
             onPress={onPress}
               
 

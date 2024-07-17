@@ -9,6 +9,8 @@ import MapScreen from './map/index'
 import ChargeScreen from './charge/index'
 import ServiceScreen from './service/index'
 import TopupScreen from './topup/index'
+import chargingStationProfile from './map/chargingStationProfile';
+import App from './map/_layout'
 
 
 
@@ -76,7 +78,6 @@ export default function TabsLayout() {
         <Tab.Screen
           name="map"
           component={MapScreen}
-          
           options={{
             title: "MapScreen",
             headerShown: false,

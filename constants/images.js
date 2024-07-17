@@ -15,5 +15,6 @@ import logoverticalshortblack from "../assets/images/logo-vertical-short-black.p
 import google from "../assets/images/google.png";
 import evchargingstation from "../assets/images/ev-charging-station.jpg";
 import evchargerheader from "../assets/images/charger-header.png";
+import electraFindQR from "../assets/images/ElectraFindQR.png";
 
-export default { profile, google, evchargingstation, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack };
+export default { profile, google, evchargingstation, electraFindQR, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack };

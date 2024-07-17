@@ -1,15 +1,28 @@
 import { View, Text, Image, Dimensions } from 'react-native'
 import React from 'react'
+import { useState } from 'react'
 import images from '../../../constants/images'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import GlobalApi from '../../Utils/GlobalApi'
 import {LinearGradient} from 'expo-linear-gradient'
 import { FontAwesome } from '@expo/vector-icons'
-
+import GotoPageButton from '../../../components/GotoPageButton'
+import { router } from 'expo-router'
+import { useRouter } from 'expo-router'
+import { useNavigation } from 'expo-router'
+import chargingStationProfile from '../../(tabs)/map/chargingStationProfile'
 
 
 export default function PlaceItem({place}) {
+
+  const router = useRouter();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  
+  
+
   const PLACE_PHOTO_BASE_URL = "https://places.googleapis.com/v1/"
   return (
     
@@ -25,14 +38,18 @@ export default function PlaceItem({place}) {
       />
 
       <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>
-      <View style={{padding:5}}>
-        <Text style={{fontSize:18,}} className="font-psemibold ">{place.displayName?.text}</Text>
-        <Text style={{color:Colors.GRAY,fontSize:15}} className="font-pmedium">{place?.shortFormattedAddress}</Text>
+        <View style={{padding:5}}>
+          <Text style={{fontSize:18,}} className="font-psemibold ">{place.displayName?.text}</Text>
+          <Text style={{color:Colors.GRAY,fontSize:15}} className="font-pmedium">{place?.shortFormattedAddress}</Text>
         </View>
-        <View style={{padding:12,backgroundColor:'#22c55e',paddingHorizontal:18,paddingVertical:18, borderRadius:10,margin:5}}>
+        {/* <View style={{padding:12,backgroundColor:'#22c55e',paddingHorizontal:18,paddingVertical:18, borderRadius:10,margin:5}}>
           <FontAwesome name="location-arrow" size={24} color="#ffffff" />
-        </View>
-      
+        </View> */}
+        <GotoPageButton
+          onPress={(place) => router.push('/chargingStationProfile', {place})}
+          isLoading={isSubmitting}
+        />
+
       </View>
       </LinearGradient>
     </View>
