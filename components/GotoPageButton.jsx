@@ -18,14 +18,15 @@ const GotoPageButton = ({
     <TouchableOpacity
       onPress={handlePress}
       activeOpacity={0.7}
-      className={`bg-green-500 rounded-l min-h-[50px] min-w-[50px] flex flex-row justify-center margin-10 items-center ${containerStyles} ${
+      className={` min-h-[50px] min-w-[60px] flex flex-row justify-center margin-10 mr-2 items-center ${containerStyles} ${
         isLoading ? "opacity-50" : ""
       }`}
+      style={{ backgroundColor: "#161622", borderRadius: 10, borderColor: "#ffffff", borderWidth: 1 }}
       disabled={isLoading}
     >
 
       
-      <FontAwesome name="location-arrow" size={24} color="#ffffff" />
+      <FontAwesome name="location-arrow" size={25} color="#ffffff"/>
 
       
 

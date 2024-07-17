@@ -9,7 +9,7 @@ export default function SearchBar({searchedLocation}) {
       display: 'flex',
       flexDirection: 'row',
       paddingHorizontal: 35,
-      borderRadius: 25,
+      borderRadius: 10,
       backgroundColor: '#ffffff',
       borderColor: '#000000',
       backgroundshadowColor: '#ffffff',

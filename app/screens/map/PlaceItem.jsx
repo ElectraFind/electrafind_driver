@@ -16,7 +16,7 @@ import chargingStationProfile from '../../(tabs)/map/chargingStationProfile'
 
 export default function PlaceItem({place}) {
 
-  const router = useRouter();
+  const navigation = useNavigation();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -46,8 +46,9 @@ export default function PlaceItem({place}) {
           <FontAwesome name="location-arrow" size={24} color="#ffffff" />
         </View> */}
         <GotoPageButton
-          onPress={(place) => router.push('/chargingStationProfile', {place})}
-          isLoading={isSubmitting}
+          handlePress={() => navigation.navigate('chargingStationProfile')}
+          
+          // isLoading={isSubmitting}
         />
 
       </View>

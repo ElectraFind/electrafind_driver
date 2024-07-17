@@ -52,7 +52,7 @@ export default function MapScreen() {
     })
   }
   return (
-    // <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea}>
       <SelectMarkerContext.Provider value={{selectedMarker,setSelectedMarker}}>
       <View>
           <View style={styles.headerContainer}>
@@ -67,7 +67,7 @@ export default function MapScreen() {
           
       </View>
       </SelectMarkerContext.Provider>
-    // </SafeAreaView>
+    </SafeAreaView>
     
   )
 }
@@ -79,13 +79,14 @@ const styles = StyleSheet.create({
     padding: 40,
     width: '100%',
     paddingHorizontal: 10,
-    height: '25%',
+    height: 120,
     backgroundColor: '#161622'
     
   },
 
   safeArea: {
     flex: 1,
+    
   },
   container: {
     flex: 1,
