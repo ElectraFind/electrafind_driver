@@ -1,12 +1,15 @@
 import { ActivityIndicator, Text, TouchableOpacity,Image } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+import PlaceItem from "../app/screens/map/PlaceItem";
 
 
-const CustomButton = ({
+const GotoPageButton = ({
   title,
   handlePress,
   containerStyles,
   textStyles,
   isLoading,
+  
   
 
   
@@ -15,16 +18,15 @@ const CustomButton = ({
     <TouchableOpacity
       onPress={handlePress}
       activeOpacity={0.7}
-      className={`bg-green-500 rounded-xl min-h-[62px] flex flex-row justify-center items-center ${containerStyles} ${
+      className={` min-h-[50px] min-w-[60px] flex flex-row justify-center margin-10 mr-2 items-center ${containerStyles} ${
         isLoading ? "opacity-50" : ""
       }`}
+      style={{ backgroundColor: "#161622", borderRadius: 10, borderColor: "#ffffff", borderWidth: 1 }}
       disabled={isLoading}
     >
 
       
-      <Text className={`text-primary font-psemibold text-xl ${textStyles}`}>
-        {title}
-      </Text>
+      <FontAwesome name="location-arrow" size={25} color="#ffffff"/>
 
       
 
@@ -40,4 +42,4 @@ const CustomButton = ({
   );
 };
 
-export default CustomButton;
+export default GotoPageButton;

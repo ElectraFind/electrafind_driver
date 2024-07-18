@@ -8,19 +8,21 @@ import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Splash = () => {
-  const navigation = useNavigation();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/sign-in'); // Navigate to sign-in screen after timeout
-    }, 1500); // Adjust duration as needed (e.g., 2000 milliseconds)
+  // const navigation = useNavigation();
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     router.push('/sign-in'); // Navigate to sign-in screen after timeout
+  //   }, 1500); // Adjust duration as needed (e.g., 2000 milliseconds)
     
-    return () => clearTimeout(timer); // Clear timeout on component unmount
-  }, [navigation]);
+  //   return () => clearTimeout(timer); // Clear timeout on component unmount
+  // }, [navigation]);
 
   
 
 
   return (
+
+    
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">

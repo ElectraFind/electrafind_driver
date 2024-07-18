@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import FormFieldSmall from "../../components/FormFieldSmall";
 import CustomButton from "../../components/CustomButton";
 import {router} from 'expo-router';
+import { Ionicons } from "@expo/vector-icons";
+
 
 const Verification = () => {
   const [digit1, setDigit1] = useState('');
@@ -27,6 +29,16 @@ const Verification = () => {
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View className="w-full flex justify-center h-full px-4 my-6 mt-0">
+          <View className="flex flex-row items-center pt-2 gap-1">
+            <TouchableOpacity onPress={() => router.push('/sign-up')}>
+              <Ionicons
+                name={"arrow-back-outline"}
+                resizeMode="contain"
+                color={"#ffffff"}
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
             Email Verification
           </Text>
