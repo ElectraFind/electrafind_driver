@@ -1,6 +1,7 @@
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, Dimensions,} from 'react-native'
+
 import { StyleSheet } from 'react-native'
-import React, {useContext} from 'react'
+import React, {useContext,useRef} from 'react'
 import { images } from '../../../constants'
 import SearchBar from './SearchBar'
 import DistanceSlider from './DistanceSlider'
@@ -8,9 +9,27 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
 import { UserLocationContext } from '../../Context/UserLocationContext'
+import BottomSheet from 'reanimated-bottom-sheet';
+
+const { height: screenHeight } = Dimensions.get('window');
+const SNAP_POINT = screenHeight * 0.7;
 
 export default function Header() {
   const {location,setLocation}=useContext(UserLocationContext);
+  const bottomSheetRef = useRef(null);
+
+  const renderContent = () => (
+    <View style={styles.bottomSheetContent}>
+      <Text style={styles.bottomSheetText}>Options</Text>
+      {/* Add more options here */}
+    </View>
+  );
+
+  const handleOpenBottomSheet = () => {
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.snapTo(0);
+    }
+  };
 
   return (
     
@@ -23,6 +42,7 @@ export default function Header() {
         /> */}
 
         <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between'}}>
+
           <TouchableOpacity style={{width:'80%', alignItems:'flex-start', borderColor:'#161622', borderWidth: 1 }}>
             <SearchBar searchedLocation={(location)=>
             setLocation({
@@ -32,11 +52,19 @@ export default function Header() {
 
             }/>
           </TouchableOpacity>
-          <TouchableOpacity>
+
+          <TouchableOpacity onPress={handleOpenBottomSheet}>
             <IonIcons name="options-outline" size={30} color="#ffffff" style={{paddingTop:8,paddingLeft:14}}/>
           </TouchableOpacity>
+
         </View>
         
+        {/* <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={[SNAP_POINT, 0]}
+          borderRadius={10}
+          renderContent={renderContent}
+        /> */}
 
         {/* <DistanceSlider/> */}
 
@@ -52,6 +80,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 6,
-  }
+  },
+  bottomSheetContent: {
+    padding: 20,
+    backgroundColor: 'white',
+  },
+  bottomSheetText: {
+    fontSize: 18,
+  },
 })
 

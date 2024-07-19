@@ -12,11 +12,16 @@ import SearchBar from '../../screens/map/SearchBar'
 import PlaceListView from '../../screens/map/PlaceListView'
 import { SelectMarkerContext } from '../../Context/SelectMarkerContext'
 
+
 export default function MapScreen() {
 
   const {location,setLocation}=useContext(UserLocationContext);
   const [placeList,setPlaceList]=useState([]);
   const [selectedMarker,setSelectedMarker]=useState([]);
+
+  //newly added
+  const [isMarkerTouched, setIsMarkerTouched] = useState(false);
+  
   // useEffect(() => {
   //   // location&&GetNearByPlace();
   //   if(location){
@@ -53,7 +58,7 @@ export default function MapScreen() {
   }
   return (
     <SafeAreaView style={styles.safeArea}>
-      <SelectMarkerContext.Provider value={{selectedMarker,setSelectedMarker}}>
+      <SelectMarkerContext.Provider value={{selectedMarker, setSelectedMarker, isMarkerTouched, setIsMarkerTouched, }}>
       <View>
           <View style={styles.headerContainer}>
             <Header/>

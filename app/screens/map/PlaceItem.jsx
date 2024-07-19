@@ -17,10 +17,6 @@ import chargingStationProfile from '../../(tabs)/map/chargingStationProfile'
 export default function PlaceItem({place}) {
 
   const navigation = useNavigation();
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  
   
 
   const PLACE_PHOTO_BASE_URL = "https://places.googleapis.com/v1/"
@@ -38,7 +34,7 @@ export default function PlaceItem({place}) {
       />
 
       <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between', alignItems:'center'}}>
-        <View style={{padding:5}}>
+        <View style={{padding:5, width: '80%'}}>
           <Text style={{fontSize:18,}} className="font-psemibold ">{place.displayName?.text}</Text>
           <Text style={{color:Colors.GRAY,fontSize:15}} className="font-pmedium">{place?.shortFormattedAddress}</Text>
         </View>
@@ -46,7 +42,7 @@ export default function PlaceItem({place}) {
           <FontAwesome name="location-arrow" size={24} color="#ffffff" />
         </View> */}
         <GotoPageButton
-          handlePress={() => navigation.navigate('chargingStationProfile')}
+        handlePress={() => navigation.navigate('chargingStationProfile',{place})}
           
           // isLoading={isSubmitting}
         />
