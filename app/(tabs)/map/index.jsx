@@ -37,14 +37,14 @@ export default function MapScreen() {
   const GetNearByPlace=()=>{
     const data={
       "includedTypes": ["electric_vehicle_charging_station"],
-      "maxResultCount": 10,
+      "maxResultCount": 20,
       "locationRestriction": {
         "circle": {
           "center": {
             "latitude": location?.latitude,
             "longitude": location?.longitude
           },
-          "radius": 25000.0
+          "radius": 50000.0
         }
       }
     }
