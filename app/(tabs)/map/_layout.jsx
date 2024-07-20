@@ -17,7 +17,8 @@ function MapLayout() {
         <Stack.Screen name="index" component={MapScreen} options={{
             headerShown: false
           }}/>
-        <Stack.Screen name="chargingStationProfile" component={ChargingStationProfile} />
+        <Stack.Screen name="chargingStationProfile" component={ChargingStationProfile} options={{
+            headerShown: false}}/>
       </Stack.Navigator>
 
       <StatusBar backgroundColor="#161622" style="light"/>

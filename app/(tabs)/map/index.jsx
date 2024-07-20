@@ -12,11 +12,16 @@ import SearchBar from '../../screens/map/SearchBar'
 import PlaceListView from '../../screens/map/PlaceListView'
 import { SelectMarkerContext } from '../../Context/SelectMarkerContext'
 
+
 export default function MapScreen() {
 
   const {location,setLocation}=useContext(UserLocationContext);
   const [placeList,setPlaceList]=useState([]);
   const [selectedMarker,setSelectedMarker]=useState([]);
+
+  //newly added
+  const [isMarkerTouched, setIsMarkerTouched] = useState(false);
+  
   // useEffect(() => {
   //   // location&&GetNearByPlace();
   //   if(location){
@@ -32,14 +37,14 @@ export default function MapScreen() {
   const GetNearByPlace=()=>{
     const data={
       "includedTypes": ["electric_vehicle_charging_station"],
-      "maxResultCount": 10,
+      "maxResultCount": 20,
       "locationRestriction": {
         "circle": {
           "center": {
             "latitude": location?.latitude,
             "longitude": location?.longitude
           },
-          "radius": 25000.0
+          "radius": 50000.0
         }
       }
     }
@@ -53,7 +58,7 @@ export default function MapScreen() {
   }
   return (
     <SafeAreaView style={styles.safeArea}>
-      <SelectMarkerContext.Provider value={{selectedMarker,setSelectedMarker}}>
+      <SelectMarkerContext.Provider value={{selectedMarker, setSelectedMarker, isMarkerTouched, setIsMarkerTouched, }}>
       <View>
           <View style={styles.headerContainer}>
             <Header/>
