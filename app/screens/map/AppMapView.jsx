@@ -10,7 +10,7 @@ import Markers from './Markers';
 
 
 
-export default function AppMapView({placeList}) {
+export default function AppMapView({placeList, onMarkerTouch}) {
 
   const {location,setLocation}=useContext(UserLocationContext);
 
@@ -45,7 +45,9 @@ export default function AppMapView({placeList}) {
           {placeList&&placeList.map((item,index)=>(
             <Markers key={index}
             index={index}
-            place={item}/>
+            place={item}
+            onMarkerTouch={onMarkerTouch}
+            />
           )
           
           )}

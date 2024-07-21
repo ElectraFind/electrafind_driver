@@ -1,7 +1,7 @@
-import { View, Text, Image, ScrollView, Dimensions,} from 'react-native'
+import { View, Text, Image, ScrollView, Dimensions,TouchableWithoutFeedback, Keyboard,KeyboardAvoidingView} from 'react-native'
 
 import { StyleSheet } from 'react-native'
-import React, {useContext,useRef} from 'react'
+import React, {useEffect, useContext,useRef} from 'react'
 import { images } from '../../../constants'
 import SearchBar from './SearchBar'
 import DistanceSlider from './DistanceSlider'
@@ -10,13 +10,17 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native'
 import { UserLocationContext } from '../../Context/UserLocationContext'
 import BottomSheet from 'reanimated-bottom-sheet';
+import { useState } from 'react';
 
 const { height: screenHeight } = Dimensions.get('window');
 const SNAP_POINT = screenHeight * 0.7;
 
-export default function Header() {
+export default function Header({onSearchFocus}) {
+
   const {location,setLocation}=useContext(UserLocationContext);
+  
   const bottomSheetRef = useRef(null);
+  
 
   const renderContent = () => (
     <View style={styles.bottomSheetContent}>
@@ -31,9 +35,11 @@ export default function Header() {
     }
   };
 
+  
+
   return (
+  
     
-      
       <View style={styles.container}>
         
         {/* <Image 
@@ -43,15 +49,25 @@ export default function Header() {
 
         <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between'}}>
 
-          <TouchableOpacity style={{width:'80%', alignItems:'flex-start', borderColor:'#161622', borderWidth: 1 }}>
-            <SearchBar searchedLocation={(location)=>
+          
+        
+          
+
+          <TouchableOpacity style={{width:'80%', borderColor:'#161622', borderWidth: 1 }}>
+            <SearchBar onFocus={onSearchFocus} searchedLocation={(location)=>
             setLocation({
               latitude: location.lat,
               longitude: location.lng
             })
 
+            
+
             }/>
           </TouchableOpacity>
+
+          
+    
+          
 
           <TouchableOpacity onPress={handleOpenBottomSheet}>
             <IonIcons name="options-outline" size={30} color="#ffffff" style={{paddingTop:8,paddingLeft:14}}/>
