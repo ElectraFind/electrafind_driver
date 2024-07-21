@@ -1,10 +1,18 @@
-import { View, Text } from 'react-native'
+import { View, Text, style } from 'react-native'
 import React from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import { useFonts } from 'expo-font';
 
 export default function SearchBar({searchedLocation, onFocus}) {
 
+  let [fontsLoaded, fontError] = useFonts({
+    'psemibold': require('../../../assets/fonts/Poppins-SemiBold.ttf'),
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <View style={{
