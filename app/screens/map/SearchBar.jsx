@@ -3,7 +3,9 @@ import React from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
-export default function SearchBar({searchedLocation}) {
+export default function SearchBar({searchedLocation, onFocus}) {
+
+
   return (
     <View style={{
       display: 'flex',
@@ -20,9 +22,9 @@ export default function SearchBar({searchedLocation}) {
       <GooglePlacesAutocomplete
       placeholder='Search EV charging station'
       fetchDetails={true}
+      onFocus={onFocus}
       onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        
+        // 'details' is provided when fetchDetails = true 
         searchedLocation(details?.geometry?.location);
       }}
       query={{
