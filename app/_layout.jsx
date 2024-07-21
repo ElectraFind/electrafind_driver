@@ -11,7 +11,7 @@ import { Slot } from "expo-router"
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import TabsLayout from './(tabs)/_layout';
-import HomeScreen from './(tabs)/home';
+import HomeScreen from './(tabs)/market';
 import Splash from './splashscreen'
 
 
@@ -107,14 +107,7 @@ const RootLayout = () => {
     <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
 
       <UserLocationContext.Provider value={{location,setLocation}}>
-      {/* <Stack>
-        
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{headerShown: false}} />
-        <Stack.Screen name="splashscreen" options={{headerShown: false}} />
-        <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-        
-      </Stack> */}
+      
       {/* <Splash/> */}
       <SignedIn>
         <NavigationContainer independent={true}>

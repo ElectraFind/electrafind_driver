@@ -4,7 +4,7 @@ import {Tabs, Redirect} from 'expo-router'
 import { icons } from "../../constants";
 import { StatusBar } from 'expo-status-bar'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './home/index'
+import MarketScreen from './market/index'
 import MapScreen from './map/index'
 import ChargeScreen from './charge/index'
 import ServiceScreen from './service/index'
@@ -41,7 +41,7 @@ const Tab = createBottomTabNavigator();
 export default function TabsLayout() {
   return (
     
-    <Tab.Navigator
+    <Tab.Navigator initialRouteName="map"
       
         screenOptions={{
           
@@ -58,23 +58,7 @@ export default function TabsLayout() {
         }}
       >
 
-        <Tab.Screen
-          name="home"
-          component={HomeScreen}
-          
-          options={{
-            title: "HomeScreen",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.home}
-                color={color}
-                name="Home"
-                focused={focused}
-              />
-            ),
-          }}
-        />
+        
 
         <Tab.Screen
           name="_layout"
@@ -87,6 +71,24 @@ export default function TabsLayout() {
                 icon={icons.map}
                 color={color}
                 name="Map"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name="market"
+          component={MarketScreen}
+          
+          options={{
+            title: "MarketScreen",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.car}
+                color={color}
+                name="Market"
                 focused={focused}
               />
             ),

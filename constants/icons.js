@@ -15,6 +15,7 @@ import map from "../assets/icons/map.png";
 import charge from "../assets/icons/charge.png";
 import service from "../assets/icons/service.png";
 import topup from "../assets/icons/topup.png";
+import car from "../assets/icons/car.png";
 
 
 export default {
@@ -34,6 +35,7 @@ export default {
   map,
   charge,
   service,
-  topup
+  topup,
+  car
   
 };
