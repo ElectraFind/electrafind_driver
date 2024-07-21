@@ -14,6 +14,7 @@ import Info from '../../screens/map/Info';
 import Charge from '../../screens/map/Charge';
 
 
+
 //render the ev charging stations details and make a profile for each charging station
 
 export default function ChargingStationProfile() {

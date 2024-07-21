@@ -11,10 +11,14 @@ import { TouchableOpacity } from 'react-native'
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import FileSystem from "expo-file-system";
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from "react";
+import axios from "axios";
+import { router } from "expo-router";
 
 const TopupScreen = () => {
+
+  
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -57,6 +61,13 @@ const TopupScreen = () => {
         console.log(error);
       }
     }
+  };
+
+  const logoutHandler = async () => {
+    await AsyncStorage.removeItem("access_token");
+    await AsyncStorage.removeItem("refresh_token");
+    router.push("/(auth)/sign-in");
+    // Navigate to the login screen or perform any other logout actions
   };
 
   return (
@@ -290,7 +301,7 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
-                // onPress={() => logoutHandler()}
+                onPress={() => logoutHandler()}
               >
                 <View
                   style={{
@@ -317,7 +328,7 @@ const TopupScreen = () => {
                     />
                   </View>
                   <TouchableOpacity> 
-                    {/* onPress={() => logoutHandler()} */}
+                  {/* onPress={() => logoutHandler()} */}
                     <Text
                       style={{ fontSize: 16 }}
                       className="font-psemibold"
