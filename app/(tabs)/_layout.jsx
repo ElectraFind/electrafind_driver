@@ -58,7 +58,7 @@ export default function TabsLayout() {
     }, []);
 
   return (
-    
+    <>
     <Tab.Navigator initialRouteName="map"
       
         screenOptions={{
@@ -171,8 +171,8 @@ export default function TabsLayout() {
 
       
     </Tab.Navigator>
-      //<StatusBar backgroundColor="#161622" style="light" />
-    
+      <StatusBar backgroundColor="#161622" style="light" />
+    </>
   )
 }
 

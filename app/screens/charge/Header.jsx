@@ -7,7 +7,7 @@ export default function Header() {
     <View  style={styles.container}>
       <Image 
           source={images.logoverticalshort}
-          style={{width:250,height:90,objectFit:'contain',marginTop:0}}
+          style={{width:250,height:70,objectFit:'contain',marginTop:0}}
         />
     </View>
   )

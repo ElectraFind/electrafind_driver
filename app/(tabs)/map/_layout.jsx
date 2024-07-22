@@ -21,7 +21,7 @@ function MapLayout() {
             headerShown: false}}/>
       </Stack.Navigator>
 
-      <StatusBar backgroundColor="#161622" style="light"/>
+      <StatusBar style="light"/>
     </>
 
   );

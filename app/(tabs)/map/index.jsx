@@ -58,9 +58,9 @@ export default function MapScreen() {
     })
   }
 
-  const handleTouch = () => {
+  const handleMapTouch = () => {
     Keyboard.dismiss();
-    setIsPlaceListVisible(false); // Hide the PlaceListView when the screen is touched
+    setIsPlaceListVisible(false); // Hide the PlaceListView when the map is touched
   };
 
   const handleMarkerTouch = () => {
@@ -76,24 +76,24 @@ export default function MapScreen() {
     <SafeAreaView style={styles.safeArea}>
 
       <SelectMarkerContext.Provider value={{selectedMarker, setSelectedMarker, isMarkerTouched, setIsMarkerTouched, }}>
-
-      <TouchableWithoutFeedback onPress={handleTouch}>
-
+      
         <View>
-        
+
           <View style={styles.headerContainer}>
             <Header onSearchFocus={handleSearchFocus}/>
           </View>
           
+          <TouchableWithoutFeedback onPress={handleMapTouch}>
+            <View>
           {placeList&& <AppMapView placeList={placeList}  onMarkerTouch={handleMarkerTouch}/>}
+          </View>
+          </TouchableWithoutFeedback>
 
           <View style={styles.placeListContainer}>
             {isPlaceListVisible && placeList &&<PlaceListView placeList={placeList}/>}
           </View>
 
         </View>
-
-        </TouchableWithoutFeedback>
 
       </SelectMarkerContext.Provider>
       

@@ -15,6 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import axios from "axios";
 import { router } from "expo-router";
+import Header from '../../screens/charge/Header'
+import { StyleSheet } from 'react-native';
 
 const TopupScreen = () => {
 
@@ -74,6 +76,7 @@ const TopupScreen = () => {
 
     <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1, paddingTop: 80 }}>
       <ScrollView>
+
         <View style={{flexDirection: "row", justifyContent: "center" }}>
           <View style={{ position: "relative" }}>
             <Image
@@ -301,6 +304,61 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
+                // onPress={() => router.push("/(routes)/enrolled-courses")}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    columnGap: 30,
+                  }}
+                >
+                  <View
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#dde2ec",
+                      padding: 15,
+                      borderRadius: 100,
+                      width: 55,
+                      height: 55,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      style={{ alignSelf: "center" }}
+                      name="handshake"
+                      size={20}
+                      color={"black"}
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={{ fontSize: 16}} className="font-psemibold"
+                    >
+                      Market Place
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#575757",
+                        
+                      }}
+                      className="font-pregular"
+                    >
+                      Sell your vehicle and vehicle parts
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity>
+                  <AntDesign name="right" size={26} color={"#CBD5E0"} />
+                </TouchableOpacity>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
                 onPress={() => logoutHandler()}
               >
                 <View
@@ -351,3 +409,17 @@ const TopupScreen = () => {
 
 export default TopupScreen
 
+const styles = StyleSheet.create({
+  headerContainer:{
+    position: 'realtive',
+    zIndex: 10,
+    padding: 10,
+    width: '100%',
+    paddingHorizontal: 10,
+    height: '15%',
+    backgroundColor: '#161622',
+    marginBottom:20
+    
+  },
+ 
+})
