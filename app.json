@@ -15,14 +15,16 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.company.electrafind_driver",
-      "ios.config.googleMapsApiKey": "AIzaSyDTYD4DNXMdQCRcjy0-ePWn5OpM0Ggki54"
+      "config": {"googleMapsApiKey": "AIzaSyDTYD4DNXMdQCRcjy0-ePWn5OpM0Ggki54"}
       
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {"googleMaps": {"apiKey": "AIzaSyDTYD4DNXMdQCRcjy0-ePWn5OpM0Ggki54"}}
+       
     },
     "web": {
       "favicon": "./assets/favicon.png"

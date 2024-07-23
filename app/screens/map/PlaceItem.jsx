@@ -1,6 +1,6 @@
 import { View, Text, Image, Dimensions } from 'react-native'
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import images from '../../../constants/images'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
@@ -13,16 +13,18 @@ import { useRouter } from 'expo-router'
 import { useNavigation } from 'expo-router'
 import chargingStationProfile from '../../(tabs)/map/chargingStationProfile'
 
+const screenWidth = Dimensions.get('screen').width;
 
 export default function PlaceItem({place}) {
 
   const navigation = useNavigation();
   
+  
 
   const PLACE_PHOTO_BASE_URL = "https://places.googleapis.com/v1/"
   return (
     
-    <View style={{width:Dimensions.get('screen').width*0.95, backgroundColor:'#ffffff', margin:10, borderRadius:10, items:'center',padding:0,}}>
+    <View style={{width:screenWidth * 0.95, backgroundColor:'#ffffff', margin:10, borderRadius:10, items:'center',padding:0,}}>
 
       <LinearGradient
         colors={['transparent', '#ffffff']}

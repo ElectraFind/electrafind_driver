@@ -1,14 +1,17 @@
-import { View, Text, style } from 'react-native'
-import React from 'react'
+import { View, Text, style ,TextInput} from 'react-native'
+import React,  { useRef } from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
+import { StyleSheet } from 'react-native';
 
 export default function SearchBar({searchedLocation, onFocus}) {
 
   let [fontsLoaded, fontError] = useFonts({
     'psemibold': require('../../../assets/fonts/Poppins-SemiBold.ttf'),
   });
+
+  const searchRef = useRef(null);
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -30,7 +33,10 @@ export default function SearchBar({searchedLocation, onFocus}) {
       <GooglePlacesAutocomplete
       placeholder='Search EV charging station'
       fetchDetails={true}
-      onFocus={onFocus}
+      onFocus={() => {
+        searchRef.current?.focus();
+        onFocus && onFocus();
+      }}
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true 
         searchedLocation(details?.geometry?.location);
@@ -39,7 +45,21 @@ export default function SearchBar({searchedLocation, onFocus}) {
         key: 'AIzaSyDTYD4DNXMdQCRcjy0-ePWn5OpM0Ggki54',
         language: 'en',
       }}
+      styles={{
+        textInput: styles.textInput,
+      }}
     />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+
+  textInput: {
+    fontFamily: 'psemibold',
+    fontSize: 16,
+    marginTop:3
+    
+    
+  }
+})
