@@ -53,7 +53,7 @@ export default function MapScreen() {
 
     GlobalApi.NewNearByPlace(data).then(resp=>{
       // console.log(resp);
-      console.log(JSON.stringify(resp.data));
+      // console.log(JSON.stringify(resp.data));
       setPlaceList(resp.data?.places)
     })
   }

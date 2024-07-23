@@ -12,6 +12,7 @@ import openMap from 'react-native-open-maps';
 import { useState } from 'react';
 import Info from '../../screens/map/Info';
 import Charge from '../../screens/map/Charge';
+import Swiper from 'react-native-swiper';
 
 
 
@@ -39,7 +40,7 @@ export default function ChargingStationProfile() {
 
   const route = useRoute();
   const { place } = route.params;
-  console.log('charging: ',place);
+  // console.log('charging: ',place);
 
   return (
     <View>
@@ -49,6 +50,21 @@ export default function ChargingStationProfile() {
               {uri:PLACE_PHOTO_BASE_URL + place?.photos[0]?.name+"/media?key="+GlobalApi?.API_KEY1+"&maxHeightPx=800&maxWidthPx=1200"}
             :(images.evchargingstation)}
             style={{width: '100%', height: 300,alignItems:'center',justifyContent:'center',flex:1}}/>
+
+            
+
+            {/* images swiper
+            <Swiper
+              showsPagination={true}
+              autoplay={true}
+              autoplayTimeout={3}
+              >
+              {(place?.photos?.slice(0, 3) || [images.evchargingstation]).map((photo, index) => (
+                <View key={index}>
+                  {photo.uri ? renderPhoto(photo) : <Image source={photo} style={{width: '100%', height: 300,alignItems:'center',justifyContent:'center',flex:1}} />}
+                </View>
+              ))}
+            </Swiper> */}
 
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 35, left: 5, }} activeOpacity={0.7} className={'p-2'}>
               <Ionicons
