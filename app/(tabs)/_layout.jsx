@@ -12,6 +12,7 @@ import TopupScreen from './topup/index'
 import chargingStationProfile from './map/chargingStationProfile';
 import App from './map/_layout'
 import MapLayout from './map/_layout';
+import ServiceLayout from './service/_servicelayout';
 
 
 
@@ -114,8 +115,8 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-          name="service"
-          component={ServiceScreen}
+          name="_servicelayout"
+          component={ServiceLayout}
           
           options={{
             title: "ServiceScreen",

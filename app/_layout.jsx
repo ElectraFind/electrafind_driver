@@ -122,6 +122,8 @@ const RootLayout = () => {
       
         </UserLocationContext.Provider>
     </ClerkProvider>
+    
+  
    
   )
 }

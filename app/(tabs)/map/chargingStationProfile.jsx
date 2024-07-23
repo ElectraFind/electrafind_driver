@@ -38,7 +38,7 @@ export default function ChargingStationProfile() {
 
   const route = useRoute();
   const { place } = route.params;
-  console.log('charging: ',place);
+  // console.log('charging: ',place);
 
   return (
     <View>
