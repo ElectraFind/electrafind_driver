@@ -1,4 +1,4 @@
-import {  ScrollView, Text, View } from 'react-native'
+import {  ScrollView, Text, View,TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useContext, useEffect, useState } from 'react'
 import { UserLocationContext } from '../../Context/UserLocationContext'
@@ -18,6 +18,7 @@ export default function MapScreen() {
   const {location,setLocation}=useContext(UserLocationContext);
   const [placeList,setPlaceList]=useState([]);
   const [selectedMarker,setSelectedMarker]=useState([]);
+  const [isPlaceListVisible, setIsPlaceListVisible] = useState(true);
 
   //newly added
   const [isMarkerTouched, setIsMarkerTouched] = useState(false);
@@ -56,22 +57,46 @@ export default function MapScreen() {
       setPlaceList(resp.data?.places)
     })
   }
+
+  const handleMapTouch = () => {
+    Keyboard.dismiss();
+    setIsPlaceListVisible(false); // Hide the PlaceListView when the map is touched
+  };
+
+  const handleMarkerTouch = () => {
+    setIsPlaceListVisible(true);
+    setIsMarkerTouched(true);
+  };
+
+  const handleSearchFocus = () => {
+    setIsPlaceListVisible(false);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
+
       <SelectMarkerContext.Provider value={{selectedMarker, setSelectedMarker, isMarkerTouched, setIsMarkerTouched, }}>
-      <View>
+      
+        <View>
+
           <View style={styles.headerContainer}>
-            <Header/>
+            <Header onSearchFocus={handleSearchFocus}/>
           </View>
           
-          {placeList&& <AppMapView placeList={placeList}/>}
+          <TouchableWithoutFeedback onPress={handleMapTouch}>
+            <View>
+          {placeList&& <AppMapView placeList={placeList}  onMarkerTouch={handleMarkerTouch}/>}
+          </View>
+          </TouchableWithoutFeedback>
 
           <View style={styles.placeListContainer}>
-            {placeList&&<PlaceListView placeList={placeList}/>}
+            {isPlaceListVisible && placeList &&<PlaceListView placeList={placeList}/>}
           </View>
-          
-      </View>
+
+        </View>
+
       </SelectMarkerContext.Provider>
+      
     </SafeAreaView>
     
   )

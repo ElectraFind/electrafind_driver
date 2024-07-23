@@ -1,4 +1,4 @@
-import { Text, View, Image } from 'react-native'
+import { Text, View, Image, Keyboard,  } from 'react-native'
 import React from 'react'
 import {Tabs, Redirect} from 'expo-router'
 import { icons } from "../../constants";
@@ -13,8 +13,7 @@ import chargingStationProfile from './map/chargingStationProfile';
 import App from './map/_layout'
 import MapLayout from './map/_layout';
 import ServiceLayout from './service/_servicelayout';
-
-
+import { useState, useEffect } from 'react';
 
 
 
@@ -40,8 +39,25 @@ const TabIcon = ({ icon, color, name, focused }) => {
 const Tab = createBottomTabNavigator();
 
 export default function TabsLayout() {
+
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+      const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+        setKeyboardVisible(true);
+      });
+      const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+        setKeyboardVisible(false);
+      });
+
+      return () => {
+        keyboardDidHideListener.remove();
+        keyboardDidShowListener.remove();
+      };
+    }, []);
+
   return (
-    
+    <>
     <Tab.Navigator initialRouteName="map"
       
         screenOptions={{
@@ -55,6 +71,7 @@ export default function TabsLayout() {
             borderTopWidth: 1,
             borderTopColor: "#232533",
             height: 64,
+            display: isKeyboardVisible ? 'none' : 'flex'
           },
         }}
       >
@@ -73,6 +90,7 @@ export default function TabsLayout() {
                 color={color}
                 name="Map"
                 focused={focused}
+                
               />
             ),
           }}
@@ -152,8 +170,8 @@ export default function TabsLayout() {
 
       
     </Tab.Navigator>
-      // <StatusBar backgroundColor="#161622" style="light" />
-    
+      <StatusBar backgroundColor="#161622" style="light" />
+    </>
   )
 }
 

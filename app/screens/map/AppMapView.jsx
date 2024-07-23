@@ -1,7 +1,7 @@
 import { View, Text , Image} from 'react-native'
 import React, { useContext } from 'react'
 import { StyleSheet} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import {images} from '../../../constants';
 import { UserLocationContext } from '../../Context/UserLocationContext';
 import MapViewStyle from '../../Utils/MapViewStyle'
@@ -10,15 +10,15 @@ import Markers from './Markers';
 
 
 
-export default function AppMapView({placeList}) {
+
+export default function AppMapView({placeList, onMarkerTouch}) {
 
   const {location,setLocation}=useContext(UserLocationContext);
 
   return location?.latitude&&(
     <View>
       <MapView style={styles.map}
-      //for the android
-        provider={PROVIDER_GOOGLE}
+        // provider={PROVIDER_GOOGLE}
         customMapStyle={MapViewStyle}
         showsUserLocation={true}
         region={{
@@ -45,7 +45,9 @@ export default function AppMapView({placeList}) {
           {placeList&&placeList.map((item,index)=>(
             <Markers key={index}
             index={index}
-            place={item}/>
+            place={item}
+            onMarkerTouch={onMarkerTouch}
+            />
           )
           
           )}
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
+    
     width: '100%',
     height: '100%',
   },

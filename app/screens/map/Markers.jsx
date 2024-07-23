@@ -35,12 +35,13 @@ import { Marker } from 'react-native-maps';
 import images from '../../../constants/images';
 import { SelectMarkerContext } from '../../Context/SelectMarkerContext';
 
-export default function Markers({ index, place }) {
+export default function Markers({ index, place, onMarkerTouch }) {
   const { setSelectedMarker, setIsMarkerTouched } = useContext(SelectMarkerContext);
 
   const handleMarkerPress = () => {
     setSelectedMarker(index);
     setIsMarkerTouched(true);
+    onMarkerTouch();
   };
 
   return place && (
