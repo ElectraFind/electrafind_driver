@@ -48,7 +48,8 @@
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "tailwindcss": "^3.3.2",
     "typescript": "~5.3.3",
-    "@types/react": "~18.2.79"
+    "@types/react": "~18.2.79",
+    "expo-haptics": "~13.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

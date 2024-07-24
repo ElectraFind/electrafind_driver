@@ -2,8 +2,8 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import Mechanics from '../../screens/service/MechanicsList';
-import ServiceStations from '../../screens/service/ServiceStationsList';
+import {mechanics} from '../../screens/service/MechanicsList';
+import {serviceStations} from '../../screens/service/ServiceStationsList';
 
 const Profile = () => {
   const route = useRoute();
@@ -12,9 +12,9 @@ const Profile = () => {
   // Function to get profile data from the corresponding list
   const getProfileData = () => {
     if (type === 'mechanic') {
-      return Mechanics.find(mechanic => mechanic.id === id);
+      return mechanics.find(mechanic => mechanic.id === id);
     } else if (type === 'serviceStation') {
-      return ServiceStations.find(station => station.id === id);
+      return serviceStations.find(station => station.id === id);
     }
     return null;
   };
