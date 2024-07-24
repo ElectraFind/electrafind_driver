@@ -13,6 +13,7 @@ import { useState } from 'react';
 import Info from '../../screens/map/Info';
 import Charge from '../../screens/map/Charge';
 import Swiper from 'react-native-swiper';
+import * as Haptics from 'expo-haptics'
 
 
 
@@ -26,6 +27,11 @@ export default function ChargingStationProfile() {
   const [activeButton, setActiveButton] = useState("Info");
 
   const navigation = useNavigation();
+
+  const handleButtonPress = (buttonName) => {
+    setActiveButton(buttonName);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
 
   const navigateToLocation = () => {
     if (place?.location) {
@@ -114,14 +120,14 @@ export default function ChargingStationProfile() {
         
         <View style={{flexDirection: "row", justifyContent: "center", marginTop: 20, marginHorizontal: 20, backgroundColor: "#E9E9E9", borderRadius: 20, borderWidth: 2,borderColor: "#000000",  }}>
 
-          <TouchableOpacity style={{paddingVertical: 15, paddingHorizontal: 75, margin: 2, backgroundColor: activeButton === "Info" ? "#000000" : "transparent", borderRadius: activeButton === "Info" ? 15 : 0}}
-            onPress={() => setActiveButton("Info")} 
+          <TouchableOpacity style={{flex: 1,alignItems: 'center',justifyContent: 'center',paddingVertical: 14, paddingHorizontal: 65, margin: 2, backgroundColor: activeButton === "Info" ? "#000000" : "transparent", borderRadius: activeButton === "Info" ? 15 : 0}}
+            onPress={() => handleButtonPress("Info")} 
           >
             <Text style={{color: activeButton === "Info" ? "#fff" : "#000",}} className={"font-psemibold"}>Info</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={{paddingVertical: 15, paddingHorizontal: 75, margin: 2, backgroundColor: activeButton === "Charge" ? "#000000" : "transparent", borderRadius: activeButton === "Charge" ? 15 : 0}}
-            onPress={() => setActiveButton("Charge")} 
+          <TouchableOpacity style={{flex: 1,alignItems: 'center',justifyContent: 'center',paddingVertical: 14, paddingHorizontal: 65, margin: 2, backgroundColor: activeButton === "Charge" ? "#000000" : "transparent", borderRadius: activeButton === "Charge" ? 15 : 0}}
+            onPress={() => handleButtonPress("Charge")} 
           >
             <Text style={{color: activeButton === "Charge" ? "#fff" : "#000",}} className={"font-psemibold"}>Charge</Text>
           </TouchableOpacity>
