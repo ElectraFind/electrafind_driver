@@ -4,9 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import MapScreen from '.';
 import ChargingStationProfile from './chargingStationProfile';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-// const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 

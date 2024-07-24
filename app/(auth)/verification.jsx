@@ -6,9 +6,12 @@ import FormFieldSmall from "../../components/FormFieldSmall";
 import CustomButton from "../../components/CustomButton";
 import {router} from 'expo-router';
 import { Ionicons } from "@expo/vector-icons";
-
+import { useNavigation } from 'expo-router'
 
 const Verification = () => {
+
+  const navigation = useNavigation();
+
   const [digit1, setDigit1] = useState('');
   const [digit2, setDigit2] = useState('');
   const [digit3, setDigit3] = useState('');
@@ -86,7 +89,7 @@ const Verification = () => {
             otherStyles="mt-7"
             onPress={handleVerify}
             isLoading={isSubmitting}
-            handlePress={() => router.push('/verified')}
+            handlePress={() => navigation.navigate('verified')}
           />
         </View>
       </ScrollView>

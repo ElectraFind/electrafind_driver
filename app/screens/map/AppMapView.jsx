@@ -18,7 +18,7 @@ export default function AppMapView({placeList, onMarkerTouch}) {
   return location?.latitude&&(
     <View>
       <MapView style={styles.map}
-        // provider={PROVIDER_GOOGLE}
+        //provider={PROVIDER_GOOGLE}
         customMapStyle={MapViewStyle}
         showsUserLocation={true}
         region={{

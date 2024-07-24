@@ -7,9 +7,9 @@ import {images} from '../constants';
 import CustomButton from '../components/CustomButton';
 
 const Index = () => {
-  print("fbdgb");
+  
   return (
-    <SafeAreaView className = "bg-primary h-full" >
+    <SafeAreaView className = "bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">
 
@@ -35,7 +35,7 @@ const Index = () => {
 
           <CustomButton
             title="Get started"
-            handlePress={() => router.push('/splashscreen')}     
+            handlePress={() => router.push('splashscreen')}     
             containerStyles="w-full mt-20"    
           />
         </View>

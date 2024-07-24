@@ -12,14 +12,22 @@ import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react";
+import { useState, useRouter } from "react";
 import axios from "axios";
 import { router } from "expo-router";
 import Header from '../../screens/charge/Header'
 import { StyleSheet } from 'react-native';
+import { useClerk,useSignOut,useUser } from "@clerk/clerk-expo";
+import { useNavigation } from 'expo-router'
 
 const TopupScreen = () => {
 
+  const navigation = useNavigation();
+  const { user } = useUser();
+  const { signOut } = useClerk();
+  const [image, setImage] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const [refetch, setRefetch] = useState(false);
   
 
   const pickImage = async () => {
@@ -66,11 +74,15 @@ const TopupScreen = () => {
   };
 
   const logoutHandler = async () => {
-    await AsyncStorage.removeItem("access_token");
-    await AsyncStorage.removeItem("refresh_token");
-    router.push("/(auth)/sign-in");
+    await signOut();
+    router.push("index");
     // Navigate to the login screen or perform any other logout actions
   };
+
+  // Extract username from email
+  const email = user?.primaryEmailAddress?.emailAddress || 'No email';
+  const username = email.split('@')[0];
+
 
   return (
 
@@ -117,7 +129,7 @@ const TopupScreen = () => {
                   fontWeight: "600",
                 }}
               >
-                Chamudra
+                {username}
           </Text>
         </View>
 
@@ -142,6 +154,8 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
+
+                onPress={() => navigation.navigate('userProfile')}
               >
                 <View
                   style={{
@@ -184,7 +198,7 @@ const TopupScreen = () => {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('userProfile')}>
                   <AntDesign name="right" size={26} color={"#CBD5E0"} />
                 </TouchableOpacity>
               </TouchableOpacity>
@@ -386,8 +400,8 @@ const TopupScreen = () => {
                       color={"black"}
                     />
                   </View>
-                  <TouchableOpacity> 
-                  {/* onPress={() => logoutHandler()} */}
+                  <TouchableOpacity onPress={() => logoutHandler()}> 
+                   
                     <Text
                       style={{ fontSize: 16 }}
                       className="font-psemibold"

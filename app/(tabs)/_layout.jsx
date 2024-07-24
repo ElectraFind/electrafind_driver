@@ -13,6 +13,7 @@ import chargingStationProfile from './map/chargingStationProfile';
 import App from './map/_layout'
 import MapLayout from './map/_layout';
 import ServiceLayout from './service/_servicelayout';
+import ProfileLayout from './topup/_profilelayout';
 import { useState, useEffect } from 'react';
 
 
@@ -152,7 +153,7 @@ export default function TabsLayout() {
 
         <Tab.Screen
           name="topup"
-          component={TopupScreen}
+          component={ProfileLayout}
           
           options={{
             title: "TopupScreen",
