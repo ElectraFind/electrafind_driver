@@ -21,16 +21,16 @@ const categories = [
     icon: 'directions-bike',
     value: 'e-cycle',
   },
-  {
-    name: 'Vehicle Parts',
-    icon: 'build-circle',
-    value: 'vehicle-parts',
-  },
-  {
-    name: 'Accessories',
-    icon: 'sports-esports',
-    value: 'accessories',
-  },
+  // {
+  //   name: 'Vehicle Parts',
+  //   icon: 'build-circle',
+  //   value: 'vehicle-parts',
+  // },
+  // {
+  //   name: 'Accessories',
+  //   icon: 'sports-esports',
+  //   value: 'accessories',
+  // },
 ];
 
 const Header = ({ onCategoryChanged }) => {
@@ -45,14 +45,14 @@ const Header = ({ onCategoryChanged }) => {
       scrollRef.current?.scrollTo({ x: pageX - 16, y: 0, animated: true });
     });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    onCategoryChanged(categories[index].name);
+    onCategoryChanged(categories[index].value);
   };
 
   return (
-    <SafeAreaView style={{ flex:1, }}>
+    <SafeAreaView style={{ flex:1 }}>
       <View style={styles.container}>
         <View style={styles.actionRow}>
-          <Link href={'/(modals)/booking'} asChild>
+          {/* <Link href={'/(modals)/booking'} asChild> */}
             <TouchableOpacity>
               <View style={styles.searchBtn}>
                 <Ionicons name="search" size={24} />
@@ -62,7 +62,7 @@ const Header = ({ onCategoryChanged }) => {
                 </View>
               </View>
             </TouchableOpacity>
-          </Link>
+          {/* </Link> */}
           <TouchableOpacity style={styles.filterBtn}>
             <Ionicons name="options-outline" size={24} />
           </TouchableOpacity>
@@ -148,20 +148,20 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   searchText: {
-    fontFamily: 'mon-sb',
+    
   },
   searchSubText: {
     color: Colors.grey,
-    fontFamily: 'mon',
+   
   },
   categoryText: {
     fontSize: 14,
-    fontFamily: 'mon-sb',
+    
     color: Colors.grey,
   },
   categoryTextActive: {
     fontSize: 14,
-    fontFamily: 'mon-sb',
+    
     color: '#000',
   },
   categoriesBtn: {
@@ -183,6 +183,10 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingHorizontal: 16,
   },
+  categoriesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  }
 });
 
 export default Header;

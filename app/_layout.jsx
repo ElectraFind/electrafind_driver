@@ -116,7 +116,9 @@ const RootLayout = () => {
       {/* <Splash/> */}
       <NavigationContainer independent={true}>
             <SignedIn>
+            
               <TabsLayout />
+              
             </SignedIn>
             <SignedOut>
               <AuthLayout />

@@ -5,10 +5,12 @@ import HeaderMarketForm from '../../screens/topup/HeaderMarketForm';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { VehicleContext } from '../../Context/VehicleContext';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MarketPlace() {
 
   const { addVehicle } = useContext(VehicleContext);
+  const navigation = useNavigation();
 
   const [vehicleName, setVehicleName] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -46,7 +48,12 @@ export default function MarketPlace() {
 
     addVehicle(newVehicle);
 
-    Alert.alert('Form Submitted', 'Your vehicle has been listed for sale.');
+    Alert.alert('Form Submitted', 'Your vehicle has been listed for sale.', [
+      {
+        text: 'OK',
+        onPress: () => navigation.navigate('index'), // Navigate to the index page
+      },
+    ]);
   };
 
   const pickImage = async () => {

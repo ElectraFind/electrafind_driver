@@ -25,9 +25,9 @@ export default function VehicleCard({ vehicle }) {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: screenWidth * 0.95,
+    width: screenWidth * 0.90,
     backgroundColor: '#ffffff',
-    margin: 10,
+    marginVertical: 5, // Adjust the vertical margin to control spacing between cards
     borderRadius: 10,
     padding: 0,
   },

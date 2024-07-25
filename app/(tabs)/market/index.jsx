@@ -24,21 +24,20 @@ export default function MarketScreen()  {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        
-        <Header onCategoryChanged={handleCategoryChange}/>
-
-        {filteredVehicles.length > 0 ? (
-          <FlatList
-            data={filteredVehicles}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-            contentContainerStyle={styles.listContent}
-          />
-        ) : (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No vehicles available in this category</Text>
-          </View>
-        )}
+        <View style={styles.headerContainer}>
+          <Header onCategoryChanged={handleCategoryChange}/>
+        </View>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          {filteredVehicles.length > 0 ? (
+            filteredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+            ))
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No vehicles available in this category</Text>
+            </View>
+          )}
+        </ScrollView>
         
       </View>
     </SafeAreaView>
@@ -53,9 +52,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  headerContainer: {
+    width: '100%',
+    height: '25%'
+    
+    
+  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'flex-start',
+    alignItems: 'center', // Add some padding at the bottom if necessary
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    color: '#666',
   },
 });
