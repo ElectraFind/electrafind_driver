@@ -319,7 +319,9 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
-                // onPress={() => router.push("/(routes)/enrolled-courses")}
+
+                onPress={() => navigation.navigate('marketPlace')}
+                
               >
                 <View
                   style={{
@@ -362,7 +364,7 @@ const TopupScreen = () => {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('marketPlace')}>
                   <AntDesign name="right" size={26} color={"#CBD5E0"} />
                 </TouchableOpacity>
               </TouchableOpacity>

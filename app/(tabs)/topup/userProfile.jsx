@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Image,Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { images } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function UserProfile() {
   const { isSignedIn } = useAuth();
@@ -16,8 +17,6 @@ export default function UserProfile() {
       const username = email.split('@')[0]; // Extract username from email
       const phone = user.phoneNumbers && user.phoneNumbers.length > 0 ? user.phoneNumbers[0].phoneNumber : 'No phone number';
       const address = user.publicMetadata?.address || 'No address';
-      
-     
 
       setProfile({ username, email, phone, address });
     }
@@ -32,56 +31,70 @@ export default function UserProfile() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-          <Image 
-            source={images.logoverticalshort}
-            style={styles.imagelogo}
-          /> 
-      </View>
-      <View style={styles.profileContainer}>
-        <Text style={styles.title}>User Profile</Text>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Username:</Text>
-          <Text style={styles.value}>{profile.username}</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image 
+              source={images.logoverticalshort}
+              style={styles.imagelogo}
+            /> 
+          </View>
+          <View style={styles.profileContainer}>
+            <Text style={styles.title}>User Profile</Text>
+            <View style={styles.infoContainer}>
+              <Text style={styles.label}>Username:</Text>
+              <Text style={styles.value}>{profile.username}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.label}>Email:</Text>
+              <Text style={styles.value}>{profile.email}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.label}>Phone:</Text>
+              <Text style={styles.value}>{profile.phone}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.label}>Address:</Text>
+              <Text style={styles.value}>{profile.address}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.label}>Vehicle Number:</Text>
+              <Text style={styles.value}>Not Available</Text>
+            </View>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('editUserProfile')}>
+              <Text style={styles.buttonText}>Edit Profile</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Email:</Text>
-          <Text style={styles.value}>{profile.email}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Phone:</Text>
-          <Text style={styles.value}>{profile.phone}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Address:</Text>
-          <Text style={styles.value}>{profile.address}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.label}>Vehicle Number:</Text>
-          <Text style={styles.value}>Not Available</Text>
-        </View>
-        <Button title="Edit Profile" onPress={() => navigation.navigate('editUserProfile')} />
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     padding: 10,
     backgroundColor: '#F5F5F5',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   profileContainer: {
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     padding: 50,
     margin: 20,
-    height: '70%',
-    width: '100%',
+    width: '90%',
     maxWidth: 800,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -120,12 +133,24 @@ const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   imageContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+  
+    marginBottom: 60,
     backgroundColor: '#000000',
     width: '120%',
-    height: '20%',
+    height: 80,
+  },
+  button: {
+    marginTop: 20,
+    backgroundColor: '#000000',
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
   },
 });

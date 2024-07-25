@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import TopupScreen from '.';
 import UserProfile from './userProfile';
 import EditProfile from './editUserProfile';
+import MarketPlace from './marketPlace';
 
 // const Tab = createBottomTabNavigator();
 
@@ -21,6 +22,10 @@ function ProfileLayout() {
 
         <Stack.Screen name="editUserProfile" component={EditProfile} options={{
             headerShown: false}}/>
+        
+        <Stack.Screen name="marketPlace" component={MarketPlace} options={{
+            headerShown: false}}/>
+        
       </Stack.Navigator>
 
       <StatusBar backgroundColor="#161622" style="light"/>
