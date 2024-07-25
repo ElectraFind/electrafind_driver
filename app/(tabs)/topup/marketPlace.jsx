@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderMarketForm from '../../screens/topup/HeaderMarketForm';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import { VehicleContext } from '../../Context/VehicleContext';
 
 export default function MarketPlace() {
+
+  const { addVehicle } = useContext(VehicleContext);
 
   const [vehicleName, setVehicleName] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -13,6 +16,7 @@ export default function MarketPlace() {
   const [registeredYear, setRegisteredYear] = useState('');
   const [vehiclePrice, setVehiclePrice] = useState('');
   const [vehicleRange, setVehicleRange] = useState('');
+  const [vehicleMileage, setVehicleMileage] = useState('');
   const [vehicleDescription, setVehicleDescription] = useState('');
   const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [nearestCity, setNearestCity] = useState('');
@@ -21,19 +25,26 @@ export default function MarketPlace() {
   const [images, setImages] = useState([]);
 
   const handleSellVehicle = () => {
+
     // Handle the form submission logic here
-    console.log('Vehicle Name:', vehicleName);
-    console.log('Vehicle Model:', vehicleModel);
-    console.log('Manufactured Year:', manufacturedYear);
-    console.log('Registered Year:', registeredYear);
-    console.log('Vehicle Price:', vehiclePrice);
-    console.log('Vehicle Range:', vehicleRange);
-    console.log('Vehicle Description:', vehicleDescription);
-    console.log('User Phone Number:', userPhoneNumber);
-    console.log('Nearest City:', nearestCity);
-    console.log('District:', district);
-    console.log('Vehicle Category:', vehicleCategory);
-    console.log('Images:', images);
+    const newVehicle = {
+      id: Date.now().toString(),
+      name: vehicleName,
+      model: vehicleModel,
+      manufacturedYear,
+      registeredYear,
+      price: vehiclePrice,
+      range: vehicleRange,
+      mileage: vehicleMileage,
+      description: vehicleDescription,
+      phoneNumber: userPhoneNumber,
+      nearestCity,
+      district,
+      category: vehicleCategory,
+      images,
+    };
+
+    addVehicle(newVehicle);
 
     Alert.alert('Form Submitted', 'Your vehicle has been listed for sale.');
   };
@@ -55,19 +66,23 @@ export default function MarketPlace() {
     }
   };
 
+  const removeImage = (uri) => {
+    setImages(images.filter(image => image !== uri));
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
         <HeaderMarketForm />
       </View>
       
-        <View style={styles.textContainer}>
-          <Text style={styles.text} className={'font-pbold'}>
-            Sell your Electric Vehicle and Accessories on our platform
-          </Text>
-        </View>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text} className={'font-pbold'}>
+          Sell your Electric Vehicle and Accessories on our platform
+        </Text>
+      </View>
       
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.formContainer}>
           <TextInput
             style={styles.input}
@@ -111,6 +126,13 @@ export default function MarketPlace() {
           />
           <TextInput
             style={styles.input}
+            placeholder="Mileage in KMs"
+            value={vehicleMileage}
+            onChangeText={setVehicleMileage}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.input}
             placeholder="Phone Number"
             value={userPhoneNumber}
             onChangeText={setUserPhoneNumber}
@@ -148,11 +170,16 @@ export default function MarketPlace() {
           />
           <View style={styles.imageContainer}>
             {images.map((image, index) => (
-              <Image key={index} source={{ uri: image }} style={styles.image} />
+              <View key={index} style={styles.imageWrapper}>
+                <Image source={{ uri: image }} style={styles.image} />
+                <TouchableOpacity onPress={() => removeImage(image)} style={styles.removeButton}>
+                  <Text style={styles.removeButtonText}>Remove</Text>
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
-          <TouchableOpacity style={styles.button} onPress={pickImage}>
-            <Text style={styles.buttonText}>Upload Image</Text>
+          <TouchableOpacity style={styles.buttonUpload} onPress={pickImage}>
+            <Text style={styles.buttonTextUpload}>Upload Image</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleSellVehicle}>
             <Text style={styles.buttonText}>Sell Vehicle</Text>
@@ -192,6 +219,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
     marginTop: 20,
+    marginBottom: 20,
   },
   input: {
     height: 40,
@@ -221,15 +249,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
+    flexWrap: 'wrap',
+  },
+  imageWrapper: {
+    position: 'relative',
+    margin: 5,
   },
   image: {
     width: 100,
     height: 100,
-    marginHorizontal: 5,
     borderRadius: 5,
   },
+  removeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: 'red',
+    padding: 5,
+    borderRadius: 5,
+  },
+  removeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+  },
   button: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: '#000000',
     borderRadius: 25,
     paddingVertical: 10,
@@ -240,4 +284,19 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 20,
   },
+  buttonUpload: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    backgroundColor: '#ffffff',
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  buttonTextUpload: {
+    color: '#000000',
+    fontSize: 20,
+
+  },
+  
 });

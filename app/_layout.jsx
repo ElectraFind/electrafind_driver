@@ -7,6 +7,7 @@ import {UserLocationContext} from './Context/UserLocationContext'
 import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn ,useUser} from "@clerk/clerk-expo"
 import { StatusBar } from 'expo-status-bar';
 import SignIn from './(auth)/sign-in'
+import { VehicleProvider } from './Context/VehicleContext';
 
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
@@ -111,7 +112,7 @@ const RootLayout = () => {
     <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
       <ClerkLoaded>
       <UserLocationContext.Provider value={{location,setLocation}}>
-      
+      <VehicleProvider>
       {/* <Splash/> */}
       <NavigationContainer independent={true}>
             <SignedIn>
@@ -121,6 +122,8 @@ const RootLayout = () => {
               <AuthLayout />
             </SignedOut>
           </NavigationContainer>
+          </VehicleProvider>
+          
       {/* // </UserLocationContext.Provider> */}
       <StatusBar style="auto" />
       

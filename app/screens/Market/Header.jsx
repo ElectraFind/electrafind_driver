@@ -9,24 +9,28 @@ const categories = [
   {
     name: 'E-Cars',
     icon: 'directions-car',
+    value: 'e-car',
   },
   {
     name: 'E-Bikes',
     icon: 'two-wheeler',
+    value: 'e-bike',
   },
   {
     name: 'E-Cycles',
     icon: 'directions-bike',
+    value: 'e-cycle',
   },
   {
     name: 'Vehicle Parts',
     icon: 'build-circle',
+    value: 'vehicle-parts',
   },
   {
     name: 'Accessories',
-    icon: 'sports-esports', 
+    icon: 'sports-esports',
+    value: 'accessories',
   },
-  
 ];
 
 const Header = ({ onCategoryChanged }) => {
@@ -41,7 +45,7 @@ const Header = ({ onCategoryChanged }) => {
       scrollRef.current?.scrollTo({ x: pageX - 16, y: 0, animated: true });
     });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    // onCategoryChanged(categories[index].name);
+    onCategoryChanged(categories[index].name);
   };
 
   return (
@@ -68,7 +72,7 @@ const Header = ({ onCategoryChanged }) => {
           style={{ flex: 1 }}
           className="space-x-3"
           horizontal
-          // ref={scrollRef}
+          ref={scrollRef}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.scrollContainer}
         >
