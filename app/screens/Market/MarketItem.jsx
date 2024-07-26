@@ -1,16 +1,17 @@
-import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
+// VehicleCard.js
+import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import images from '../../../constants/images';
 
 const screenWidth = Dimensions.get('screen').width;
 
-export default function VehicleCard({ vehicle }) {
+export default function VehicleCard({ vehicle, onPress }) {
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity style={styles.cardContainer} onPress={() => onPress(vehicle)}>
       <LinearGradient colors={['transparent', '#ffffff']}>
         <Image
-          source={ vehicle?.images?.length > 0 ? { uri: vehicle.images[0] } : (images.carImage) }
+          source={vehicle?.images?.length > 0 ? { uri: vehicle.images[0] } : images.carImage}
           style={styles.image}
         />
         <View style={styles.infoContainer}>
@@ -19,7 +20,7 @@ export default function VehicleCard({ vehicle }) {
           <Text style={styles.subtitle}>{vehicle.manufacturedYear}</Text>
         </View>
       </LinearGradient>
-    </View>
+    </TouchableOpacity>
   );
 }
 

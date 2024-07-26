@@ -35,7 +35,7 @@ const Index = () => {
 
           <CustomButton
             title="Get started"
-            handlePress={() => router.push('splashscreen')}     
+            // handlePress={() => router.push('sign-in')}     
             containerStyles="w-full mt-20"    
           />
         </View>

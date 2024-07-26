@@ -51,9 +51,9 @@ const Header = ({ onCategoryChanged }) => {
   return (
     <SafeAreaView style={{ flex:1 }}>
       <View style={styles.container}>
-        <View style={styles.actionRow}>
+        {/* <View style={styles.actionRow}> */}
           {/* <Link href={'/(modals)/booking'} asChild> */}
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <View style={styles.searchBtn}>
                 <Ionicons name="search" size={24} />
                 <View>
@@ -61,12 +61,12 @@ const Header = ({ onCategoryChanged }) => {
                   <Text style={styles.searchSubText}>Anything . Electrical</Text>
                 </View>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           {/* </Link> */}
-          <TouchableOpacity style={styles.filterBtn}>
+          {/* <TouchableOpacity style={styles.filterBtn}>
             <Ionicons name="options-outline" size={24} />
-          </TouchableOpacity>
-        </View>
+          </TouchableOpacity> */}
+        {/* </View> */}
 
         <ScrollView
           style={{ flex: 1 }}
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   container: {
     
     backgroundColor: '#fff',
-    height: 160,
+    height: 100,
     elevation: 2,
     shadowColor: '#000',
     shadowOpacity: 0.1,
@@ -155,9 +155,9 @@ const styles = StyleSheet.create({
    
   },
   categoryText: {
-    fontSize: 14,
-    
+    fontSize: 14, 
     color: Colors.grey,
+    
   },
   categoryTextActive: {
     fontSize: 14,
@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     alignItems: 'center',
     gap: 20,
+    justifyContent: 'center',
     paddingHorizontal: 16,
   },
   categoriesContainer: {

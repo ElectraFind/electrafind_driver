@@ -5,21 +5,27 @@ import Header from '../../screens/Market/Header'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { VehicleContext } from '../../Context/VehicleContext'
 import VehicleCard from '../../screens/Market/MarketItem'
+import { useNavigation } from '@react-navigation/native'
 
 export default function MarketScreen()  {
 
   const { vehicles } = useContext(VehicleContext);
   const [selectedCategory, setSelectedCategory] = useState('e-car');
+  const navigation = useNavigation();
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
   };
 
+  const handleCardPress = (vehicle) => {
+    navigation.navigate('vehicleDetailProfile', { vehicle });
+  };
+
   const filteredVehicles = vehicles.filter(vehicle => vehicle.category === selectedCategory);
 
-  const renderItem = ({ item }) => (
-    <VehicleCard vehicle={item} />
-  );
+  // const renderItem = ({ item }) => (
+  //   <VehicleCard vehicle={item} />
+  // );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -30,7 +36,7 @@ export default function MarketScreen()  {
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           {filteredVehicles.length > 0 ? (
             filteredVehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+              <VehicleCard key={vehicle.id} vehicle={vehicle} onPress={handleCardPress}/>
             ))
           ) : (
             <View style={styles.emptyContainer}>
@@ -53,8 +59,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
+    
     width: '100%',
-    height: '25%'
+    height: '15%',
     
     
   },

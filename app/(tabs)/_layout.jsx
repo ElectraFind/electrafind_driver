@@ -14,6 +14,7 @@ import App from './map/_layout'
 import MapLayout from './map/_layout';
 import ServiceLayout from './service/_servicelayout';
 import ProfileLayout from './topup/_profilelayout';
+import MarketLayout from './market/_marketlayout';
 import { useState, useEffect } from 'react';
 
 
@@ -98,8 +99,8 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-          name="market"
-          component={MarketScreen}
+          name="_marketlayout"
+          component={MarketLayout}
           
           options={{
             title: "MarketScreen",

@@ -121,14 +121,15 @@ const RootLayout = () => {
               
             </SignedIn>
             <SignedOut>
+              
               <AuthLayout />
             </SignedOut>
           </NavigationContainer>
-          </VehicleProvider>
+          
           
       {/* // </UserLocationContext.Provider> */}
       <StatusBar style="auto" />
-      
+      </VehicleProvider>
         </UserLocationContext.Provider>
         </ClerkLoaded>
     </ClerkProvider>
