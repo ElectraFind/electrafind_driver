@@ -1,13 +1,14 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
 import { useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import {mechanics} from '../../screens/service/MechanicsList';
-import {serviceStations} from '../../screens/service/ServiceStationsList';
+import { mechanics } from '../../screens/service/MechanicsList';
+import { serviceStations } from '../../screens/service/ServiceStationsList';
 
 const Profile = () => {
   const route = useRoute();
   const { id, type } = route.params;
+  const [comment, setComment] = useState('');
 
   // Function to get profile data from the corresponding list
   const getProfileData = () => {
@@ -28,6 +29,12 @@ const Profile = () => {
       </View>
     );
   }
+
+  const handleSubmit = () => {
+    // Handle the submit action, e.g., send the comment to a server or add it to a list
+    console.log('Comment submitted:', comment);
+    setComment(''); // Clear the comment input after submission
+  };
 
   return (
     <View style={styles.container}>
@@ -51,11 +58,26 @@ const Profile = () => {
         <Text style={styles.aboutTitle}>About</Text>
         <Text style={styles.aboutText}>{profileData.about}</Text>
       </View>
+
+      <View style={styles.reviewContainer}>
+        <Text style={styles.reviewTitle}>Reviews</Text>
+        <View style={styles.stars}>
+          {[...Array(5)].map((_, index) => (
+            <Ionicons key={index} name="star" size={24} color="gold" />
+          ))}
+        </View>
+        <TextInput
+          style={styles.commentInput}
+          placeholder="Add a Comment"
+          value={comment}
+          onChangeText={setComment}
+        />
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-
-  
-  
 };
 
 const styles = StyleSheet.create({
@@ -90,6 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
     padding: 16,
     borderRadius: 10,
+    marginBottom: 20,
   },
   aboutTitle: {
     fontSize: 18,
@@ -100,9 +123,42 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
   },
+  reviewContainer: {
+    backgroundColor: '#f9f9f9',
+    padding: 16,
+    borderRadius: 10,
+  },
+  reviewTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  stars: {
+    flexDirection: 'row',
+    marginBottom: 16,
+  },
+  commentInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 16,
+  },
+  submitButton: {
+    backgroundColor: '#15803d',
+    paddingVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
 
 export default Profile;
+
 
 
 
