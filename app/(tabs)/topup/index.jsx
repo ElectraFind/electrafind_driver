@@ -75,7 +75,7 @@ const TopupScreen = () => {
 
   const logoutHandler = async () => {
     await signOut();
-    router.push("index");
+    router.push("sign-in");
     // Navigate to the login screen or perform any other logout actions
   };
 

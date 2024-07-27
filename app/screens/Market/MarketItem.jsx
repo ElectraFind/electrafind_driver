@@ -15,8 +15,11 @@ export default function VehicleCard({ vehicle, onPress }) {
           style={styles.image}
         />
         <View style={styles.infoContainer}>
-          <Text style={styles.title}>{vehicle.name}</Text>
-          <Text style={styles.subtitle}>{vehicle.model}</Text>
+          <View className="flex-row items-center space-x-1 mt-2">
+            <Text style={styles.title}>{vehicle.name}</Text>
+            <Text style={styles.title}>{vehicle.model}</Text>
+          </View>
+          <Text style={styles.subtitle}>{vehicle.district}</Text>
           <Text style={styles.subtitle}>{vehicle.manufacturedYear}</Text>
         </View>
       </LinearGradient>

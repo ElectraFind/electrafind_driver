@@ -51,9 +51,9 @@ const Header = ({ onCategoryChanged }) => {
   return (
     <SafeAreaView style={{ flex:1 }}>
       <View style={styles.container}>
-        {/* <View style={styles.actionRow}> */}
+        <View style={styles.actionRow}>
           {/* <Link href={'/(modals)/booking'} asChild> */}
-            {/* <TouchableOpacity>
+            <TouchableOpacity>
               <View style={styles.searchBtn}>
                 <Ionicons name="search" size={24} />
                 <View>
@@ -61,12 +61,9 @@ const Header = ({ onCategoryChanged }) => {
                   <Text style={styles.searchSubText}>Anything . Electrical</Text>
                 </View>
               </View>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           {/* </Link> */}
-          {/* <TouchableOpacity style={styles.filterBtn}>
-            <Ionicons name="options-outline" size={24} />
-          </TouchableOpacity> */}
-        {/* </View> */}
+        </View>
 
         <ScrollView
           style={{ flex: 1 }}
@@ -85,7 +82,7 @@ const Header = ({ onCategoryChanged }) => {
             >
               <MaterialIcons
                 name={item.icon}
-                size={24}
+                size={28}
                 color={activeIndex === index ? '#000' : Colors.grey}
               />
               <Text style={activeIndex === index ? styles.categoryTextActive : styles.categoryText}>
@@ -100,10 +97,9 @@ const Header = ({ onCategoryChanged }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    
+  container: {  
     backgroundColor: '#fff',
-    height: 100,
+    height: 150,
     elevation: 2,
     shadowColor: '#000',
     shadowOpacity: 0.1,
@@ -114,21 +110,20 @@ const styles = StyleSheet.create({
     },
   },
   actionRow: {
+    flex: 1,
     marginTop: 20,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
+    justifyContent: 'center',
     paddingBottom: 16,
+    width: '100%',
   },
-  searchBtn: {
-   
+  searchBtn: { 
     backgroundColor: '#fff',
     flexDirection: 'row',
-    gap: 10,
-    padding: 14,
+    gap: 19,
+    padding: 10,
+    paddingHorizontal: 80,
     alignItems: 'center',
-    width: 280,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#c2c2c2',
     borderRadius: 30,
@@ -141,12 +136,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
   },
-  filterBtn: {
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#A2A0A2',
-    borderRadius: 24,
-  },
+  
   searchText: {
     
   },
@@ -161,7 +151,6 @@ const styles = StyleSheet.create({
   },
   categoryTextActive: {
     fontSize: 14,
-    
     color: '#000',
   },
   categoriesBtn: {
@@ -179,14 +168,16 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   scrollContainer: {
+    flex:1,
+    flexDirection: 'row',
     alignItems: 'center',
-    gap: 20,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
   },
   categoriesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    width: '50',
   }
 });
 

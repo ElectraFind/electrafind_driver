@@ -24,4 +24,4 @@ function MarketLayout() {
   );
 }
 
-export default MapLayout;
+export default MarketLayout;

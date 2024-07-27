@@ -1,28 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, Text, View, Image, ActivityIndicator } from 'react-native';
-import { Link } from 'expo-router';
-import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../constants';
 import React, { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import * as SplashScreen from 'expo-splash-screen';
 
-const Splash = () => {
-  const navigation = useNavigation();
+export default function CustomSplashScreen({ setAppIsReady }) {
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/sign-in'); // Navigate to sign-in screen after timeout
-    }, 1500); // Adjust duration as needed (e.g., 2000 milliseconds)
-    
-    return () => clearTimeout(timer); // Clear timeout on component unmount
-  }, [navigation]);
+    async function prepare() {
+      try {
+        // Pre-load fonts, make any API calls you need to do here
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a loading time
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
 
+    prepare();
+  }, []);
   
 
 
   return (
-
-    
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">
@@ -51,4 +54,3 @@ const Splash = () => {
 }
 
 
-export default Splash;

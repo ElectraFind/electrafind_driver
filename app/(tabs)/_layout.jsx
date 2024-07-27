@@ -60,7 +60,7 @@ export default function TabsLayout() {
 
   return (
     <>
-    <Tab.Navigator initialRouteName="map"
+    <Tab.Navigator initialRouteName="Map"
       
         screenOptions={{
           
@@ -153,7 +153,7 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-          name="topup"
+          name="_profilelayout"
           component={ProfileLayout}
           
           options={{
