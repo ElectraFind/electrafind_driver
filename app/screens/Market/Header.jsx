@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import Colors from '../../../constants/Colors';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import { Link } from 'expo-router';
 
 const categories = [
   {
@@ -21,22 +19,13 @@ const categories = [
     icon: 'directions-bike',
     value: 'e-cycle',
   },
-  // {
-  //   name: 'Vehicle Parts',
-  //   icon: 'build-circle',
-  //   value: 'vehicle-parts',
-  // },
-  // {
-  //   name: 'Accessories',
-  //   icon: 'sports-esports',
-  //   value: 'accessories',
-  // },
 ];
 
-const Header = ({ onCategoryChanged }) => {
+const Header = ({ onCategoryChanged, onSearch, recommendations }) => {
   const scrollRef = useRef(null);
   const itemsRef = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const selectCategory = (index) => {
     const selected = itemsRef.current[index];
@@ -48,26 +37,58 @@ const Header = ({ onCategoryChanged }) => {
     onCategoryChanged(categories[index].value);
   };
 
+  const handleSearch = () => {
+    onSearch(searchQuery);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    onSearch('');
+  };
+
+  const handleRecommendationPress = (item) => {
+    setSearchQuery(item.name);
+    onSearch(item.name);
+  };
+
   return (
-    <SafeAreaView style={{ flex:1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.actionRow}>
-          {/* <Link href={'/(modals)/booking'} asChild> */}
-            <TouchableOpacity>
-              <View style={styles.searchBtn}>
-                <Ionicons name="search" size={24} />
-                <View>
-                  <Text style={styles.searchText}>Search</Text>
-                  <Text style={styles.searchSubText}>Anything . Electrical</Text>
-                </View>
-              </View>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search Anything . Electrical"
+              placeholderTextColor="#ffffff"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              onSubmitEditing={handleSearch}
+            />
+            <TouchableOpacity onPress={handleSearch}>
+              <Ionicons name="search" size={24} color="#ffffff" />
             </TouchableOpacity>
-          {/* </Link> */}
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={handleClearSearch}>
+                <Ionicons name="close" size={24} color="#ffffff" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
+        {/* {searchQuery.length > 0 && (
+          <FlatList
+            data={recommendations}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => handleRecommendationPress(item)}>
+                <Text style={styles.recommendationItem}>{item.name}</Text>
+              </TouchableOpacity>
+            )}
+            style={styles.recommendationList}
+          />
+        )} */}
 
         <ScrollView
           style={{ flex: 1 }}
-          className="space-x-3"
           horizontal
           ref={scrollRef}
           showsHorizontalScrollIndicator={false}
@@ -83,7 +104,7 @@ const Header = ({ onCategoryChanged }) => {
               <MaterialIcons
                 name={item.icon}
                 size={28}
-                color={activeIndex === index ? '#000' : Colors.grey}
+                color={activeIndex === index ? '#ffffff' : '#888888'}
               />
               <Text style={activeIndex === index ? styles.categoryTextActive : styles.categoryText}>
                 {item.name}
@@ -98,7 +119,7 @@ const Header = ({ onCategoryChanged }) => {
 
 const styles = StyleSheet.create({
   container: {  
-    backgroundColor: '#fff',
+    backgroundColor: '#000000',
     height: 150,
     elevation: 2,
     shadowColor: '#000',
@@ -117,16 +138,15 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     width: '100%',
   },
-  searchBtn: { 
-    backgroundColor: '#fff',
+  searchContainer: {
     flexDirection: 'row',
-    gap: 19,
-    padding: 10,
-    paddingHorizontal: 80,
     alignItems: 'center',
+    backgroundColor: '#333333',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#c2c2c2',
     borderRadius: 30,
+    padding: 10,
+    width: '90%',
     elevation: 2,
     shadowColor: '#000',
     shadowOpacity: 0.12,
@@ -136,22 +156,37 @@ const styles = StyleSheet.create({
       height: 1,
     },
   },
-  
-  searchText: {
-    
+  searchInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+    color: '#ffffff',
   },
-  searchSubText: {
-    color: Colors.grey,
-   
+  recommendationList: {
+    maxHeight: 200,
+    backgroundColor: '#000000',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#c2c2c2',
+    borderRadius: 10,
+    marginHorizontal: 16,
+    position: 'absolute', // Position the recommendation list absolutely
+    top: 100, // Adjust as needed
+    left: 0,
+    right: 0,
+    zIndex: 1, // Ensure the list appears above other content
+  },
+  recommendationItem: {
+    padding: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#c2c2c2',
+    color: '#ffffff',
   },
   categoryText: {
-    fontSize: 14, 
-    color: Colors.grey,
-    
+    fontSize: 14,
+    color: '#888888',
   },
   categoryTextActive: {
     fontSize: 14,
-    color: '#000',
+    color: '#ffffff',
   },
   categoriesBtn: {
     flex: 1,
@@ -163,12 +198,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomColor: '#000',
+    borderBottomColor: '#ffffff',
     borderBottomWidth: 2,
     paddingBottom: 8,
   },
   scrollContainer: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -177,8 +212,8 @@ const styles = StyleSheet.create({
   categoriesContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '50',
-  }
+    width: '50%',
+  },
 });
 
 export default Header;
