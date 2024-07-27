@@ -1,8 +1,7 @@
-import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import images from '../../../constants/images';
-
 
 export const serviceStations = [
   { id: '1', name: 'Service Station A', address: '123 Main St, City A', review: 4.6, image: images.servicestation1, about: 'About Service Station A...' },
@@ -13,23 +12,16 @@ export const serviceStations = [
   { id: '6', name: 'Service Station F', address: '456 Elm St, City F', review: 4.4, image: images.servicestation6, about: 'About Service Station F...' },
   { id: '7', name: 'Service Station G', address: '456 Elm St, City G', review: 4.4, image: images.servicestation6, about: 'About Service Station G...' },
   { id: '8', name: 'Service Station G', address: '456 Elm St, City G', review: 4.4, image: images.servicestation6, about: 'About Service Station G...' },
-  
 ];
-
-
 
 const ServiceStationsList = () => {
   const navigation = useNavigation();
 
   return (
-
-    <FlatList
-      showsVerticalScrollIndicator={false}
-      data={serviceStations}
-      keyExtractor={(item) => item.id}
-      style={styles.container}
-      renderItem={({ item }) => (
+    <ScrollView style={styles.container}>
+      {serviceStations.map((item) => (
         <TouchableOpacity
+          key={item.id}
           style={styles.card}
           onPress={() => navigation.navigate('Profile', { id: item.id, type: 'serviceStation' })}
         >
@@ -42,14 +34,14 @@ const ServiceStationsList = () => {
             </View>
           </View>
         </TouchableOpacity>
-      )}
-    />
+      ))}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#E9E9E9', padding: 5, height: 610, borderRadius: 10,},
-  card: { flex:1,backgroundColor: '#ffffff', borderRadius: 10, flexDirection: 'row', alignItems: 'center', marginBottom: 14, padding: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 5, elevation: 5 },
+  container: { backgroundColor: '#E9E9E9', padding: 3, height: 580, borderRadius: 10,},
+  card: { backgroundColor: '#ffffff', borderRadius: 10, flexDirection: 'row', alignItems: 'center', marginBottom: 14, padding: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.3, shadowRadius: 5, elevation: 5 },
   image: { width: 100, height: 100, resizeMode: 'contain', marginRight: 15 },
   cardContent: { flex: 1 },
   name: { fontSize: 18, fontWeight: 'bold', color: '#000' },

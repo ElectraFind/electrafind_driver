@@ -58,17 +58,17 @@ const Header = ({ onCategoryChanged, onSearch, recommendations }) => {
           <View style={styles.searchContainer}>
             <TextInput
               style={styles.searchInput}
-              placeholder="Search Anything . Electrical"
-              placeholderTextColor="#ffffff"
+              placeholder="Search Vehicles . ElectraFind"
+              placeholderTextColor="#d9d9d9"
               value={searchQuery}
               onChangeText={setSearchQuery}
               onSubmitEditing={handleSearch}
             />
-            <TouchableOpacity onPress={handleSearch}>
+            <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
               <Ionicons name="search" size={24} color="#ffffff" />
             </TouchableOpacity>
             {searchQuery.length > 0 && (
-              <TouchableOpacity onPress={handleClearSearch}>
+              <TouchableOpacity style={styles.clearButton} onPress={handleClearSearch}>
                 <Ionicons name="close" size={24} color="#ffffff" />
               </TouchableOpacity>
             )}
@@ -155,6 +155,19 @@ const styles = StyleSheet.create({
       width: 1,
       height: 1,
     },
+  },
+
+  searchButton: {
+    backgroundColor: '#000000',
+    borderRadius: 20,
+    padding: 5,
+    marginLeft: 5,
+  },
+  clearButton: {
+    backgroundColor: '#000000',
+    borderRadius: 20,
+    padding: 5,
+    marginLeft: 5,
   },
   searchInput: {
     flex: 1,

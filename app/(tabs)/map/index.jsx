@@ -110,8 +110,9 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     height: 120,
-    backgroundColor: '#161622'
-    
+    backgroundColor: '#161622',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
 
   safeArea: {

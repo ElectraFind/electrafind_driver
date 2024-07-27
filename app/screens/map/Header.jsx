@@ -49,28 +49,18 @@ export default function Header({onSearchFocus}) {
 
         <View style={{display: 'flex',flexDirection:'row',justifyContent:'space-between'}}>
 
-          
-        
-          
-
-          <TouchableOpacity style={{width:'80%', borderColor:'#161622', borderWidth: 1 }}>
+          <TouchableOpacity style={{width:'85%', borderColor:'#161622', borderWidth: 1 }}>
             <SearchBar onFocus={onSearchFocus} searchedLocation={(location)=>
-            setLocation({
-              latitude: location.lat,
-              longitude: location.lng
-            })
-
-            
-
-            }/>
+                setLocation({
+                  latitude: location.lat,
+                  longitude: location.lng
+                })
+              }
+            />
           </TouchableOpacity>
 
-          
-    
-          
-
-          <TouchableOpacity onPress={handleOpenBottomSheet}>
-            <IonIcons name="options-outline" size={30} color="#ffffff" style={{paddingTop:8,paddingLeft:14}}/>
+          <TouchableOpacity onPress={handleOpenBottomSheet} className={'mt-3.5'}>
+            <IonIcons name="options-outline" size={30} color="#ffffff" style={{borderRadius:40,padding:6,backgroundColor: '#333333'}}/>
           </TouchableOpacity>
 
         </View>

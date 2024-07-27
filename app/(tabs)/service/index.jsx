@@ -33,7 +33,7 @@ export default function ServiceScreen() {
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
-            placeholder="Search Services"
+            placeholder="Search Garages and Mechanics"
             placeholderTextColor="#ffffff"
             value={searchQuery}
             onChangeText={setSearchQuery}
@@ -50,9 +50,9 @@ export default function ServiceScreen() {
         </View>
       </View>
 
-      <View style={{flexDirection: "row", justifyContent: "space-evenly", marginTop: 10, marginHorizontal: 15, backgroundColor: "#E9E9E9", borderRadius: 40, borderWidth: 2,borderColor: "#000000", minHeight:60  }}>
+      <View style={{flexDirection: "row", justifyContent: "center", marginTop: 10,marginHorizontal: 25, backgroundColor: "#E9E9E9", borderRadius: 20, borderWidth: 2,borderColor: "#000000", minHeight:60  }} className={'space-x-4'}>
         <TouchableOpacity
-          style={{flex: 1,alignItems: 'center',justifyContent: 'center',paddingVertical: 15,paddingHorizontal:40,  margin: 2, backgroundColor: activeButton === "Service Stations" ? "#000000" : "transparent", borderRadius: activeButton === "Service Stations" ? 35 : 0}}
+          style={{flex: 1,alignItems:'center',justifyContent: 'center',paddingVertical: 15,  paddingHorizontal:20,  margin: 2, backgroundColor: activeButton === "Service Stations" ? "#000000" : "transparent", borderRadius: activeButton === "Service Stations" ? 18 : 0}}
           onPress={() => handleButtonPress('Service Stations')}
         >
           <Text
@@ -63,7 +63,7 @@ export default function ServiceScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{flex:1,alignItems: 'center',justifyContent: 'center',paddingVertical: 15,paddingHorizontal:40,  margin: 2, backgroundColor: activeButton === "Mechanics" ? "#000000" : "transparent", borderRadius: activeButton === "Mechanics" ? 35 : 0}}
+          style={{flex:1,alignItems: 'center',justifyContent: 'center',paddingVertical: 15, paddingHorizontal:20,  margin: 2, backgroundColor: activeButton === "Mechanics" ? "#000000" : "transparent", borderRadius: activeButton === "Mechanics" ? 18 : 0}}
           onPress={() => handleButtonPress('Mechanics')}
         >
           <Text
@@ -144,13 +144,15 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   contentContainer: {
-    marginTop: 10,
+    flex: 1,
+    marginTop:0,
     flexGrow: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start',   
     alignItems: 'center',
     paddingVertical: 25,
   },
   listContainer: {
+    flex: 1,
     width: '100%',
     paddingHorizontal: 16,
   },
