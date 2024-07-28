@@ -5,6 +5,7 @@ import TopupScreen from '.';
 import UserProfile from './userProfile';
 import EditProfile from './editUserProfile';
 import MarketPlace from './marketPlace';
+import GaragePlace from './garagePlace';
 
 // const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,9 @@ function ProfileLayout() {
             headerShown: false}}/>
         
         <Stack.Screen name="marketPlace" component={MarketPlace} options={{
+            headerShown: false}}/>
+
+        <Stack.Screen name="garagePlace" component={GaragePlace} options={{
             headerShown: false}}/>
         
       </Stack.Navigator>

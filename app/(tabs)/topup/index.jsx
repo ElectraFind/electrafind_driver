@@ -376,6 +376,63 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
+
+                onPress={() => navigation.navigate('garagePlace')}
+                
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    columnGap: 30,
+                  }}
+                >
+                  <View
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#dde2ec",
+                      padding: 15,
+                      borderRadius: 100,
+                      width: 55,
+                      height: 55,
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      style={{ alignSelf: "center" }}
+                      name="garage"
+                      size={20}
+                      color={"black"}
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={{ fontSize: 16}} className="font-psemibold"
+                    >
+                      Service Stations and Mechanics
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#575757",
+                        
+                      }}
+                      className="font-pregular"
+                    >
+                      Display your ev related business with us
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('garagePlace')}>
+                  <AntDesign name="right" size={26} color={"#CBD5E0"} />
+                </TouchableOpacity>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
                 onPress={() => logoutHandler()}
               >
                 <View
