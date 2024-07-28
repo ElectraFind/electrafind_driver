@@ -31,7 +31,8 @@ import servicestation5 from "../assets/images/servicestation5.jpeg";
 import servicestation6 from "../assets/images/servicestation6.jpeg";
 import carService from "../assets/images/car-service.png";
 import carImage from "../assets/images/tesla-voiture.jpg";
+import serviceImage from "../assets/images/service-station.jpg";
 
 
 
-export default { profile, google, evchargingstation, carImage, carService, electraFindQR, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack, mechanic1, mechanic2, mechanic3, mechanic4, mechanic5, mechanic6, mechanic7, servicestation1, servicestation2, servicestation3, servicestation4, servicestation5, servicestation6};
+export default { profile, google, evchargingstation,serviceImage, carImage, carService, electraFindQR, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack, mechanic1, mechanic2, mechanic3, mechanic4, mechanic5, mechanic6, mechanic7, servicestation1, servicestation2, servicestation3, servicestation4, servicestation5, servicestation6};

@@ -14,6 +14,7 @@ import CustomSplashScreen from './splashscreen';
 import * as SplashScreen from 'expo-splash-screen';
 import AuthLayout from './(auth)/_authlayout';
 import Home from './index';
+import { GarageProvider } from './Context/GarageContext';
 
 
 SplashScreen.preventAutoHideAsync()
@@ -117,7 +118,7 @@ const RootLayout = () => {
       <ClerkLoaded>
       <UserLocationContext.Provider value={{location,setLocation}}>
       <VehicleProvider>
-
+      <GarageProvider>
       <NavigationContainer independent={true}>
             <SignedIn>
             
@@ -133,7 +134,7 @@ const RootLayout = () => {
 
             </SignedOut>
             </NavigationContainer>
-          
+            </GarageProvider>
           </VehicleProvider>
           </UserLocationContext.Provider>
       {/* // </UserLocationContext.Provider> */}
