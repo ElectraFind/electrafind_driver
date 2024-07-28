@@ -14,6 +14,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useOAuth } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking"
 import React from "react";
+import { useNavigation } from 'expo-router'
 
 
 export const useWarmUpBrowser = () => {
@@ -28,8 +29,12 @@ export const useWarmUpBrowser = () => {
 };
 
 WebBrowser.maybeCompleteAuthSession();
+
 const SignIn = () => {
+  
   useWarmUpBrowser(); //import useWarmUpBrowser from "../../hooks/useWarmUpBrowser";
+
+  const navigation = useNavigation();
 
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
   const [form, setForm] = useState({
@@ -61,8 +66,6 @@ const SignIn = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        
-
         
         <View
           className="w-full flex justify-center h-full px-4 my-6 mt-0">
@@ -121,7 +124,7 @@ const SignIn = () => {
             title="Sign In"
             containerStyles="mt-7"
             isLoading={isSubmitting}
-            // handlePress={() => router.push('/map')}
+            handlePress={() =>  navigation.navigate('sign-up')}
           />
 
           
@@ -146,12 +149,15 @@ const SignIn = () => {
             <Text className="text-lg text-gray-100 font-pregular">
               Don't have an account?
             </Text>
-            <Link
+            {/* <Link
               href="/sign-up"
               className="text-lg font-psemibold text-green-500"
-            >
-              Sign up
-            </Link>
+            > */}
+            <TouchableOpacity onPress={() => navigation.navigate('sign-up')}>
+              <Text className="text-lg text-green-500">Sign up</Text>
+            </TouchableOpacity>
+              
+            
           </View>
         </View>
       </ScrollView>

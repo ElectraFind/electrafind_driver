@@ -2,19 +2,19 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import MapScreen from '.';
-import ChargingStationProfile from './chargingStationProfile';
+import MarketScreen from '.';
+import VehicleDetailProfile from './vehicleDetailProfile';
 
 const Stack = createStackNavigator();
 
-function MapLayout() {
+function MarketLayout() {
   return (
     <>
       <Stack.Navigator initialRouteName="index" options={{headerShown:false}}>
-        <Stack.Screen name="index" component={MapScreen} options={{
+        <Stack.Screen name="index" component={MarketScreen} options={{
             headerShown: false
           }}/>
-        <Stack.Screen name="chargingStationProfile" component={ChargingStationProfile} options={{
+        <Stack.Screen name="vehicleDetailProfile" component={VehicleDetailProfile} options={{
             headerShown: false}}/>
       </Stack.Navigator>
 
@@ -24,4 +24,4 @@ function MapLayout() {
   );
 }
 
-export default MapLayout;
+export default MarketLayout;

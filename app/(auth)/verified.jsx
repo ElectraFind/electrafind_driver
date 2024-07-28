@@ -5,9 +5,14 @@ import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../../constants';
 import CustomButton from '../../components/CustomButton';
+import React from 'react';
+import { useNavigation } from 'expo-router';
 
 const Verified = () =>
  {
+
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView className = "bg-primary h-full" >
       <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -26,7 +31,7 @@ const Verified = () =>
 
           <CustomButton
             title="Get electrified!"
-            handlePress={() => router.push('map')}     
+            handlePress={() => router.push('Home')}     
             containerStyles="w-full mt-20"    
           />
         </View>

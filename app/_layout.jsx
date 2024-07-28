@@ -1,21 +1,19 @@
 import { Platform, Text, View, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { SplashScreen, Stack } from 'expo-router'
 import { useFonts} from 'expo-font'
 import * as Location from 'expo-location'
 import {UserLocationContext} from './Context/UserLocationContext'
-import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn } from "@clerk/clerk-expo"
+import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn ,useUser} from "@clerk/clerk-expo"
 import { StatusBar } from 'expo-status-bar';
-import SignIn from './(auth)/sign-in'
-import { Slot } from "expo-router"
+import { VehicleProvider } from './Context/VehicleContext';
+
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import TabsLayout from './(tabs)/_layout';
-import HomeScreen from './(tabs)/market';
-import Splash from './splashscreen'
-
-
-
+import CustomSplashScreen from './splashscreen';
+import * as SplashScreen from 'expo-splash-screen';
+import AuthLayout from './(auth)/_authlayout';
+import Home from './index';
 
 
 SplashScreen.preventAutoHideAsync()
@@ -46,6 +44,12 @@ const tokenCache = {
 };
 
 const RootLayout = () => {
+
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  // if (!appIsReady) {
+  //   return <CustomSplashScreen setAppIsReady={setAppIsReady} />;
+  // }
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -95,6 +99,11 @@ const RootLayout = () => {
     }
   }, [fontsLoaded, error]);
 
+
+  if (!appIsReady) {
+    return <CustomSplashScreen setAppIsReady={setAppIsReady} />;
+  }
+
   if (!fontsLoaded) {
     return null;
   }
@@ -105,22 +114,33 @@ const RootLayout = () => {
 
   return(
     <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
-
+      <ClerkLoaded>
       <UserLocationContext.Provider value={{location,setLocation}}>
-      
-      {/* <Splash/> */}
-      <SignedIn>
-        <NavigationContainer independent={true}>
-          <TabsLayout />
-        </NavigationContainer>
-      </SignedIn>
-      <SignedOut>
-        <SignIn />
-      </SignedOut>
+      <VehicleProvider>
+
+      <NavigationContainer independent={true}>
+            <SignedIn>
+            
+              <TabsLayout />
+              
+            </SignedIn>
+            </NavigationContainer>
+            <NavigationContainer independent={true}>
+            <SignedOut>
+
+            
+              <AuthLayout />
+
+            </SignedOut>
+            </NavigationContainer>
+          
+          </VehicleProvider>
+          </UserLocationContext.Provider>
       {/* // </UserLocationContext.Provider> */}
       <StatusBar style="auto" />
       
-        </UserLocationContext.Provider>
+       
+        </ClerkLoaded>
     </ClerkProvider>
     
   

@@ -9,8 +9,12 @@ import CustomButtonGoogle from "../../components/CustomButtonGoogle";
 import FormField from "../../components/FormField";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from 'expo-router'
 
 const SignUp = () => {
+
+  const navigation = useNavigation();
+
   const [form, setForm] = useState({
     username:"",
     email: "",
@@ -87,7 +91,7 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            handlePress={() => router.push('/verification')} 
+            handlePress={() => navigation.navigate('verification')} 
             containerStyles="mt-7"
             isLoading={isSubmitting}
 

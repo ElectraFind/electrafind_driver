@@ -13,6 +13,8 @@ import chargingStationProfile from './map/chargingStationProfile';
 import App from './map/_layout'
 import MapLayout from './map/_layout';
 import ServiceLayout from './service/_servicelayout';
+import ProfileLayout from './topup/_profilelayout';
+import MarketLayout from './market/_marketlayout';
 import { useState, useEffect } from 'react';
 
 
@@ -58,7 +60,7 @@ export default function TabsLayout() {
 
   return (
     <>
-    <Tab.Navigator initialRouteName="map"
+    <Tab.Navigator initialRouteName="Map"
       
         screenOptions={{
           
@@ -97,8 +99,8 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-          name="market"
-          component={MarketScreen}
+          name="_marketlayout"
+          component={MarketLayout}
           
           options={{
             title: "MarketScreen",
@@ -151,8 +153,8 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-          name="topup"
-          component={TopupScreen}
+          name="_profilelayout"
+          component={ProfileLayout}
           
           options={{
             title: "TopupScreen",
