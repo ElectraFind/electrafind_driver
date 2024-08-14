@@ -1,21 +1,21 @@
-// VehicleDetail.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Linking, Share } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { VehicleContext } from '../../Context/VehicleContext'; // Import the context
 import images from '../../../constants/images';
 
-
 export default function VehicleDetailProfile({ route }) {
-
   const navigation = useNavigation();
-
   const { vehicle } = route.params;
+  
+  const { toggleFavorite, favoriteVehicles } = useContext(VehicleContext); // Get context values
+  const isFavorite = favoriteVehicles.some((fav) => fav.id === vehicle.id); // Check if the vehicle is in favorites
 
   const handleCallPress = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
-  
+
   const handleSharePress = async () => {
     try {
       await Share.share({
@@ -26,65 +26,106 @@ export default function VehicleDetailProfile({ route }) {
     }
   };
 
+  const handleFavoritePress = () => {
+    toggleFavorite(vehicle); // Toggle the favorite status using context
+  };
+
   return (
     <View>
       <ScrollView>
-        {/* <Image source={vehicle?.images?.length > 0 ? { uri: vehicle.images[0] } : null} style={styles.image} /> */}
-      
         <View className="relative">
-            <Image source={vehicle?.images?.length > 0 ? { uri: vehicle.images[0] } : (images.carImage)} 
+          <Image
+            source={vehicle?.images?.length > 0 ? { uri: vehicle.images[0] } : images.carImage}
             style={styles.image}
+          />
+
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{ position: 'absolute', top: 35, left: 5 }}
+            activeOpacity={0.7}
+            className={'p-2'}
+          >
+            <Ionicons
+              name="arrow-back-outline"
+              resizeMode="contain"
+              color="#ffffff"
+              size={30}
+              style={{
+                padding: 3,
+                backgroundColor: '#161622',
+                borderRadius: 30,
+                opacity: 0.7,
+              }}
             />
+          </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 35, left: 5, }} activeOpacity={0.7} className={'p-2'}>
-                <Ionicons
-                  name={"arrow-back-outline"}
-                  resizeMode="contain"
-                  color={"#ffffff"}
-                  size={30}
-                  style={{padding: 3, backgroundColor: '#161622', borderRadius: 30, opacity: 0.7,
-                  }}
-                />
-              </TouchableOpacity>
-
+          <TouchableOpacity
+            onPress={handleFavoritePress}
+            style={{ position: 'absolute', top: 35, right: 10 }}
+            activeOpacity={0.7}
+            className={'p-2'}
+          >
+            <Ionicons
+              name={isFavorite ? "heart" : "heart-outline"}
+              resizeMode="contain"
+              color={isFavorite ? "#e63946" : "#ffffff"}
+              size={30}
+              style={{
+                padding: 3,
+                backgroundColor: '#161622',
+                borderRadius: 30,
+                opacity: 0.7,
+              }}
+            />
+          </TouchableOpacity>
         </View>
 
-        <View style={{borderTopLeftRadius: 20, borderTopRightRadius: 40}} className="bg-white -mt-8 pt-4">
+        <View style={{ borderTopLeftRadius: 20, borderTopRightRadius: 40 }} className="bg-white -mt-8 pt-4">
           <View className="px-5 mb-2">
-              <View className="flex-row items-center space-x-1 mt-2">
-                <Text className="text-3xl font-bold">{vehicle.name} </Text>
-                <Text className="text-3xl font-bold">{vehicle.model} </Text>
-                <Text className="text-3xl font-bold">{vehicle.manufacturedYear}</Text>
-              </View>
-              <Text style={{color:'#000000'}} className={'text-xl font-semibold mt-3'}>Rs. {vehicle.price} ~</Text>
+            <View className="flex-row items-center space-x-1 mt-2">
+              <Text className="text-3xl font-bold">{vehicle.name} </Text>
+              <Text className="text-3xl font-bold">{vehicle.model} </Text>
+              <Text className="text-3xl font-bold">{vehicle.manufacturedYear}</Text>
+            </View>
+            <Text style={{ color: '#000000' }} className={'text-xl font-semibold mt-3'}>
+              Rs. {vehicle.price} ~
+            </Text>
           </View>
         </View>
 
         <View className="flex-row items-center space-x-1 mt-2">
           <TouchableOpacity style={styles.button1} onPress={() => handleCallPress(vehicle.phoneNumber)}>
             <Ionicons
-                  name={"call"}
-                  resizeMode="contain"
-                  color={"#ffffff"}
-                  size={30}
-                  style={{padding: 3, backgroundColor: '#1eb814', borderRadius: 30, opacity: 0.7,
-                  }}
+              name="call"
+              resizeMode="contain"
+              color="#ffffff"
+              size={30}
+              style={{
+                padding: 3,
+                backgroundColor: '#1eb814',
+                borderRadius: 30,
+                opacity: 0.7,
+              }}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button2} onPress={handleSharePress}>
             <Ionicons
-                  name={"share"}
-                  resizeMode="contain"
-                  color={"#ffffff"}
-                  size={30}
-                  style={{padding: 3, backgroundColor: 'transparent', borderRadius: 30, opacity: 0.7,
-                  }}
+              name="share"
+              resizeMode="contain"
+              color="#ffffff"
+              size={30}
+              style={{
+                padding: 3,
+                backgroundColor: 'transparent',
+                borderRadius: 30,
+                opacity: 0.7,
+              }}
             />
           </TouchableOpacity>
         </View>
-        
+
         <View style={styles.divider}></View>
-      
+
         <View style={styles.card}>
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
@@ -125,7 +166,6 @@ export default function VehicleDetailProfile({ route }) {
             </View>
           </View>
         </View>
-
       </ScrollView>
     </View>
   );
@@ -140,9 +180,9 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 300,
-    alignItems:'center',
-    justifyContent:'center',
-    flex:1
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   infoContainer: {
     padding: 10,
@@ -195,7 +235,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   infoLabel: {
     fontSize: 18,
@@ -209,5 +249,5 @@ const styles = StyleSheet.create({
     color: '#555',
     textAlign: 'left',
     flex: 1,
-  }
+  },
 });

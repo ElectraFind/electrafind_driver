@@ -1,4 +1,3 @@
-// Context/VehicleContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -6,9 +5,11 @@ export const VehicleContext = createContext();
 
 export const VehicleProvider = ({ children }) => {
   const [vehicles, setVehicles] = useState([]);
+  const [favoriteVehicles, setFavoriteVehicles] = useState([]);
 
   useEffect(() => {
     loadVehicles();
+    loadFavoriteVehicles();
   }, []);
 
   const loadVehicles = async () => {
@@ -30,14 +31,45 @@ export const VehicleProvider = ({ children }) => {
     }
   };
 
+  const loadFavoriteVehicles = async () => {
+    try {
+      const storedFavorites = await AsyncStorage.getItem('favoriteVehicles');
+      if (storedFavorites) {
+        setFavoriteVehicles(JSON.parse(storedFavorites));
+      }
+    } catch (error) {
+      console.error('Failed to load favorite vehicles from storage', error);
+    }
+  };
+
+  const saveFavoriteVehicles = async (favorites) => {
+    try {
+      await AsyncStorage.setItem('favoriteVehicles', JSON.stringify(favorites));
+    } catch (error) {
+      console.error('Failed to save favorite vehicles to storage', error);
+    }
+  };
+
   const addVehicle = (vehicle) => {
     const updatedVehicles = [...vehicles, vehicle];
     setVehicles(updatedVehicles);
     saveVehicles(updatedVehicles);
   };
 
+  const toggleFavorite = (vehicle) => {
+    const isFavorite = favoriteVehicles.some(fav => fav.id === vehicle.id);
+    let updatedFavorites;
+    if (isFavorite) {
+      updatedFavorites = favoriteVehicles.filter(fav => fav.id !== vehicle.id);
+    } else {
+      updatedFavorites = [...favoriteVehicles, vehicle];
+    }
+    setFavoriteVehicles(updatedFavorites);
+    saveFavoriteVehicles(updatedFavorites);
+  };
+
   return (
-    <VehicleContext.Provider value={{ vehicles, addVehicle }}>
+    <VehicleContext.Provider value={{ vehicles, addVehicle, favoriteVehicles, toggleFavorite }}>
       {children}
     </VehicleContext.Provider>
   );

@@ -177,14 +177,14 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 350,
     marginTop: 20,
     marginBottom: 20,
   },
   input: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0.5,
     marginBottom: 20,
     padding: 10,
     borderRadius: 5,

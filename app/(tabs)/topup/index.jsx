@@ -265,6 +265,7 @@ const TopupScreen = () => {
                   justifyContent: "space-between",
                   marginBottom: 20,
                 }}
+                onPress={() => navigation.navigate('wallet')}
               >
                 <View
                   style={{
@@ -307,7 +308,7 @@ const TopupScreen = () => {
                     </Text>
                   </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('wallet')}>
                   <AntDesign name="right" size={26} color={"#CBD5E0"} />
                 </TouchableOpacity>
               </TouchableOpacity>
@@ -408,7 +409,7 @@ const TopupScreen = () => {
                     <Text
                       style={{ fontSize: 16}} className="font-psemibold"
                     >
-                      Service Stations and Mechanics
+                      Service Stations & Mechanics
                     </Text>
                     <Text
                       style={{
@@ -417,7 +418,7 @@ const TopupScreen = () => {
                       }}
                       className="font-pregular"
                     >
-                      Display your ev related business with us
+                      Display your ev related business
                     </Text>
                   </View>
                 </View>

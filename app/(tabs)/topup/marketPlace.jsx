@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 350,
     marginTop: 20,
     marginBottom: 20,
   },

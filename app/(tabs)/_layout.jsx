@@ -161,9 +161,9 @@ export default function TabsLayout() {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.topup}
+                icon={icons.person}
                 color={color}
-                name="Topup"
+                name="Profile"
                 focused={focused}
               />
             ),

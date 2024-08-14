@@ -1,23 +1,21 @@
 import { Platform, Text, View, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { useFonts} from 'expo-font'
-import * as Location from 'expo-location'
-import {UserLocationContext} from './Context/UserLocationContext'
-import { ClerkProvider, ClerkLoaded, SignedOut,SignedIn ,useUser} from "@clerk/clerk-expo"
+import { useFonts } from 'expo-font';
+import * as Location from 'expo-location';
+import { UserLocationContext } from './Context/UserLocationContext';
+import { ClerkProvider, ClerkLoaded, SignedOut, SignedIn, useAuth } from "@clerk/clerk-expo";
 import { StatusBar } from 'expo-status-bar';
 import { VehicleProvider } from './Context/VehicleContext';
-
+import Home from './index';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import TabsLayout from './(tabs)/_layout';
 import CustomSplashScreen from './splashscreen';
 import * as SplashScreen from 'expo-splash-screen';
-import AuthLayout from './(auth)/_authlayout';
-import Home from './index';
+import AuthLayout from './(auth)/_layout';
 import { GarageProvider } from './Context/GarageContext';
 
-
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 const tokenCache = {
   async getToken(key) {
@@ -45,19 +43,12 @@ const tokenCache = {
 };
 
 const RootLayout = () => {
-
   const [appIsReady, setAppIsReady] = useState(false);
-
-  // if (!appIsReady) {
-  //   return <CustomSplashScreen setAppIsReady={setAppIsReady} />;
-  // }
-
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     (async () => {
-      
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
@@ -66,8 +57,6 @@ const RootLayout = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location.coords);
-      
-      
     })();
   }, []);
 
@@ -78,9 +67,7 @@ const RootLayout = () => {
     text = JSON.stringify(location);
   }
 
-  
-
-  const [fontsLoaded,error] = useFonts({
+  const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
     "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
@@ -100,7 +87,6 @@ const RootLayout = () => {
     }
   }, [fontsLoaded, error]);
 
-
   if (!appIsReady) {
     return <CustomSplashScreen setAppIsReady={setAppIsReady} />;
   }
@@ -109,44 +95,31 @@ const RootLayout = () => {
     return null;
   }
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
-
-  return(
+  return (
+    
     <ClerkProvider publishableKey={'pk_test_cnVsaW5nLXN0dWQtNi5jbGVyay5hY2NvdW50cy5kZXYk'} tokenCache={tokenCache}>
       <ClerkLoaded>
-      <UserLocationContext.Provider value={{location,setLocation}}>
-      <VehicleProvider>
-      <GarageProvider>
-      <NavigationContainer independent={true}>
-            <SignedIn>
-            
-              <TabsLayout />
-              
-            </SignedIn>
-            </NavigationContainer>
-            <NavigationContainer independent={true}>
-            <SignedOut>
-
-            
-              <AuthLayout />
-
-            </SignedOut>
-            </NavigationContainer>
+        <UserLocationContext.Provider value={{ location, setLocation }}>
+          <VehicleProvider>
+            <GarageProvider>
+              <NavigationContainer independent={true}>
+                <SignedIn>
+                
+                  <TabsLayout />
+                </SignedIn>
+                <SignedOut>
+                  
+                  <AuthLayout />
+                  
+                </SignedOut>
+              </NavigationContainer>
             </GarageProvider>
           </VehicleProvider>
-          </UserLocationContext.Provider>
-      {/* // </UserLocationContext.Provider> */}
-      <StatusBar style="auto" />
-      
-       
-        </ClerkLoaded>
+        </UserLocationContext.Provider>
+        <StatusBar style="auto" />
+      </ClerkLoaded>
     </ClerkProvider>
-    
-  
-   
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
