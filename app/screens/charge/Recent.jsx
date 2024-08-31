@@ -1,20 +1,39 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
-
+import { Video } from 'expo-av';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Recent() {
+
+  const navigation = useNavigation();
+
   return (
+    
     <View style={styles.inputContainer}>
         <Text style={styles.instructionText}>Please ENTER or SCAN charge point reference code</Text>
         <View style={styles.inputRow}>
           <TextInput style={styles.input} placeholder="Enter Reference" />
-          <Ionicons name="qr-code-outline" size={24} color="black" />
+          <TouchableOpacity>
+            <Ionicons name="qr-code-outline" size={24} color="black" />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('options')}>
           <Text style={styles.buttonText}>START CHARGE</Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity>
+          <Video
+            source={require('../../../assets/QR Code Scanning in Hand.mp4')}
+            rate={0.2}
+            volume={1.0}
+            isMuted={true}
+            resizeMode="contain"
+            shouldPlay
+            isLooping
+            style={styles.video}
+          />
+        </TouchableOpacity>
+    </View>
   )
 }
 
@@ -64,5 +83,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  video: {
+    width: '100%',
+    height: 200,
+    marginTop: 2,
   }
 })

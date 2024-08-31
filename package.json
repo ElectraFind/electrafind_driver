@@ -51,7 +51,8 @@
     "react-native-swiper": "^1.6.0",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "styled-components": "^6.1.12",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "expo-av": "~14.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",

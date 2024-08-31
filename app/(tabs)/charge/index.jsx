@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     zIndex: 10,
-    paddingVertical: 50,
+    paddingVertical: 40,
     paddingBottom: 10,
   },
   buttonContainer: {
