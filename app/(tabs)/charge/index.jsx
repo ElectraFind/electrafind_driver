@@ -1,13 +1,20 @@
 import { SafeAreaView, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Haptics from 'expo-haptics';
 import Header from '../../screens/charge/Header';
 import Recent from '../../screens/charge/Recent';
 import History from '../../screens/charge/History';
 
-export default function ChargeScreen() {
+export default function ChargeScreen({route}) {
   const [activeButton, setActiveButton] = useState("Recent");
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    if (route.params?.newTransaction) {
+      setTransactions([route.params.newTransaction, ...transactions]);
+    }
+  }, [route.params?.newTransaction]);
 
   const handleButtonPress = (buttonName) => {
     setActiveButton(buttonName);
@@ -18,7 +25,7 @@ export default function ChargeScreen() {
     if (activeButton === "Recent") {
       return <Recent />;
     } else if (activeButton === "History") {
-      return <History />;
+      return <History transactions={transactions}/>;
     }
     return null;
   };

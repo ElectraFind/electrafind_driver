@@ -4,14 +4,20 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ManualPaymentScreen({ route }) {
-  const { totalCost } = route.params; // Receive total cost from SummaryScreen
+  const { newTransaction } = route.params; // Receive transaction data from SummaryScreen
   const [paymentReference, setPaymentReference] = useState('');
   const navigation = useNavigation();
 
   const handlePayment = () => {
     // Handle the payment logic here
     alert('Payment processed successfully!');
-    navigation.navigate('paymentsuccessful'); // Navigate back or to a different screen after payment
+    const completedTransaction = {
+      ...newTransaction,
+      status: 'COMPLETE',
+    };
+
+    // Navigate to PaymentSuccessScreen, passing the completed transaction
+    navigation.navigate('paymentsuccessful', { completedTransaction });
   };
 
   return (
@@ -21,7 +27,7 @@ export default function ManualPaymentScreen({ route }) {
       <View style={styles.subcontainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Total Amount Due</Text>
-          <Text style={styles.totalCostText}>Rs. {totalCost.toFixed(2)}</Text>
+          <Text style={styles.totalCostText}>Rs. {newTransaction.amount}</Text>
         </View>
 
         <View style={styles.inputContainer}>

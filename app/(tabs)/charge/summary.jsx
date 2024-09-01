@@ -6,6 +6,24 @@ export default function SummaryScreen({ route }) {
   const { totalTime, totalCost, startTime, endTime } = route.params; // Receive total time and cost from TimerScreen
   const navigation = useNavigation();
 
+  const handlePayment = () => {
+    const newTransaction = {
+      id: (Math.random() * 10000).toFixed(0), // Random ID for simplicity
+      date: new Date().toLocaleString(),
+      reference: 'Generated Reference', // Replace with your reference logic
+      amount: `LKR ${totalCost.toFixed(2)}`,
+      startTime,
+      endTime,
+      duration: totalTime, // Assuming totalTime is in minutes
+      status: 'PENDING',
+      energyDelivered: '50.25 kWh', // Replace with the actual energy delivered
+      stopReason: '-',
+    };
+
+    // Navigate to ManualPaymentScreen, passing the transaction data
+    navigation.navigate('manualpayment', { newTransaction });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Charging Summary</Text>
@@ -56,7 +74,7 @@ export default function SummaryScreen({ route }) {
       </View>
 
       <View style={styles.buttonsection}>
-        <TouchableOpacity style={styles.doneButton} onPress={() => navigation.navigate('manualpayment', {totalCost})}>
+        <TouchableOpacity style={styles.doneButton} onPress={handlePayment}>
           <Text style={styles.doneButtonText}>Manual Payment</Text>
         </TouchableOpacity>
         <Text style={styles.buttonsectiontext}>or</Text>

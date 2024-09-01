@@ -3,8 +3,17 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { images } from '../../../constants';
 
-export default function PaymentSuccessScreen() {
+export default function PaymentSuccessScreen({route}) {
+  const { completedTransaction } = route.params; // Receive the completed transaction data
   const navigation = useNavigation();
+
+  const handleDone = () => {
+    // Navigate to History and pass the completed transaction data
+    navigation.navigate('index', {
+      activeButton: 'History',
+      newTransaction: completedTransaction,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -18,7 +27,7 @@ export default function PaymentSuccessScreen() {
       </View>
       <Text style={styles.message}>Thank you! Your payment has been successfully processed.</Text>
       
-      <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('index')}>
+      <TouchableOpacity style={styles.homeButton} onPress={handleDone}>
         <Text style={styles.homeButtonText}>Done</Text>
       </TouchableOpacity>
     </View>
