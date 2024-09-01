@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { Video } from 'expo-av';
 
 export default function Options() {
 
@@ -24,7 +25,25 @@ export default function Options() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Select Charging Time</Text>
+
+      <Video
+            source={require('../../../assets/plugin.mp4')}
+            rate={1.0}
+            volume={1.0}
+            isMuted={true}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
+            style={styles.video}
+          />
+        
+
+      <View style={styles.instructionBox}>
+        <Text style={styles.instructionText}>
+          Please plug in the charging connector to the car and select
+          <Text style={styles.linkText}> Preference Time</Text>.
+        </Text>
+      </View>
 
       <View style={styles.subcontainer}>
         <TouchableOpacity style={styles.button} onPress={() => handlePress('15 Minutes')}>
@@ -45,6 +64,9 @@ export default function Options() {
           <Text style={styles.buttonText}>60 min</Text>
         </TouchableOpacity>
       </View>
+
+      
+
     </View>
   );
 }
@@ -53,9 +75,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#f5f5f5',
-    padding: 20,
+    paddingTop: 30,
   },
   title: {
     fontSize: 24,
@@ -82,5 +103,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '80%',
     marginBottom: 20,
+  },
+  video: {
+    width: '100%',
+    height: 300,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  instructionBox: {
+    marginBottom: 30,
+    padding: 20,
+    backgroundColor: '#E7F5ED', // Light gray background for the box
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#ccc', // Light gray border
+    width: '90%', // Adjust the width to fit your design
+  },
+  instructionText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#333333',
+    fontWeight: 'bold',
+  },
+  linkText: {
+    color: '#008000',
+    fontWeight: 'bold',
   },
 });

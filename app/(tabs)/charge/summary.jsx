@@ -9,12 +9,62 @@ export default function SummaryScreen({ route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Charging Summary</Text>
-      <Text style={styles.summaryText}>Total Time: {totalTime} minutes</Text>
-      <Text style={styles.summaryText}>Total Cost: Rs. {totalCost.toFixed(2)}</Text>
-      <TouchableOpacity style={styles.doneButton} onPress={() => navigation.navigate('index')}>
-        <Text style={styles.doneButtonText}>Done</Text>
-      </TouchableOpacity>
-      <Text style={styles.subtitle}>Thank you for doing business with us</Text>
+
+      <View style={styles.subcontainer}>
+      {/* Station Information */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Station Information</Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>Operator</Text>
+            <Text style={styles.value}>EleXA</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Station name</Text>
+            <Text style={styles.value}>PTT Serithai</Text>
+          </View>
+        </View>
+
+        {/* Charging Information */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Charging Information</Text>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Start Charging</Text>
+            <Text style={styles.value}>12/10/23 11:30</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>End Charging</Text>
+            <Text style={styles.value}>12/10/23 12:30</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Total Time (minutes)</Text>
+            <Text style={styles.value}>{totalTime}</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Usage (kWh)</Text>
+            <Text style={styles.value}>50.25 kWh</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Total cost (Rs.)</Text>
+            <Text style={styles.value}>{totalCost.toFixed(2)}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.buttonsection}>
+        <TouchableOpacity style={styles.doneButton} onPress={() => navigation.navigate('manualpayment', {totalCost})}>
+          <Text style={styles.doneButtonText}>Manual Payment</Text>
+        </TouchableOpacity>
+        <Text style={styles.buttonsectiontext}>or</Text>
+        <TouchableOpacity style={styles.doneButton} onPress={() => navigation.navigate('index')}>
+          <Text style={styles.doneButtonText}>Card Payment</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 }
@@ -22,37 +72,86 @@ export default function SummaryScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 60,
     backgroundColor: '#f5f5f5',
+    alignItems: 'center',
+    width: '100%',
+  },
+  subcontainer: {
+    paddingVertical: 40,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 15,
+    backgroundColor: '#E7F5ED',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '90%',
   },
   title: {
-    fontSize: 24,
+    fontSize: 40,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 40,
     width: '80%',
+    
   },
-  summaryText: {
-    fontSize: 18,
-    marginBottom: 10,
+  buttonsection: {
+    marginTop: 60,
+    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+
+  buttonsectiontext: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginHorizontal: 20,
   },
   doneButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
+    backgroundColor: '#000000',
+    paddingVertical: 20,
+    width: '40%',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
+    marginBottom: 20,
   },
   doneButtonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
+  section: {
+    marginBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: '#ccc',
+    paddingBottom: 10,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  label: {
+    fontSize: 18,
+    color: '#555',
+  },
+  value: {
+    fontSize: 18,
+    color: '#333',
+    fontWeight: 'bold',
+  }
 });

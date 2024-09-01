@@ -48,24 +48,34 @@ export default function TimerScreen({ route }) {
     <View style={styles.container}>
       <Text style={styles.title}>Charge Your Vehicle</Text>
       <Text style={styles.subtitle}>Your vehicle is charging for {time} minutes</Text>
-      <View>
-        <Video
-          source={require('../../../assets/Green ring Charging.mp4')}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={styles.video}
-        />
+      <View style={styles.infobox}>
+        <View style={styles.videoview}>
+          <Video
+            source={require('../../../assets/Green ring Charging.mp4')}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
+            style={styles.video}
+          />
+        </View>
+
+        <View style={styles.infocontainer}>
+          <View style={styles.instructionBox}>
+            <Text style={styles.timer}>Time: </Text> 
+            <Text style={styles.count}> {formatTime(seconds)} min</Text>
+          </View>
+          <View style={styles.instructionBox}>
+            <Text style={styles.cost}>Total Cost:</Text> 
+            <Text style={styles.count}>Rs. {totalCost.toFixed(2)}</Text>
+          </View>
+        </View>
       </View>
 
-      <Text style={styles.timer}>Time {formatTime(seconds)}</Text>
-      <Text style={styles.cost}>Total Cost: Rs{totalCost.toFixed(2)}</Text>
-
       <TouchableOpacity style={styles.stopButton} onPress={handleStop}>
-        <Text style={styles.stopButtonText}>Stop</Text>
+        <Text style={styles.stopButtonText}>Finish Charging</Text>
       </TouchableOpacity>
 
     </View>
@@ -80,15 +90,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   timer: {
-    fontSize: 48,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#000000',
-    marginTop: 20,
+  },
+  videoview: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   video: {
     width: 300,
@@ -96,12 +109,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   cost: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#000000',
   },
+  count: {
+    fontSize: 24,
+    color: '#00AB82',
+    fontWeight: 'bold',
+  },
   subtitle: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 40,
     
@@ -109,7 +127,7 @@ const styles = StyleSheet.create({
   stopButton: {
     backgroundColor: '#000000',
     paddingVertical: 20,
-    paddingHorizontal: 150,
+    paddingHorizontal: 130,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -119,5 +137,33 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  instructionBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    backgroundColor: '#E7F5ED', // Light gray background for the box
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#B6E1C7', // Light gray border
+    width: '40%', // Adjust the width to fit your design
+  },
+  infocontainer: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    
+  },
+  infobox: {
+    borderWidth: 3,
+    borderColor: '#ccc',
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%',
   },
 });
