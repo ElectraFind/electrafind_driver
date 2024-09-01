@@ -7,6 +7,8 @@ export default function TimerScreen({ route }) {
 
   const { time } = route.params;  // Receive the designated time in minutes from the previous screen
   const [seconds, setSeconds] = useState(0);
+  const [startTime] = useState(new Date()); // Capture start time
+  const [endTime, setEndTime] = useState(null); // Initialize endTime state
   const ratePerMinute = 5; // 5 rupees per minute
   const navigation = useNavigation();
 
@@ -15,15 +17,23 @@ export default function TimerScreen({ route }) {
       setSeconds((prevSeconds) => {
         if (prevSeconds + 1 >= time * 60) {
           clearInterval(countUp);
-          navigation.navigate('summary', { totalTime: (time).toFixed(2), totalCost: (time * ratePerMinute).toFixed(2) });
+          const end = new Date(); // Capture end time when the time is up
+          setEndTime(end);
+          navigation.navigate('summary', {
+            totalTime: (time).toFixed(2),
+            totalCost: (time * ratePerMinute).toFixed(2),
+            startTime: startTime.toLocaleString(),
+            endTime: end.toLocaleString(),
+          });
           return prevSeconds + 1;
         }
         return prevSeconds + 1;
       });
     }, 1000);
 
+
     return () => clearInterval(countUp);
-  }, [time, navigation]);
+  }, [time, navigation, startTime]);
 
   const formatTime = (secs) => {
     const minutes = Math.floor(secs / 60);
@@ -34,15 +44,23 @@ export default function TimerScreen({ route }) {
   const totalCost = (seconds / 60) * ratePerMinute;
 
   const handleStop = () => {
+    const end = new Date(); // Capture end time when stopping manually
+    setEndTime(end);
     Alert.alert(
       'Stop Charging',
       'Are you sure you want to stop charging?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Stop', onPress: () => navigation.navigate('summary', { totalTime: (seconds / 60).toFixed(2), totalCost }) },
+        { text: 'Stop', onPress: () => navigation.navigate('summary', {
+          totalTime: (seconds / 60).toFixed(2),
+          totalCost,
+          startTime: startTime.toLocaleString(),
+          endTime: end.toLocaleString(),
+        }) },
       ]
     );
   };
+
 
   return (
     <View style={styles.container}>
@@ -127,11 +145,16 @@ const styles = StyleSheet.create({
   stopButton: {
     backgroundColor: '#000000',
     paddingVertical: 20,
-    paddingHorizontal: 130,
+    paddingHorizontal: 80,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 40,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 15,
+    elevation: 10,
   },
   stopButtonText: {
     color: '#fff',
@@ -150,7 +173,7 @@ const styles = StyleSheet.create({
     width: '40%', // Adjust the width to fit your design
   },
   infocontainer: {
-    padding: 20,
+    padding: 15,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',

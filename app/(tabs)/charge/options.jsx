@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   video: {
     width: '100%',
     height: 300,
-    marginTop: 10,
+    marginTop: -30,
     marginBottom: 20,
   },
   instructionBox: {

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SummaryScreen({ route }) {
-  const { totalTime, totalCost } = route.params; // Receive total time and cost from TimerScreen
+  const { totalTime, totalCost, startTime, endTime } = route.params; // Receive total time and cost from TimerScreen
   const navigation = useNavigation();
 
   return (
@@ -30,12 +30,12 @@ export default function SummaryScreen({ route }) {
 
           <View style={styles.row}>
             <Text style={styles.label}>Start Charging</Text>
-            <Text style={styles.value}>12/10/23 11:30</Text>
+            <Text style={styles.value}>{startTime}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>End Charging</Text>
-            <Text style={styles.value}>12/10/23 12:30</Text>
+            <Text style={styles.value}>{endTime}</Text>
           </View>
 
           <View style={styles.row}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   title: {
-    fontSize: 40,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 40,
   },
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     
   },
   buttonsection: {
-    marginTop: 60,
+    marginTop: 40,
     width: '80%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -117,15 +117,16 @@ const styles = StyleSheet.create({
   doneButton: {
     backgroundColor: '#000000',
     paddingVertical: 20,
-    width: '40%',
+    width: '45%',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    marginTop: 20,
   },
   doneButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   section: {

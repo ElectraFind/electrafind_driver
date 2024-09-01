@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { images } from '../../../constants';
 
 export default function PaymentSuccessScreen() {
   const navigation = useNavigation();
@@ -8,10 +9,17 @@ export default function PaymentSuccessScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Payment Successful!</Text>
+      <View>
+        <Image
+          source={images.order}
+          resizeMode="contain"
+          className="w-[100px] h-[130px] items-center mb-10"
+        />
+      </View>
       <Text style={styles.message}>Thank you! Your payment has been successfully processed.</Text>
       
       <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('index')}>
-        <Text style={styles.homeButtonText}>Go to Home</Text>
+        <Text style={styles.homeButtonText}>Done</Text>
       </TouchableOpacity>
     </View>
   );
@@ -36,7 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#555',
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 30,
+    fontWeight: 'bold'
   },
   homeButton: {
     backgroundColor: '#000000',
