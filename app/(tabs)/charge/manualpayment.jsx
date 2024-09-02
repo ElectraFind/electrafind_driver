@@ -27,7 +27,7 @@ export default function ManualPaymentScreen({ route }) {
       <View style={styles.subcontainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Total Amount Due</Text>
-          <Text style={styles.totalCostText}>Rs. {newTransaction.amount}</Text>
+          <Text style={styles.totalCostText}>{newTransaction.amount}</Text>
         </View>
 
         <View style={styles.inputContainer}>
