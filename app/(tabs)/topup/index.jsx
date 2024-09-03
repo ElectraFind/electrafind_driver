@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
-import FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useRouter } from "react";
 import axios from "axios";
@@ -31,48 +31,70 @@ const TopupScreen = () => {
   
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const base64 = await FileSystem.readAsStringAsync(result.assets[0].uri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      setLoader(true);
-      const base64Image = `data:image/jpeg;base64,${base64}`;
-      setImage(base64Image);
-
-      const accessToken = await AsyncStorage.getItem("access_token");
-      const refreshToken = await AsyncStorage.getItem("refresh_token");
-
-      try {
-        const response = await axios.put(
-          `${SERVER_URI}/update-user-avatar`,
-          {
-            avatar: base64Image,
-          },
-          {
-            headers: {
-              "access-token": accessToken,
-              "refresh-token": refreshToken,
-            },
-          }
-        );
-        if (response.data) {
-          setRefetch(true);
-          setLoader(false);
-        }
-      } catch (error) {
-        setLoader(false);
-        console.log(error);
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+        return;
       }
+  
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      console.log("Image Picker Result:", result);
+  
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const imageUri = result.assets[0].uri;
+  
+        console.log("Image URI:", imageUri);
+  
+        if (imageUri) {
+          setLoader(true);
+          const base64 = await FileSystem.readAsStringAsync(imageUri, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
+          const base64Image = `data:image/jpeg;base64,${base64}`;
+          setImage(base64Image);
+  
+          const accessToken = await AsyncStorage.getItem("access_token");
+          const refreshToken = await AsyncStorage.getItem("refresh_token");
+  
+          const response = await axios.put(
+            `${SERVER_URI}/update-user-avatar`,
+            {
+              avatar: base64Image,
+            },
+            {
+              headers: {
+                "access-token": accessToken,
+                "refresh-token": refreshToken,
+              },
+            }
+          );
+  
+          if (response.data) {
+            setRefetch(true);
+          }
+        } else {
+          alert("Error obtaining image URI.");
+        }
+      } else {
+        alert("Image selection was canceled or no image was selected.");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Failed to upload image. Please try again.");
+    } finally {
+      setLoader(false);
     }
   };
+  
 
+  //logout function
   const logoutHandler = async () => {
     await signOut();
     router.push("sign-in");
@@ -98,7 +120,7 @@ const TopupScreen = () => {
               }}
               style={{ width: 90, height: 90, borderRadius: 100 }}
             />
-
+            {/* pick image */}
             <TouchableOpacity
                     style={{
                       position: "absolute",
@@ -112,7 +134,7 @@ const TopupScreen = () => {
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    onPress={pickImage}
+                    // onPress={pickImage}
                   >
                     <Ionicons name="camera-outline" size={25} />
             </TouchableOpacity>
@@ -240,7 +262,7 @@ const TopupScreen = () => {
                     <Text
                       style={{ fontSize: 16}} className="font-psemibold"
                     >
-                      Charge History
+                      ElectraFind Home
                     </Text>
                     <Text
                       style={{
@@ -249,7 +271,7 @@ const TopupScreen = () => {
                       }}
                       className="font-pregular"
                     >
-                      Recent transactions
+                      Join to our network
                     </Text>
                   </View>
                 </View>

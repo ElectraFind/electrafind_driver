@@ -1,156 +1,167 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { useAuth, useUser } from '@clerk/clerk-expo';
-import { images } from '../../../constants';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
+import { Picker } from '@react-native-picker/picker';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function UserProfile() {
-  const { isSignedIn } = useAuth();
-  const { user } = useUser();
-  const [profile, setProfile] = useState({ username: '', email: '', phone: '', address: '' });
+const UserProfile = () => {
   const navigation = useNavigation();
+  const [firstName, setFirstName] = useState('Chamudrasri');
+  const [lastName, setLastName] = useState('Sriwarnasinghe');
+  const [contactNumber, setContactNumber] = useState('0768858819');
+  const [country, setCountry] = useState('Sri Lanka');
+  const [company, setCompany] = useState('ElectraFind');
+  const [profileImage, setProfileImage] = useState(null);
 
-  useEffect(() => {
-    if (isSignedIn && user && user.primaryEmailAddress) {
-      const email = user.primaryEmailAddress.emailAddress || 'No email';
-      const username = email.split('@')[0]; // Extract username from email
-      const phone = user.phoneNumbers && user.phoneNumbers.length > 0 ? user.phoneNumbers[0].phoneNumber : 'No phone number';
-      const address = user.publicMetadata?.address || 'No address';
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-      setProfile({ username, email, phone, address });
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri);
     }
-  }, [isSignedIn, user]);
+  };
 
-  if (!isSignedIn) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.message}>Please sign in to view your profile</Text>
-      </View>
-    );
-  }
+  const handleUpdate = () => {
+    Alert.alert('Profile Updated', 'Your profile has been successfully updated.');
+  };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image 
-              source={images.logoverticalshort}
-              style={styles.imagelogo}
-            /> 
-          </View>
-          <View style={styles.profileContainer}>
-            <Text style={styles.title}>User Profile</Text>
-            <View style={styles.infoContainer}>
-              <Text style={styles.label}>Username:</Text>
-              <Text style={styles.value}>{profile.username}</Text>
+    <ScrollView>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
+
+      <Text style={styles.title}>Edit Profile</Text>
+
+      <TouchableOpacity onPress={pickImage}>
+        <View style={styles.imageContainer}>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <View style={styles.placeholder}>
+              <Text style={styles.placeholderText}>+</Text>
             </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.label}>Email:</Text>
-              <Text style={styles.value}>{profile.email}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.label}>Phone:</Text>
-              <Text style={styles.value}>{profile.phone}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.label}>Address:</Text>
-              <Text style={styles.value}>{profile.address}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.label}>Vehicle Number:</Text>
-              <Text style={styles.value}>Not Available</Text>
-            </View>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('editUserProfile')}>
-              <Text style={styles.buttonText}>Edit Profile</Text>
-            </TouchableOpacity>
-          </View>
+          )}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </TouchableOpacity>
+
+      <Text style={styles.label}>First Name</Text>
+      <TextInput
+        style={styles.input}
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+
+      <Text style={styles.label}>Last Name</Text>
+      <TextInput
+        style={styles.input}
+        value={lastName}
+        onChangeText={setLastName}
+      />
+
+      <Text style={styles.label}>Contact Number</Text>
+      <TextInput
+        style={styles.input}
+        value={contactNumber}
+        keyboardType="phone-pad"
+        onChangeText={setContactNumber}
+      />
+
+      <Text style={styles.label}>Country</Text>
+      <TextInput
+        style={styles.input}
+        value={country}
+        onChangeText={setCountry}
+      />
+
+      <Text style={styles.label}>Company</Text>
+      <TextInput
+        style={styles.input}
+        value={company}
+        onChangeText={setCompany}
+      />
+
+      <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
+        <Text style={styles.updateButtonText}>UPDATE</Text>
+      </TouchableOpacity>
+    </View>
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    padding: 20,
+    backgroundColor: '#fff',
   },
-  profileContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    padding: 50,
-    margin: 20,
-    width: '90%',
-    maxWidth: 800,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 15,
+    zIndex: 1,
   },
   title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  infoContainer: {
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  label: {
-    fontWeight: 'bold',
-    width: 100,
-    color: '#333',
     fontSize: 20,
-  },
-  value: {
-    flex: 1,
-    color: '#666',
-    fontSize: 20,
-  },
-  message: {
-    fontSize: 18,
-    color: '#666',
-  },
-  imagelogo: {
-    width: 200,
-    height: 70,
-    objectFit: 'contain',
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginVertical: 20,
   },
   imageContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-  
-    marginBottom: 60,
-    backgroundColor: '#000000',
-    width: '120%',
-    height: 80,
+    marginBottom: 20,
   },
-  button: {
-    marginTop: 20,
-    backgroundColor: '#000000',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  placeholder: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#e1e1e1',
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 20,
+  placeholderText: {
+    fontSize: 40,
+    color: '#fff',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: 'bold',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  picker: {
+    height: 100,
+    marginBottom: 100,
+  },
+  updateButton: {
+    backgroundColor: '#000000',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  updateButtonText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });
+
+export default UserProfile;
