@@ -12,13 +12,14 @@ import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import * as FileSystem from "expo-file-system";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useRouter } from "react";
+import { useState, useRouter, useEffect } from "react";
 import axios from "axios";
 import { router } from "expo-router";
 import Header from '../../screens/charge/Header'
 import { StyleSheet } from 'react-native';
 import { useClerk,useSignOut,useUser } from "@clerk/clerk-expo";
 import { useNavigation } from 'expo-router'
+import {useRoute } from '@react-navigation/native';
 
 const TopupScreen = () => {
 
@@ -28,70 +29,73 @@ const TopupScreen = () => {
   const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
   const [refetch, setRefetch] = useState(false);
+  const route = useRoute();
+  const [profileImage, setProfileImage] = useState(route.params?.updatedProfileImage || 'default-image-url');
+  const [username, setUsername] = useState(route.params?.updatedFirstName || 'defaultUser');
   
 
-  const pickImage = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to make this work!');
-        return;
-      }
+  // const pickImage = async () => {
+  //   try {
+  //     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       alert('Sorry, we need camera roll permissions to make this work!');
+  //       return;
+  //     }
   
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
+  //     let result = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //       quality: 1,
+  //     });
   
-      console.log("Image Picker Result:", result);
+  //     console.log("Image Picker Result:", result);
   
-      if (!result.canceled && result.assets && result.assets.length > 0) {
-        const imageUri = result.assets[0].uri;
+  //     if (!result.canceled && result.assets && result.assets.length > 0) {
+  //       const imageUri = result.assets[0].uri;
   
-        console.log("Image URI:", imageUri);
+  //       console.log("Image URI:", imageUri);
   
-        if (imageUri) {
-          setLoader(true);
-          const base64 = await FileSystem.readAsStringAsync(imageUri, {
-            encoding: FileSystem.EncodingType.Base64,
-          });
-          const base64Image = `data:image/jpeg;base64,${base64}`;
-          setImage(base64Image);
+  //       if (imageUri) {
+  //         setLoader(true);
+  //         const base64 = await FileSystem.readAsStringAsync(imageUri, {
+  //           encoding: FileSystem.EncodingType.Base64,
+  //         });
+  //         const base64Image = `data:image/jpeg;base64,${base64}`;
+  //         setImage(base64Image);
   
-          const accessToken = await AsyncStorage.getItem("access_token");
-          const refreshToken = await AsyncStorage.getItem("refresh_token");
+  //         const accessToken = await AsyncStorage.getItem("access_token");
+  //         const refreshToken = await AsyncStorage.getItem("refresh_token");
   
-          const response = await axios.put(
-            `${SERVER_URI}/update-user-avatar`,
-            {
-              avatar: base64Image,
-            },
-            {
-              headers: {
-                "access-token": accessToken,
-                "refresh-token": refreshToken,
-              },
-            }
-          );
+  //         const response = await axios.put(
+  //           `${SERVER_URI}/update-user-avatar`,
+  //           {
+  //             avatar: base64Image,
+  //           },
+  //           {
+  //             headers: {
+  //               "access-token": accessToken,
+  //               "refresh-token": refreshToken,
+  //             },
+  //           }
+  //         );
   
-          if (response.data) {
-            setRefetch(true);
-          }
-        } else {
-          alert("Error obtaining image URI.");
-        }
-      } else {
-        alert("Image selection was canceled or no image was selected.");
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Failed to upload image. Please try again.");
-    } finally {
-      setLoader(false);
-    }
-  };
+  //         if (response.data) {
+  //           setRefetch(true);
+  //         }
+  //       } else {
+  //         alert("Error obtaining image URI.");
+  //       }
+  //     } else {
+  //       alert("Image selection was canceled or no image was selected.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     alert("Failed to upload image. Please try again.");
+  //   } finally {
+  //     setLoader(false);
+  //   }
+  // };
   
 
   //logout function
@@ -101,9 +105,14 @@ const TopupScreen = () => {
     // Navigate to the login screen or perform any other logout actions
   };
 
-  // Extract username from email
-  const email = user?.primaryEmailAddress?.emailAddress || 'No email';
-  const username = email.split('@')[0];
+  useEffect(() => {
+    if (route.params?.updatedProfileImage) {
+      setProfileImage(route.params.updatedProfileImage);
+    }
+    if (route.params?.updatedFirstName) {
+      setUsername(route.params.updatedFirstName);
+    }
+  }, [route.params]);
 
 
   return (
@@ -111,34 +120,23 @@ const TopupScreen = () => {
     <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1, paddingTop: 80 }}>
       <ScrollView>
 
-        <View style={{flexDirection: "row", justifyContent: "center" }}>
-          <View style={{ position: "relative" }}>
+        <View style={{alignItems:"center", justifyContent: "center" }}>
+          <View 
+          style={{
+            width: 120, // Slightly larger than the image
+            height: 120, // Slightly larger than the image
+            borderRadius: 60, // Half of the width/height to make it a circle
+            borderWidth: 3, // Thickness of the green circle
+            borderColor: "black", // Green circle
+            justifyContent: "center", 
+            alignItems: "center", 
+          }}>
+              <TouchableOpacity onPress={() => navigation.navigate('userProfile')}>
             <Image
-              source={{
-                uri:
-                        "https://res.cloudinary.com/dshp9jnuy/image/upload/v1665822253/avatars/nrxsg8sd9iy10bbsoenn.png",
-              }}
-              style={{ width: 90, height: 90, borderRadius: 100 }}
-            />
-            {/* pick image */}
-            <TouchableOpacity
-                    style={{
-                      position: "absolute",
-                      bottom: 5,
-                      right: 0,
-                      width: 30,
-                      height: 30,
-                      backgroundColor: "#f5f5f5",
-                      borderRadius: 100,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    // onPress={pickImage}
-                  >
-                    <Ionicons name="camera-outline" size={25} />
-            </TouchableOpacity>
-
+                source={{ uri: profileImage || "https://res.cloudinary.com/dshp9jnuy/image/upload/v1665822253/avatars/nrxsg8sd9iy10bbsoenn.png" }}
+                style={{ width: 110, height: 110, borderRadius: 100 }}
+              />
+              </TouchableOpacity>
           </View>
         </View>
 
@@ -225,6 +223,64 @@ const TopupScreen = () => {
                 </TouchableOpacity>
               </TouchableOpacity>
 
+                      {/* vehicle details */}
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+
+                onPress={() => navigation.navigate('carProfile')}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    columnGap: 30,
+                  }}
+                >
+                  <View
+                    style={{
+                      borderWidth: 2,
+                      borderColor: "#dde2ec",
+                      padding: 15,
+                      borderRadius: 100,
+                      width: 55,
+                      height: 55,
+                    }}
+                  >
+                    <FontAwesome
+                      style={{ alignSelf: "center" }}
+                      name="car"
+                      size={20}
+                      color={"black"}
+                    />
+                  </View>
+                  <View>
+                    <Text
+                      style={{ fontSize: 16}} className="font-psemibold"
+                    >
+                      Vehicle Profile
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#575757",
+                        
+                      }}
+                      className="font-pregular"
+                    >
+                      Details of your EV
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('userProfile')}>
+                  <AntDesign name="right" size={26} color={"#CBD5E0"} />
+                </TouchableOpacity>
+              </TouchableOpacity>
+
+                      {/* elecreafind home */}
               <TouchableOpacity
                 style={{
                   flexDirection: "row",
@@ -253,7 +309,7 @@ const TopupScreen = () => {
                   >
                     <MaterialCommunityIcons
                       style={{ alignSelf: "center" }}
-                      name="history"
+                      name="home"
                       size={20}
                       color={"black"}
                     />

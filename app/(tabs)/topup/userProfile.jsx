@@ -28,8 +28,16 @@ const UserProfile = () => {
     }
   };
 
+  // const handleUpdate = () => {
+  //   Alert.alert('Profile Updated', 'Your profile has been successfully updated.');
+  // };
+
   const handleUpdate = () => {
-    Alert.alert('Profile Updated', 'Your profile has been successfully updated.');
+    navigation.navigate('index', {
+      updatedFirstName: firstName,
+      updatedLastName: lastName,
+      updatedProfileImage: profileImage
+    });
   };
 
   return (
@@ -41,17 +49,35 @@ const UserProfile = () => {
 
       <Text style={styles.title}>Edit Profile</Text>
 
-      <TouchableOpacity onPress={pickImage}>
-        <View style={styles.imageContainer}>
-          {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
-          ) : (
-            <View style={styles.placeholder}>
-              <Text style={styles.placeholderText}>+</Text>
-            </View>
-          )}
+      <View style={{flexDirection: "row", justifyContent: "center", marginBottom: 30 }}>
+          <View style={{ position: "relative" }}>
+            <Image
+              source={{
+               uri: profileImage || "https://res.cloudinary.com/dshp9jnuy/image/upload/v1665822253/avatars/nrxsg8sd9iy10bbsoenn.png"
+              }}
+              style={{ width: 90, height: 90, borderRadius: 100 }}
+            />
+
+            <TouchableOpacity
+                    style={{
+                      position: "absolute",
+                      bottom: 5,
+                      right: 0,
+                      width: 30,
+                      height: 30,
+                      backgroundColor: "#D3EDDE",
+                      borderRadius: 100,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={pickImage}
+                  >
+                    <Ionicons name="camera-outline" size={25} />
+            </TouchableOpacity>
+
+          </View>
         </View>
-      </TouchableOpacity>
 
       <Text style={styles.label}>First Name</Text>
       <TextInput
@@ -90,7 +116,7 @@ const UserProfile = () => {
       />
 
       <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
-        <Text style={styles.updateButtonText}>UPDATE</Text>
+        <Text style={styles.updateButtonText}>Update</Text>
       </TouchableOpacity>
     </View>
     </ScrollView>
@@ -100,9 +126,10 @@ const UserProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: 25,
+    marginTop: 30,
   },
+
   backButton: {
     position: 'absolute',
     top: 40,
@@ -142,11 +169,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: '#ccc',
     padding: 10,
     borderRadius: 5,
     marginBottom: 15,
+    backgroundColor: '#D3EDDE',
   },
   picker: {
     height: 100,
@@ -155,7 +183,7 @@ const styles = StyleSheet.create({
   updateButton: {
     backgroundColor: '#000000',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: 'center',
   },
   updateButtonText: {

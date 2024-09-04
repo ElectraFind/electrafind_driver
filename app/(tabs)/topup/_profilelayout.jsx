@@ -7,6 +7,8 @@ import EditProfile from './editUserProfile';
 import MarketPlace from './marketPlace';
 import GaragePlace from './garagePlace';
 import Wallet from './wallet'
+import CarProfile from './carProfile';
+import EditCarProfile from './editCarProfile';
 
 // const Tab = createBottomTabNavigator();
 
@@ -32,6 +34,12 @@ function ProfileLayout() {
             headerShown: false}}/>
 
         <Stack.Screen name="wallet" component={Wallet} options={{
+            headerShown: false}}/>
+
+        <Stack.Screen name="carProfile" component={CarProfile} options={{
+            headerShown: false}}/>
+
+        <Stack.Screen name="editCarProfile" component={EditCarProfile} options={{
             headerShown: false}}/>
           
       </Stack.Navigator>
