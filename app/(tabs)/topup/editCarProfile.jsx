@@ -3,7 +3,8 @@ import { ScrollView } from 'react-native';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Picker } from '@react-native-picker/picker';
+import Checkbox from 'expo-checkbox';
+import images from '../../../constants/images'
 
 export default function EditCarProfile({ navigation }) {
   const [brand, setBrand] = useState('');
@@ -34,6 +35,10 @@ export default function EditCarProfile({ navigation }) {
   };
 
   const handleSubmit = async () => {
+    const selectedConnectors = Object.keys(connectorTypes).filter(
+      (key) => connectorTypes[key]
+    );
+
     const carDetails = {
       brand,
       model,
@@ -43,7 +48,6 @@ export default function EditCarProfile({ navigation }) {
       numberPlate,
       connectorTypes: selectedConnectors,
       vehiclePhoto,
-
     };
 
     try {
@@ -62,79 +66,74 @@ export default function EditCarProfile({ navigation }) {
     }));
   };
 
-  // Custom checkbox component
-  const CustomCheckbox = ({ label, checked, onPress }) => {
-    return (
-      <TouchableOpacity
-        style={styles.checkboxRow}
-        onPress={onPress}
-      >
-        <View style={[styles.checkbox, checked && styles.checkboxChecked]} />
-        <Text style={styles.checkboxLabel}>{label}</Text>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.title}>Edit Vehicle Details</Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Edit Vehicle Details</Text>
 
-      <Text style={styles.label}>Brand</Text>
-      <TextInput style={styles.input} value={brand} onChangeText={setBrand} />
+        <Text style={styles.label}>Brand</Text>
+        <TextInput style={styles.input} value={brand} onChangeText={setBrand} />
 
-      <Text style={styles.label}>Model</Text>
-      <TextInput style={styles.input} value={model} onChangeText={setModel} />
+        <Text style={styles.label}>Model</Text>
+        <TextInput style={styles.input} value={model} onChangeText={setModel} />
 
-      <Text style={styles.label}>Range (km)</Text>
-      <TextInput style={styles.input} value={range} onChangeText={setRange} keyboardType="numeric" />
+        <Text style={styles.label}>Range (km)</Text>
+        <TextInput style={styles.input} value={range} onChangeText={setRange} keyboardType="numeric" />
 
-      <Text style={styles.label}>Last Service (km)</Text>
-      <TextInput style={styles.input} value={lastService} onChangeText={setLastService} keyboardType="numeric" />
+        <Text style={styles.label}>Last Service (km)</Text>
+        <TextInput style={styles.input} value={lastService} onChangeText={setLastService} keyboardType="numeric" />
 
-      <Text style={styles.label}>Last Tyre Changed (km)</Text>
-      <TextInput style={styles.input} value={lastTyre} onChangeText={setLastTyre} keyboardType="numeric" />
+        <Text style={styles.label}>Last Tyre Changed (km)</Text>
+        <TextInput style={styles.input} value={lastTyre} onChangeText={setLastTyre} keyboardType="numeric" />
 
-      {/* Custom checkbox for Connector Types */}
-      <Text style={styles.label}>Connector Types</Text>
-      <View style={styles.checkboxContainer}>
-        <CustomCheckbox
-          label="Type 1"
-          checked={connectorTypes.Type1}
-          onPress={() => handleCheckboxChange('Type1')}
-        />
-        <CustomCheckbox
-          label="Type 2"
-          checked={connectorTypes.Type2}
-          onPress={() => handleCheckboxChange('Type2')}
-        />
-        <CustomCheckbox
-          label="CCS"
-          checked={connectorTypes.CCS}
-          onPress={() => handleCheckboxChange('CCS')}
-        />
-        <CustomCheckbox
-          label="CHAdeMO"
-          checked={connectorTypes.CHAdeMO}
-          onPress={() => handleCheckboxChange('CHAdeMO')}
-        />
-      </View>
-
-      <Text style={styles.label}>Number Plate</Text>
-      <TextInput style={styles.input} value={numberPlate} onChangeText={setNumberPlate} />
-
-      <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
-        {vehiclePhoto ? (
-          <Image source={{ uri: vehiclePhoto }} style={styles.vehicleImage} />
-        ) : (
-          <View style={styles.imagePlaceholder}>
-            <Text style={styles.imageText}>Upload Vehicle Photo</Text>
+        {/* Checkboxes for Connector Types */}
+        <Text style={styles.label}>Connector Types</Text>
+        <View style={styles.checkboxContainer}>
+          <View style={styles.checkboxRow}>
+            <Checkbox
+              value={connectorTypes.Type1}
+              onValueChange={() => handleCheckboxChange('Type1')}
+            />
+            <Text style={styles.checkboxLabel}>Type 1</Text>
           </View>
-        )}
-      </TouchableOpacity>
+          <View style={styles.checkboxRow}>
+            <Checkbox
+              value={connectorTypes.Type2}
+              onValueChange={() => handleCheckboxChange('Type2')}
+            />
+            <Text style={styles.checkboxLabel}>Type 2</Text>
+          </View>
+          <View style={styles.checkboxRow}>
+            <Checkbox
+              value={connectorTypes.CCS}
+              onValueChange={() => handleCheckboxChange('CCS')}
+            />
+            <Text style={styles.checkboxLabel}>CCS</Text>
+          </View>
+          <View style={styles.checkboxRow}>
+            <Checkbox
+              value={connectorTypes.CHAdeMO}
+              onValueChange={() => handleCheckboxChange('CHAdeMO')}
+            />
+            <Text style={styles.checkboxLabel}>CHAdeMO</Text>
+          </View>
+        </View>
 
-      <Button title="Submit" onPress={handleSubmit} />
-    </View>
+        <Text style={styles.label}>Number Plate</Text>
+        <TextInput style={styles.input} value={numberPlate} onChangeText={setNumberPlate} />
+
+        <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
+          {vehiclePhoto ? (
+            <Image source={{ uri: vehiclePhoto }} style={styles.vehicleImage} />
+          ) : (
+            <View style={styles.imagePlaceholder}>
+              <Text style={styles.imageText}>Upload Vehicle Photo</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+
+        <Button title="Submit" onPress={handleSubmit} />
+      </View>
     </ScrollView>
   );
 }
@@ -162,6 +161,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
     fontSize: 14,
+  },
+  checkboxContainer: {
+    marginBottom: 15,
+  },
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  checkboxLabel: {
+    marginLeft: 10,
+    fontSize: 16,
   },
   imagePicker: {
     marginBottom: 15,

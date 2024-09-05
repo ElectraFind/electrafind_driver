@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity } from 'react-native';
+import images from '../../../constants/images';
+
+const chargerImages = {
+  Type1: images.type1,
+  Type2: images.type2,
+  CCS: images.ccstype2,
+  CHAdeMO: images.chademo
+}
 
 export default function CarProfile({ navigation }) {
   const [carDetails, setCarDetails] = useState(null);
@@ -62,7 +70,16 @@ export default function CarProfile({ navigation }) {
         </View>
 
         <View style={styles.subsubheader}>
-          <Text style={styles.infoLabel}>Charger Types: </Text><Text style={styles.range}>{carDetails.range} Km</Text>
+        <Text style={styles.infoLabel}>Charger Types: </Text>
+        {carDetails.connectorTypes && carDetails.connectorTypes.length > 0
+          ? carDetails.connectorTypes.map((type, index) => (
+              <View key={index} style={styles.chargerRow}>
+                <Image source={chargerImages[type]} style={styles.chargerImage} />
+                <Text style={styles.range}>{type}</Text>
+              </View>
+            ))
+          : <Text style={styles.range}>No connector types selected</Text>
+        }
         </View>
       </View>
 
@@ -174,4 +191,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
   },
+  chargerImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  }
 });
