@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableOpacity } from 'react-native';
 import images from '../../../constants/images';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const chargerImages = {
   Type1: images.type1,
@@ -41,7 +44,11 @@ export default function CarProfile({ navigation }) {
   }
 
   return (
+    <ScrollView>
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={24} color="black" />
+      </TouchableOpacity>
       <View style={styles.headerText}>
         <Text style={styles.title}>Car Profile</Text>
       </View>
@@ -70,12 +77,12 @@ export default function CarProfile({ navigation }) {
         </View>
 
         <View style={styles.subsubheader}>
-        <Text style={styles.infoLabel}>Charger Types: </Text>
+        <Text style={styles.infoLabel}>Connector Types: </Text>
         {carDetails.connectorTypes && carDetails.connectorTypes.length > 0
           ? carDetails.connectorTypes.map((type, index) => (
               <View key={index} style={styles.chargerRow}>
                 <Image source={chargerImages[type]} style={styles.chargerImage} />
-                <Text style={styles.range}>{type}</Text>
+                {/* <Text style={styles.range}>{type}</Text> */}
               </View>
             ))
           : <Text style={styles.range}>No connector types selected</Text>
@@ -88,6 +95,7 @@ export default function CarProfile({ navigation }) {
       </TouchableOpacity>
 
     </View>
+    </ScrollView>
   );
 }
 
@@ -97,6 +105,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     marginTop: 20,
     flex: 1,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 15,
+    zIndex: 1,
   },
   headerText: {
     alignItems: 'center',
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     width: 170,
-    height: 200,
+    height: 220,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -180,20 +194,18 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#000000',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    padding: 15,
+    borderRadius: 15,
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
   },
   chargerImage: {
-    width: 30,
-    height: 30,
+    width: 60,
+    height: 60,
     resizeMode: 'contain',
+    marginTop: 10,
   }
 });

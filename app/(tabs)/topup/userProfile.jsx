@@ -132,12 +132,12 @@ const styles = StyleSheet.create({
 
   backButton: {
     position: 'absolute',
-    top: 40,
+    top: 45,
     left: 15,
     zIndex: 1,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     alignSelf: 'center',
     marginVertical: 20,

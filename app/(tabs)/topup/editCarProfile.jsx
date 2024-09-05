@@ -4,6 +4,7 @@ import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Button, Ale
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Checkbox from 'expo-checkbox';
+import { Ionicons } from '@expo/vector-icons';
 import images from '../../../constants/images'
 
 export default function EditCarProfile({ navigation }) {
@@ -69,13 +70,23 @@ export default function EditCarProfile({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.title}>Edit Vehicle Details</Text>
+
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+
+        <View style={styles.headerText}>
+          <Text style={styles.title}>Edit Vehicle Details</Text>
+        </View>
 
         <Text style={styles.label}>Brand</Text>
         <TextInput style={styles.input} value={brand} onChangeText={setBrand} />
 
         <Text style={styles.label}>Model</Text>
         <TextInput style={styles.input} value={model} onChangeText={setModel} />
+
+        <Text style={styles.label}>Number Plate</Text>
+        <TextInput style={styles.input} value={numberPlate} onChangeText={setNumberPlate} />
 
         <Text style={styles.label}>Range (km)</Text>
         <TextInput style={styles.input} value={range} onChangeText={setRange} keyboardType="numeric" />
@@ -119,8 +130,7 @@ export default function EditCarProfile({ navigation }) {
           </View>
         </View>
 
-        <Text style={styles.label}>Number Plate</Text>
-        <TextInput style={styles.input} value={numberPlate} onChangeText={setNumberPlate} />
+        
 
         <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
           {vehiclePhoto ? (
@@ -132,7 +142,10 @@ export default function EditCarProfile({ navigation }) {
           )}
         </TouchableOpacity>
 
-        <Button title="Submit" onPress={handleSubmit} />
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <Text style={{ color: '#ffffff', fontSize: 18 }}>Submit</Text>
+        </TouchableOpacity>
+
       </View>
     </ScrollView>
   );
@@ -141,8 +154,18 @@ export default function EditCarProfile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#fff',
     flex: 1,
+    marginTop: 20,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 15,
+    zIndex: 1,
+  },
+  headerText: {
+    alignItems: 'center',
+    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -155,15 +178,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: '#ccc',
+    backgroundColor: '#D3EDDE',
     padding: 10,
     borderRadius: 5,
     marginBottom: 15,
     fontSize: 14,
   },
   checkboxContainer: {
-    marginBottom: 15,
+    marginBottom: 18,
   },
   checkboxRow: {
     flexDirection: 'row',
@@ -172,18 +196,18 @@ const styles = StyleSheet.create({
   },
   checkboxLabel: {
     marginLeft: 10,
-    fontSize: 16,
+    fontSize: 14,
   },
   imagePicker: {
     marginBottom: 15,
     alignItems: 'center',
   },
   imagePlaceholder: {
-    width: 150,
+    width: '100%',
     height: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#D3EDDE',
     borderRadius: 10,
   },
   imageText: {
@@ -195,4 +219,10 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 10,
   },
+  button: {
+    backgroundColor: '#000000',
+    padding: 15,
+    borderRadius: 15,
+    alignItems: 'center',
+  }
 });
