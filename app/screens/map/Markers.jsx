@@ -53,7 +53,9 @@ export default function Markers({ index, place, onMarkerTouch }) {
       onPress={handleMarkerPress}
       description="Your Location"
     >
-      <Image source={images.evchargerheader} style={{ height: 70, width: 60, position: 'absolute' }} />
+      <Image source={images.evchargerheader}
+      
+      style={{ height: 40, width: 40, position: 'absolute' }} />
     </Marker>
   );
 }

@@ -16,7 +16,7 @@ import charge from "../assets/icons/charge.png";
 import service from "../assets/icons/service.png";
 import topup from "../assets/icons/topup.png";
 import car from "../assets/icons/car.png";
-
+import person from "../assets/icons/person.png";
 
 export default {
   play,
@@ -36,6 +36,6 @@ export default {
   charge,
   service,
   topup,
-  car
-  
+  car,
+  person
 };

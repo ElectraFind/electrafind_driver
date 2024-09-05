@@ -32,7 +32,13 @@ import servicestation6 from "../assets/images/servicestation6.jpeg";
 import carService from "../assets/images/car-service.png";
 import carImage from "../assets/images/tesla-voiture.jpg";
 import serviceImage from "../assets/images/service-station.jpg";
+import order from "../assets/images/order.png";
+import ccstype1 from "../assets/images/ccstype1.png";
+import ccstype2 from "../assets/images/ccstype2.png";
+import chademo from "../assets/images/chademo.png";
+import type1 from "../assets/images/type1.png";
+import type2 from "../assets/images/type2.png";
 
 
 
-export default { profile, google, evchargingstation,serviceImage, carImage, carService, electraFindQR, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack, mechanic1, mechanic2, mechanic3, mechanic4, mechanic5, mechanic6, mechanic7, servicestation1, servicestation2, servicestation3, servicestation4, servicestation5, servicestation6};
+export default { profile, google, order, ccstype1, ccstype2, chademo, type1, type2, evchargingstation,serviceImage, carImage, carService, electraFindQR, evchargerheader, thumbnail, cards, path, logo, logoSmall, empty, verified, logovertical, logoverticalshort, logoname, logoname2, carMarker, logoverticalshortblack, mechanic1, mechanic2, mechanic3, mechanic4, mechanic5, mechanic6, mechanic7, servicestation1, servicestation2, servicestation3, servicestation4, servicestation5, servicestation6};

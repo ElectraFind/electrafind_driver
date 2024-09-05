@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 
@@ -18,6 +18,11 @@ const categories = [
     name: 'E-Cycles',
     icon: 'directions-bike',
     value: 'e-cycle',
+  },
+  {
+    name: 'Favorites',
+    icon: 'favorite', // or 'heart' for Ionicons
+    value: 'favorites',
   },
 ];
 
@@ -46,11 +51,6 @@ const Header = ({ onCategoryChanged, onSearch, recommendations }) => {
     onSearch('');
   };
 
-  const handleRecommendationPress = (item) => {
-    setSearchQuery(item.name);
-    onSearch(item.name);
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -74,18 +74,6 @@ const Header = ({ onCategoryChanged, onSearch, recommendations }) => {
             )}
           </View>
         </View>
-        {/* {searchQuery.length > 0 && (
-          <FlatList
-            data={recommendations}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleRecommendationPress(item)}>
-                <Text style={styles.recommendationItem}>{item.name}</Text>
-              </TouchableOpacity>
-            )}
-            style={styles.recommendationList}
-          />
-        )} */}
 
         <ScrollView
           style={{ flex: 1 }}

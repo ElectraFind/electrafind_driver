@@ -13,6 +13,7 @@ import chargingStationProfile from './map/chargingStationProfile';
 import App from './map/_layout'
 import MapLayout from './map/_layout';
 import ServiceLayout from './service/_servicelayout';
+import ChargeLayout from './charge/_chargelayout';
 import ProfileLayout from './topup/_profilelayout';
 import MarketLayout from './market/_marketlayout';
 import { useState, useEffect } from 'react';
@@ -117,8 +118,8 @@ export default function TabsLayout() {
         />
 
         <Tab.Screen
-            name="charge"
-            component={ChargeScreen}
+            name="_chargelayout"
+            component={ChargeLayout}
            
            options={{
              title: "ChargeScreen",
@@ -161,9 +162,9 @@ export default function TabsLayout() {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.topup}
+                icon={icons.person}
                 color={color}
-                name="Topup"
+                name="Profile"
                 focused={focused}
               />
             ),

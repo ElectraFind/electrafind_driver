@@ -6,6 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { GarageContext } from '../../Context/GarageContext';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function GaragePlace() {
 
@@ -68,11 +69,14 @@ export default function GaragePlace() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.headerContainer}>
+      {/* <View style={styles.headerContainer}>
         <HeaderMarketForm />
-      </View>
+      </View> */}
       
       <View style={styles.textContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.text} className={'font-pbold'}>
           List your Garage or Service Station on our platform
         </Text>
@@ -177,14 +181,15 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 350,
     marginTop: 20,
     marginBottom: 20,
   },
   input: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0,
+    backgroundColor: '#D3EDDE',
     marginBottom: 20,
     padding: 10,
     borderRadius: 5,
@@ -193,16 +198,19 @@ const styles = StyleSheet.create({
     height: 100,
   },
   pickerContainer: {
-    height: 40,
+    height: 150,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0,
     marginBottom: 20,
     borderRadius: 5,
+    backgroundColor: '#D3EDDE',
     overflow: 'hidden',
+    justifyContent: 'center',
+    alignContent: 'center',
     justifyContent: 'center',
   },
   picker: {
-    height: 40,
+    height: 190,
     width: '100%',
   },
   imageContainer: {
@@ -235,9 +243,8 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     backgroundColor: '#000000',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    borderRadius: 15,
+    padding: 12,
     alignItems: 'center',
   },
   buttonText: {
@@ -248,7 +255,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#000000',
     backgroundColor: '#ffffff',
-    borderRadius: 25,
+    borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
@@ -257,4 +264,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 20,
   },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 15,
+    zIndex: 1,
+  }
 });

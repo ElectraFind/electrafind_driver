@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
 
   textInput: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     color: '#ffffff',
     backgroundColor: '#333333',
     

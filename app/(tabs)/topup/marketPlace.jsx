@@ -6,6 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import { VehicleContext } from '../../Context/VehicleContext';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function MarketPlace() {
 
@@ -79,11 +80,14 @@ export default function MarketPlace() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.headerContainer}>
+      {/* <View style={styles.headerContainer}>
         <HeaderMarketForm />
-      </View>
+      </View> */}
       
       <View style={styles.textContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.text} className={'font-pbold'}>
           Sell your Electric Vehicle and Accessories on our platform
         </Text>
@@ -207,6 +211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     backgroundColor: '#161622',
+    
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -216,22 +221,26 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 20, // Adjust this value as needed to control the space between header and text
     paddingHorizontal: 20, // Add some padding for better text appearance
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 350,
     marginTop: 20,
     marginBottom: 20,
   },
   input: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0,
+    backgroundColor: '#D3EDDE',
     marginBottom: 20,
     padding: 10,
     borderRadius: 5,
@@ -240,16 +249,17 @@ const styles = StyleSheet.create({
     height: 100,
   },
   pickerContainer: {
-    height: 40,
+    height: 150,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 0,
     marginBottom: 20,
     borderRadius: 5,
     overflow: 'hidden',
     justifyContent: 'center',
+    backgroundColor: '#D3EDDE',
   },
   picker: {
-    height: 40,
+    height: 190,
     width: '100%',
   },
   imageContainer: {
@@ -282,9 +292,8 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     backgroundColor: '#000000',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    borderRadius: 15,
+    padding: 12,
     alignItems: 'center',
   },
   buttonText: {
@@ -295,9 +304,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#000000',
     backgroundColor: '#ffffff',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    borderRadius: 15,
+    padding: 12,
     alignItems: 'center',
   },
   buttonTextUpload: {
@@ -305,5 +313,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
 
   },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 15,
+    zIndex: 1,
+  }
   
 });
